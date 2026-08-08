@@ -1,0 +1,849 @@
+/* ========================================
+   Components — 按钮、卡片、toast 等组件样式
+   ======================================== */
+
+/* ---- 按钮基础 ---- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-standard);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  opacity: 0.85;
+}
+
+/* 主按钮 — 红色 */
+.btn-primary {
+  background: var(--color-red);
+  color: var(--color-white);
+  position: relative;
+  overflow: visible;
+}
+
+/* 按钮装饰 — 黄色小圆 */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50% !important;
+  background: var(--color-yellow);
+  border: var(--border-standard);
+}
+
+/* 次要按钮 — 蓝色 */
+.btn-secondary {
+  background: var(--color-blue);
+  color: var(--color-white);
+  position: relative;
+  overflow: visible;
+}
+
+/* 按钮装饰 — 白色小三角 */
+.btn-secondary::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  width: 0;
+  height: 0;
+  border: none !important;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+  border-top: 10px solid var(--color-yellow) !important;
+  background: transparent;
+}
+
+/* 禁用态 — 用于"还在装修"的按钮 */
+.btn-secondary.btn--coming-soon {
+  opacity: 0.6;
+}
+
+/* ---- Toast — 包豪斯风格 ---- */
+.toast {
+  position: fixed;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-standard);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+/* Toast 装饰 — 左侧蓝色方块 + 右下红色小方 */
+.toast::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--color-blue);
+  border: var(--border-standard);
+}
+
+.toast::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-red);
+}
+
+.toast--visible {
+  opacity: 1;
+}
+
+/* ---- 首页 ---- */
+.landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-6) var(--space-2);
+  text-align: center;
+}
+
+.landing__header {
+  margin-bottom: var(--space-6);
+}
+
+.landing__title {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-black);
+}
+
+.landing__subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-black);
+  margin-top: var(--space-1);
+}
+
+.landing__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: var(--space-6);
+}
+
+/* ---- Bauhaus 几何装饰 ---- */
+.landing__decor {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+}
+
+.decor {
+  border: var(--border-standard);
+}
+
+.decor--circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+  background: var(--color-yellow);
+}
+
+.decor--triangle {
+  width: 0;
+  height: 0;
+  border: none !important;
+  border-left: 22px solid transparent !important;
+  border-right: 22px solid transparent !important;
+  border-bottom: 40px solid var(--color-red) !important;
+  background: transparent;
+}
+
+.decor--square {
+  width: 36px;
+  height: 36px;
+  background: var(--color-blue);
+}
+
+/* ---- 筛选页 ---- */
+.filter-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* 顶部栏 */
+.filter-page__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.back-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--color-black);
+  border: var(--border-standard);
+  background: var(--color-white);
+  cursor: pointer;
+}
+
+.filter-page__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* 筛选网格：3列2行 */
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: auto auto;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+/* 筛选按钮 — 包豪斯几何装饰 */
+.filter-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 56px;
+  padding: 0 var(--space-2);
+  background: var(--color-white);
+  border: var(--border-standard);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  position: relative;
+  overflow: visible;
+}
+
+/* 每个筛选按钮右上角加彩色几何方块 */
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  border: var(--border-standard);
+  background: var(--color-white);
+}
+
+.filter-btn[data-filter="region"]::after {
+  background: var(--color-blue);
+}
+
+.filter-btn[data-filter="time"]::after {
+  background: var(--color-yellow);
+  border-radius: 50% !important;
+}
+
+.filter-btn[data-filter="facility"]::after {
+  background: var(--color-red);
+  /* 三角形 */
+  width: 0;
+  height: 0;
+  border: none !important;
+  background: transparent;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+  border-bottom: 12px solid var(--color-red) !important;
+  top: -3px;
+  right: -3px;
+}
+
+.filter-btn[data-filter="category"]::after {
+  background: var(--color-yellow);
+  transform: rotate(45deg);
+}
+
+.filter-btn:active {
+  background: var(--color-bg);
+}
+
+.filter-btn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.filter-btn__label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-black);
+  opacity: 0.5;
+}
+
+.filter-btn__value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-black);
+  margin-top: 2px;
+}
+
+/* GO! + Reset! 堆叠容器 — 占据第3列两行 */
+.go-reset-stack {
+  grid-row: 1 / 3;
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+/* GO! 按钮 — flex: 3（占 1.5 行） */
+.go-btn {
+  flex: 3;
+  min-width: 72px;
+  background: var(--color-red);
+  color: var(--color-white);
+  border: var(--border-standard);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* GO 按钮装饰小三角 */
+.go-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 0;
+  height: 0;
+  border: none !important;
+  border-left: 8px solid transparent !important;
+  border-right: 8px solid transparent !important;
+  border-top: 10px solid var(--color-yellow) !important;
+  background: transparent;
+}
+
+.go-btn:active {
+  opacity: 0.85;
+}
+
+/* Reset! 按钮 — flex: 1（占 0.5 行） */
+.reset-btn {
+  flex: 1;
+  min-width: 72px;
+  background: var(--color-blue);
+  color: var(--color-white);
+  border: var(--border-standard);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reset 装饰 — 左下黄色小方块 */
+.reset-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-yellow);
+  border: var(--border-standard);
+}
+
+.reset-btn:active {
+  background: var(--color-bg);
+}
+
+/* 选项弹出区 */
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  min-height: 0;
+  padding: var(--space-1);
+  border-left: 3px solid var(--color-blue);
+}
+
+/* 选项区分割线 */
+.filter-options__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-black);
+  opacity: 0.2;
+  margin: 2px 0;
+}
+
+/* Chips — 包豪斯风格 */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 var(--space-2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--color-white);
+  border: var(--border-standard);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  position: relative;
+}
+
+.chip:active {
+  background: var(--color-bg);
+}
+
+.chip--selected {
+  background: var(--color-yellow);
+  font-weight: 700;
+}
+
+/* Chip 装饰 — 颜色/形状随位置变化 */
+.chip::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 7px;
+  height: 7px;
+  border: var(--border-standard);
+}
+
+/* 蓝方 */
+.chip:nth-child(3n+1)::after {
+  background: var(--color-blue);
+}
+
+/* 红圆 */
+.chip:nth-child(3n+2)::after {
+  background: var(--color-red);
+  border-radius: 50% !important;
+}
+
+/* 黄三角（CSS三角） */
+.chip:nth-child(3n+3)::after {
+  width: 0;
+  height: 0;
+  border: none !important;
+  border-left: 5px solid transparent !important;
+  border-right: 5px solid transparent !important;
+  border-bottom: 7px solid var(--color-yellow) !important;
+  background: transparent;
+  bottom: -2px;
+  right: -2px;
+}
+
+/* 选中态统一变红 */
+.chip--selected::after {
+  background: var(--color-red) !important;
+  border-radius: 0 !important;
+  width: 7px !important;
+  height: 7px !important;
+  border: var(--border-standard) !important;
+}
+
+/* 盲盒按钮 — 魔法箱 */
+.blindbox-btn {
+  position: fixed;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  background: var(--color-yellow);
+  border: var(--border-standard);
+  cursor: pointer;
+  z-index: 100;
+  font-family: var(--font-display);
+  color: var(--color-black);
+  transition: opacity 0.15s;
+}
+
+/* 魔法箱装饰线 */
+.blindbox-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: var(--color-black);
+  transform: translateY(-50%);
+}
+
+.blindbox-btn:active {
+  opacity: 0.8;
+}
+
+/* ---- 结果页 ---- */
+.results-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.results-page__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.results-page__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+
+.results-page__count {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--color-black);
+  opacity: 0.5;
+}
+
+/* 卡片列表 */
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: var(--space-4);
+}
+
+/* 公园卡片 — 包豪斯风格 */
+.park-card {
+  display: flex;
+  background: var(--color-white);
+  border: var(--border-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左侧色条（地区编码） */
+.park-card::before {
+  content: '';
+  width: 6px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.park-card[data-region="港島"]::before { background: var(--color-blue); }
+.park-card[data-region="九龍"]::before { background: var(--color-red); }
+.park-card[data-region="新界"]::before { background: var(--color-yellow); }
+
+.park-card__body {
+  flex: 1;
+  padding: var(--space-2);
+  min-width: 0;
+}
+
+.park-card__name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--color-black);
+}
+
+.park-card__hours {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-black);
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+.park-card__hours::before {
+  content: '🕐 ';
+  font-family: sans-serif;
+}
+
+.park-card__desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-black);
+}
+
+.park-card__region {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  border: 1px solid var(--color-black);
+  background: var(--color-white);
+}
+
+/* 空结果 */
+.results-page__empty {
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.results-page__hint {
+  margin-top: var(--space-1);
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* 活动提示横幅 */
+.activity-hint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-2);
+  border: var(--border-standard);
+  text-align: center;
+}
+
+.activity-hint--good {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.activity-hint--warn {
+  background: var(--color-white);
+  color: var(--color-black);
+  border-left: 4px solid var(--color-black);
+}
+
+/* ---- 盲盒页 ---- */
+.blindbox-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--space-3);
+  text-align: center;
+}
+
+.blindbox-page .back-btn {
+  align-self: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.blindbox-page__stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.blindbox-page__text {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* ---- 骰子 3D ---- */
+.dice-cube {
+  width: 80px;
+  height: 80px;
+  perspective: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.dice-face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  border: 2px solid var(--color-black);
+  background: var(--color-white);
+  backface-visibility: hidden;
+}
+
+.dice-face--front  { transform: translateZ(40px); background: var(--color-red); color: var(--color-white); }
+.dice-face--back   { transform: rotateY(180deg) translateZ(40px); background: var(--color-blue); color: var(--color-white); }
+.dice-face--left   { transform: rotateY(-90deg) translateZ(40px); background: var(--color-yellow); }
+.dice-face--right  { transform: rotateY(90deg) translateZ(40px); background: var(--color-white); }
+.dice-face--top    { transform: rotateX(90deg) translateZ(40px); background: var(--color-white); }
+.dice-face--bottom { transform: rotateX(-90deg) translateZ(40px); background: var(--color-black); color: var(--color-white); }
+
+/* 骰子滚动动画 */
+.dice-cube--rolling {
+  animation: diceRoll 1.2s ease-out;
+}
+
+@keyframes diceRoll {
+  0%   { transform: rotateX(0) rotateY(0) rotateZ(0); }
+  20%  { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg); }
+  40%  { transform: rotateX(360deg) rotateY(270deg) rotateZ(90deg); }
+  60%  { transform: rotateX(540deg) rotateY(360deg) rotateZ(135deg); }
+  80%  { transform: rotateX(630deg) rotateY(450deg) rotateZ(180deg); }
+  100% { transform: rotateX(720deg) rotateY(540deg) rotateZ(360deg); }
+}
+
+/* 盲盒结果卡片 */
+.blindbox-page__result {
+  width: 100%;
+  padding: 0 var(--space-2);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.blindbox-page__retry {
+  max-width: 280px;
+  margin: var(--space-4) auto;
+}
+
+/* ---- 骰子累了页面 ---- */
+.dice-tired-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.dice-tired-page__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 340px;
+  padding: 0 var(--space-2);
+}
+
+.dice-tired-page__text {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  padding: var(--space-7) var(--space-5);
+  background: var(--color-white);
+  border: var(--border-standard);
+  border-left: 8px solid var(--color-black);
+  position: relative;
+  animation: fadeInUp 0.5s ease-out;
+  margin: 0;
+}
+
+/* 骰子累了装饰 — 右下黄方块 + 左上蓝方块 */
+.dice-tired-page__text::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-blue);
+  border: var(--border-standard);
+}
+
+.dice-tired-page__text::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-yellow);
+  border: var(--border-standard);
+}
+
+.dice-tired-page__btn {
+  width: 100%;
+  animation: fadeInUp 0.5s ease-out 0.2s both;
+}

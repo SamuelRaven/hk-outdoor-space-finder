@@ -1,0 +1,97 @@
+/* ========================================
+   Layout — 移动优先布局 + 包豪斯背景
+   ======================================== */
+
+/* ---- Body 背景几何装饰 ---- */
+body {
+  position: relative;
+}
+
+/* 左上角大圆形 */
+body::before {
+  content: '';
+  position: fixed;
+  top: -80px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  border: 2px solid var(--color-black);
+  border-radius: 50% !important;
+  background: var(--color-yellow);
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 右下角色块 + 三角组合 */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -40px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  border: 2px solid var(--color-black);
+  background: var(--color-blue);
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+  transform: rotate(15deg);
+}
+
+/* ---- App 容器 ---- */
+.app-container {
+  max-width: 430px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--color-bg);
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+/* 容器内的装饰线 */
+.app-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 430px;
+  max-width: 100%;
+  height: 100vh;
+  border-left: 1px solid rgba(0,0,0,0.06);
+  border-right: 1px solid rgba(0,0,0,0.06);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- 页面容器 ---- */
+.page {
+  display: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-2);
+  position: relative;
+  z-index: 1;
+}
+
+.page--active {
+  display: block;
+}
+
+/* ---- 首页额外装饰：右下角小方块 ---- */
+.landing::after {
+  content: '';
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-black);
+  background: var(--color-red);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}

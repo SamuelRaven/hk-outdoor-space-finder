@@ -1,0 +1,30 @@
+/* ========================================
+   Bauhaus Design Tokens
+   包豪斯设计令牌 — 所有视觉属性的唯一来源
+   ======================================== */
+
+:root {
+  /* ---- 调色板：封闭五色系统 ---- */
+  --color-red:    #E63946;   /* 主按钮、强调、负向 */
+  --color-blue:   #1D3557;   /* 次要按钮、正向、链接 */
+  --color-yellow: #FFB703;   /* 大面积色块（禁用于小字正文） */
+  --color-black:  #000000;   /* 文本、边框、结构线 */
+  --color-white:  #FFFFFF;   /* 卡片底色 */
+  --color-bg:     #F2F2F2;   /* 页面背景（纸色） */
+
+  /* ---- 字体 ---- */
+  --font-display: 'Josefin Sans', 'Futura', sans-serif;
+  --font-body:    'Inter', 'Roboto', sans-serif;
+  --font-mono:    'Courier New', 'JetBrains Mono', monospace;
+
+  /* ---- 8点间距系统 ---- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  /* ---- 边框 ---- */
+  --border-standard: 1px solid var(--color-black);
+}

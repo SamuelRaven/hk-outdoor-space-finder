@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>香港公園推薦</title>
+
+  <!-- Google Fonts: Josefin Sans (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bauhaus-tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Page 1: Landing -->
+    <section id="page-landing" class="page page--active">
+      <div class="landing">
+        <div class="landing__header">
+          <h1 class="landing__title">香港<br>戶外空間</h1>
+          <p class="landing__subtitle">Park Finder</p>
+        </div>
+
+        <div class="landing__actions">
+          <button class="btn btn-primary" data-action="parks">
+            散散步吹吹風
+          </button>
+          <button class="btn btn-secondary btn--coming-soon" data-action="hiking">
+            徒步登山大出汗
+          </button>
+        </div>
+
+        <!-- Bauhaus 几何装饰 -->
+        <div class="landing__decor">
+          <div class="decor decor--circle"></div>
+          <div class="decor decor--triangle"></div>
+          <div class="decor decor--square"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 2: Filters -->
+    <section id="page-filter" class="page">
+      <div class="filter-page">
+
+        <!-- 顶部栏 -->
+        <div class="filter-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="filter-page__title">篩選條件</h2>
+        </div>
+
+        <!-- 筛选网格：3列2行 -->
+        <div class="filter-grid">
+          <!-- 第1行第1列 -->
+          <button class="filter-btn" data-filter="region" data-selected="">
+            <span class="filter-btn__label">地區</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第1行第2列 -->
+          <button class="filter-btn" data-filter="time" data-selected="">
+            <span class="filter-btn__label">時間</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第1-2行第3列：GO! + Reset! 堆叠 -->
+          <div class="go-reset-stack">
+            <button class="go-btn" data-action="go">GO!</button>
+            <button class="reset-btn" data-action="reset">Reset!</button>
+          </div>
+
+          <!-- 第2行第1列 -->
+          <button class="filter-btn" data-filter="parkType" data-selected="">
+            <span class="filter-btn__label">公園類型</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第2行第2列 -->
+          <button class="filter-btn" data-filter="activity" data-selected="">
+            <span class="filter-btn__label">做點什麼</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+        </div>
+
+        <!-- 选项弹出区：chips 容器 -->
+        <div class="filter-options" id="filter-options"></div>
+
+        <!-- 盲盒按钮 -->
+        <button class="blindbox-btn" data-action="blindbox">?</button>
+
+      </div>
+    </section>
+
+    <!-- Page 3: Results -->
+    <section id="page-results" class="page">
+      <div class="results-page">
+        <div class="results-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="results-page__title">推薦結果</h2>
+          <span class="results-page__count" id="results-count"></span>
+        </div>
+        <div class="results-list" id="results-list">
+          <!-- 公园卡片由 JS 动态渲染 -->
+        </div>
+        <div class="results-page__empty" id="results-empty" style="display:none;">
+          <p>暫無匹配的公園</p>
+          <p class="results-page__hint">試著放寬篩選條件吧～</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 4: Blind Box -->
+    <section id="page-blindbox" class="page">
+      <div class="blindbox-page">
+        <button class="back-btn" data-action="back">←</button>
+
+        <div class="blindbox-page__stage" id="bb-stage">
+          <!-- 骰子文字 -->
+          <p class="blindbox-page__text">命運已擲出骰子<br>你今日要前往<span style="letter-spacing:0.15em;">...</span></p>
+
+          <!-- 骰子动画区 -->
+          <div class="dice-cube" id="dice-cube">
+            <div class="dice-face dice-face--front">■</div>
+            <div class="dice-face dice-face--back">▲</div>
+            <div class="dice-face dice-face--top">●</div>
+            <div class="dice-face dice-face--bottom">◆</div>
+            <div class="dice-face dice-face--left">◼</div>
+            <div class="dice-face dice-face--right">⬟</div>
+          </div>
+        </div>
+
+        <!-- 结果卡片（初始隐藏） -->
+        <div class="blindbox-page__result" id="bb-result" style="display:none;">
+        </div>
+
+        <button class="btn btn-secondary blindbox-page__retry" id="bb-retry" style="display:none;">
+          再投一次
+        </button>
+      </div>
+    </section>
+
+    <!-- Page 5: Dice Tired（骰子累了） -->
+    <section id="page-dice-tired" class="page">
+      <div class="dice-tired-page">
+        <div class="dice-tired-page__inner">
+          <p class="dice-tired-page__text">骰子累了<br>暫時不想被投了~</p>
+          <button class="btn btn-primary dice-tired-page__btn" data-action="tomorrow">
+            請明日再來吧
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- JS Modules -->
+  <script type="module" src="js/core/router.js"></script>
+  <script type="module" src="js/ui/toast.js"></script>
+  <script type="module" src="js/ui/landing-page.js"></script>
+  <script type="module" src="js/ui/filter-page.js"></script>
+  <script type="module" src="js/ui/results-page.js"></script>
+  <script type="module" src="js/ui/blindbox-page.js"></script>
+  <script type="module" src="js/ui/dice-tired-page.js"></script>
+
+</body>
+</html>
