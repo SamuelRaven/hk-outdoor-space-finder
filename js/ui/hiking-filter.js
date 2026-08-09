@@ -69,6 +69,11 @@ function init() {
     navigate('#/hiking-blindbox');
   });
 
+  // 收藏按钮
+  section.querySelector('[data-action="fav-trails"]').addEventListener('click', () => {
+    navigate('#/fav-trails');
+  });
+
   // Reset! 按钮
   section.querySelector('[data-action="reset"]').addEventListener('click', () => {
     state = createInitialState();

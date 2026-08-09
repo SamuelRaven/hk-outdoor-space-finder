@@ -7,11 +7,12 @@ import { navigate, register } from '../core/router.js';
 
 const STORAGE_KEY = 'diceTiredUntil_park';
 const COUNT_KEY = 'diceRollCount_park';
-const COOLDOWN_MS = 10 * 60 * 60 * 1000; // 10 小时
+const COOLDOWN_MS = 10 * 60 * 60 * 1000;
 const MAX_ROLLS = 10;
 
 let parks = [];
 let handlers = {};
+let cachedPark = null;   // 从详情页返回时恢复
 
 function init() {
   const section = document.getElementById('page-blindbox');
@@ -26,7 +27,6 @@ function init() {
     navigate('#/dice-tired');
     return;
   }
-  // 冷却期已过 → 清除记录（包括计数）
   if (tiredUntil) {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(COUNT_KEY);
@@ -40,43 +40,45 @@ function init() {
     return;
   }
 
-  // ---- 重置 UI：显示骰子、隐藏旧结果 ----
-  stageEl.style.display = 'flex';
-  resultEl.style.display = 'none';
-  resultEl.innerHTML = '';
-  retryBtn.style.display = 'none';
-  diceEl.classList.remove('dice-cube--rolling');
-  void stageEl.offsetWidth;
-
   // ---- 清理旧 listener ----
   if (handlers.onBack) {
-    section.querySelector('[data-action="back"]').removeEventListener('click', handlers.onBack);
+    const backBtn = section.querySelector('[data-action="back"]');
+    if (backBtn) backBtn.removeEventListener('click', handlers.onBack);
   }
   if (handlers.onRetry) {
     retryBtn.removeEventListener('click', handlers.onRetry);
   }
+  if (handlers.onCardClick) {
+    resultEl.removeEventListener('click', handlers.onCardClick);
+  }
 
-  // ★ 卡片点击委托（在容器上统一监听）
-  resultEl.addEventListener('click', (e) => {
+  // ★ 事件委托必须在缓存检查之前设置，否则从详情页返回时卡片不可点击
+  handlers.onCardClick = (e) => {
     const card = e.target.closest('[data-park-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/blindbox');
     navigate(`#/park/${card.dataset.parkId}`);
-  });
+  };
+  resultEl.addEventListener('click', handlers.onCardClick);
 
   // ---- 返回按钮 ----
-  handlers.onBack = () => navigate('#/filter');
+  handlers.onBack = () => {
+    cachedPark = null;
+    navigate('#/filter');
+  };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
   // ---- 再投一次 ----
   handlers.onRetry = () => {
     const cur = Number(localStorage.getItem(COUNT_KEY)) || 0;
     if (cur >= MAX_ROLLS) {
+      cachedPark = null;
       localStorage.setItem(STORAGE_KEY, Date.now() + COOLDOWN_MS);
       navigate('#/dice-tired');
       return;
     }
 
+    cachedPark = null;
     resultEl.style.display = 'none';
     retryBtn.style.display = 'none';
     stageEl.style.display = '';
@@ -85,6 +87,24 @@ function init() {
     roll(diceEl, stageEl, resultEl, retryBtn);
   };
   retryBtn.addEventListener('click', handlers.onRetry);
+
+  // ---- 从详情页返回 → 恢复缓存结果，不重新投骰子 ----
+  if (cachedPark) {
+    stageEl.style.display = 'none';
+    diceEl.classList.remove('dice-cube--rolling');
+    resultEl.style.display = 'block';
+    retryBtn.style.display = 'block';
+    showResult(cachedPark, resultEl, retryBtn);
+    return;
+  }
+
+  // ---- 重置 UI（首次进入） ----
+  stageEl.style.display = 'flex';
+  resultEl.style.display = 'none';
+  resultEl.innerHTML = '';
+  retryBtn.style.display = 'none';
+  diceEl.classList.remove('dice-cube--rolling');
+  void stageEl.offsetWidth;
 
   // ---- 首次加载 & 开投 ----
   if (parks.length === 0) {
@@ -110,7 +130,6 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
     diceEl.classList.remove('dice-cube--rolling');
     stageEl.style.display = 'none';
 
-    // 持久化计数
     const cur = Number(localStorage.getItem(COUNT_KEY)) || 0;
     localStorage.setItem(COUNT_KEY, cur + 1);
 
@@ -119,6 +138,8 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
 }
 
 function showResult(park, container, retryBtn) {
+  cachedPark = park;  // ★ 缓存，供详情页返回时恢复
+
   let desc = park.description || '';
   if (park.activityDescriptions) {
     const descs = Object.values(park.activityDescriptions);
@@ -151,6 +172,10 @@ function destroy() {
   const retryBtn = document.getElementById('bb-retry');
   if (retryBtn && handlers.onRetry) {
     retryBtn.removeEventListener('click', handlers.onRetry);
+  }
+  const resultEl = document.getElementById('bb-result');
+  if (resultEl && handlers.onCardClick) {
+    resultEl.removeEventListener('click', handlers.onCardClick);
   }
   handlers = {};
 }

@@ -67,6 +67,11 @@ function init() {
     navigate('#/blindbox');
   });
 
+  // 收藏按钮
+  section.querySelector('[data-action="fav-parks"]').addEventListener('click', () => {
+    navigate('#/fav-parks');
+  });
+
   // Reset! 按钮
   section.querySelector('[data-action="reset"]').addEventListener('click', () => {
     state = createInitialState();

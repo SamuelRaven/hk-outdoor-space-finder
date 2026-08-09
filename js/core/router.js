@@ -56,6 +56,8 @@ function hashToPageId(hash) {
     case '#/results':         return 'page-results';
     case '#/blindbox':        return 'page-blindbox';
     case '#/dice-tired':      return 'page-dice-tired';
+    case '#/fav-parks':       return 'page-fav-parks';
+    case '#/fav-trails':      return 'page-fav-trails';
     case '#/hiking-filter':   return 'page-hiking-filter';
     case '#/hiking-results':  return 'page-hiking-results';
     case '#/hiking-blindbox': return 'page-hiking-blindbox';

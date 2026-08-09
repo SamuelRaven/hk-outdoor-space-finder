@@ -7,11 +7,12 @@ import { navigate, register } from '../core/router.js';
 
 const STORAGE_KEY = 'diceTiredUntil_hike';
 const COUNT_KEY = 'diceRollCount_hike';
-const COOLDOWN_MS = 10 * 60 * 60 * 1000; // 10 小时
+const COOLDOWN_MS = 10 * 60 * 60 * 1000;
 const MAX_ROLLS = 10;
 
 let trails = [];
 let handlers = {};
+let cachedTrail = null;  // 从详情页返回时恢复
 
 function init() {
   const section = document.getElementById('page-hiking-blindbox');
@@ -26,7 +27,6 @@ function init() {
     navigate('#/dice-tired');
     return;
   }
-  // 冷却期已过 → 清除记录（包括计数）
   if (tiredUntil) {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(COUNT_KEY);
@@ -40,43 +40,45 @@ function init() {
     return;
   }
 
-  // ---- 重置 UI：显示骰子、隐藏旧结果 ----
-  stageEl.style.display = 'flex';
-  resultEl.style.display = 'none';
-  resultEl.innerHTML = '';
-  retryBtn.style.display = 'none';
-  diceEl.classList.remove('dice-cube--rolling');
-  void stageEl.offsetWidth;
-
   // ---- 清理旧 listener ----
   if (handlers.onBack) {
-    section.querySelector('[data-action="back"]').removeEventListener('click', handlers.onBack);
+    const backBtn = section.querySelector('[data-action="back"]');
+    if (backBtn) backBtn.removeEventListener('click', handlers.onBack);
   }
   if (handlers.onRetry) {
     retryBtn.removeEventListener('click', handlers.onRetry);
   }
+  if (handlers.onCardClick) {
+    resultEl.removeEventListener('click', handlers.onCardClick);
+  }
 
-  // ★ 卡片点击委托
-  resultEl.addEventListener('click', (e) => {
+  // ★ 事件委托必须在缓存检查之前设置
+  handlers.onCardClick = (e) => {
     const card = e.target.closest('[data-trail-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/hiking-blindbox');
     navigate(`#/trail/${card.dataset.trailId}`);
-  });
+  };
+  resultEl.addEventListener('click', handlers.onCardClick);
 
   // ---- 返回按钮 ----
-  handlers.onBack = () => navigate('#/hiking-filter');
+  handlers.onBack = () => {
+    cachedTrail = null;
+    navigate('#/hiking-filter');
+  };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
   // ---- 再投一次 ----
   handlers.onRetry = () => {
     const cur = Number(localStorage.getItem(COUNT_KEY)) || 0;
     if (cur >= MAX_ROLLS) {
+      cachedTrail = null;
       localStorage.setItem(STORAGE_KEY, Date.now() + COOLDOWN_MS);
       navigate('#/dice-tired');
       return;
     }
 
+    cachedTrail = null;
     resultEl.style.display = 'none';
     retryBtn.style.display = 'none';
     stageEl.style.display = '';
@@ -85,6 +87,24 @@ function init() {
     roll(diceEl, stageEl, resultEl, retryBtn);
   };
   retryBtn.addEventListener('click', handlers.onRetry);
+
+  // ---- 从详情页返回 → 恢复缓存结果 ----
+  if (cachedTrail) {
+    stageEl.style.display = 'none';
+    diceEl.classList.remove('dice-cube--rolling');
+    resultEl.style.display = 'block';
+    retryBtn.style.display = 'block';
+    showResult(cachedTrail, resultEl, retryBtn);
+    return;
+  }
+
+  // ---- 重置 UI（首次进入） ----
+  stageEl.style.display = 'flex';
+  resultEl.style.display = 'none';
+  resultEl.innerHTML = '';
+  retryBtn.style.display = 'none';
+  diceEl.classList.remove('dice-cube--rolling');
+  void stageEl.offsetWidth;
 
   // ---- 首次加载 & 开投 ----
   if (trails.length === 0) {
@@ -110,7 +130,6 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
     diceEl.classList.remove('dice-cube--rolling');
     stageEl.style.display = 'none';
 
-    // 持久化计数
     const cur = Number(localStorage.getItem(COUNT_KEY)) || 0;
     localStorage.setItem(COUNT_KEY, cur + 1);
 
@@ -119,6 +138,8 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
 }
 
 function showResult(trail, container, retryBtn) {
+  cachedTrail = trail;  // ★ 缓存，供详情页返回时恢复
+
   const sectionText = trail.trailName
     ? `${trail.trailName} — ${trail.section}`
     : trail.section;
@@ -140,7 +161,7 @@ function showResult(trail, container, retryBtn) {
         <div class="trail-card__section">${sectionText}</div>
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${trail.durationHrs} 小時</span>
-          <span class="trail-card__stat">📏 ${trail.lengthKm} 公里</span>
+          <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
         </div>
         <div class="trail-card__desc">${trail.description}</div>
         ${tipsHtml}
@@ -172,6 +193,10 @@ function destroy() {
   const retryBtn = document.getElementById('hiking-bb-retry');
   if (retryBtn && handlers.onRetry) {
     retryBtn.removeEventListener('click', handlers.onRetry);
+  }
+  const resultEl = document.getElementById('hiking-bb-result');
+  if (resultEl && handlers.onCardClick) {
+    resultEl.removeEventListener('click', handlers.onCardClick);
   }
   handlers = {};
 }

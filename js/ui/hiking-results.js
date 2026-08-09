@@ -6,6 +6,7 @@ import { navigate, register } from '../core/router.js';
 import { matchTrails } from '../core/trail-matcher.js';
 
 let trails = [];
+let cachedResults = null;  // 从详情页返回时恢复用
 
 function init() {
   const section = document.getElementById('page-hiking-results');
@@ -14,8 +15,19 @@ function init() {
   const emptyEl = document.getElementById('hiking-results-empty');
 
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
+    cachedResults = null;
     navigate('#/hiking-filter');
   });
+
+  // 从详情页返回 → 恢复缓存结果
+  if (cachedResults) {
+    const { results, filters } = cachedResults;
+    countEl.textContent = `(${results.length})`;
+    emptyEl.style.display = 'none';
+    showNotice(filters);
+    renderCards(results, listEl);
+    return;
+  }
 
   if (trails.length === 0) {
     fetch('js/data/trails.json')
@@ -38,6 +50,8 @@ function doMatch(listEl, countEl, emptyEl) {
   const filters = (window.__appState && window.__appState.hikingFilters) || {};
   const results = matchTrails(trails, filters);
 
+  cachedResults = { results, filters };
+
   countEl.textContent = `(${results.length})`;
 
   if (results.length === 0) {
@@ -47,7 +61,11 @@ function doMatch(listEl, countEl, emptyEl) {
   }
 
   emptyEl.style.display = 'none';
+  showNotice(filters);
+  renderCards(results, listEl);
+}
 
+function showNotice(filters) {
   const noticeEl = document.getElementById('hiking-results-notice');
   const noticeText = buildFilterNotice(filters);
   if (noticeEl && noticeText) {
@@ -56,8 +74,6 @@ function doMatch(listEl, countEl, emptyEl) {
   } else if (noticeEl) {
     noticeEl.style.display = 'none';
   }
-
-  renderCards(results, listEl);
 }
 
 function buildFilterNotice(filters) {
@@ -102,7 +118,7 @@ function renderCards(trailList, container) {
         <div class="trail-card__section">${sectionText}</div>
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${trail.durationHrs} 小時</span>
-          <span class="trail-card__stat">📏 ${trail.lengthKm} 公里</span>
+          <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
         </div>
         <div class="trail-card__desc">${trail.description}</div>
         ${tipsHtml}
@@ -119,6 +135,8 @@ function renderCards(trailList, container) {
   });
 }
 
-function destroy() {}
+function destroy() {
+  // 不清理 cachedResults——從詳情頁返回時需要保留
+}
 
 register('page-hiking-results', init, destroy);

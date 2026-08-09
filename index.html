@@ -109,6 +109,9 @@
         <!-- 盲盒按钮 -->
         <button class="blindbox-btn" data-action="blindbox">?</button>
 
+        <!-- 收藏按钮 -->
+        <button class="fav-entry-btn" data-action="fav-parks">★</button>
+
       </div>
     </section>
 
@@ -205,6 +208,9 @@
           <button class="btn btn-primary dice-tired-page__btn" data-action="tomorrow">
             請明日再來吧
           </button>
+          <button class="dice-tired-page__reset" data-action="reset-dice">
+            重置骰子（測試用）
+          </button>
         </div>
       </div>
     </section>
@@ -268,6 +274,9 @@
 
         <!-- 盲盒按钮 -->
         <button class="blindbox-btn blindbox-btn--hike" data-action="hiking-blindbox">?</button>
+
+        <!-- 收藏按钮 -->
+        <button class="fav-entry-btn fav-entry-btn--hike" data-action="fav-trails">★</button>
       </div>
     </section>
 
@@ -381,21 +390,42 @@
       </div>
     </section>
 
+    <!-- Page 11: Fav Parks（公園收藏） -->
+    <section id="page-fav-parks" class="page">
+      <div class="results-page">
+        <div class="results-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="results-page__title">我的公園收藏</h2>
+          <span class="results-page__count" id="fav-parks-count"></span>
+        </div>
+        <div class="results-page__list" id="fav-parks-list"></div>
+        <div class="results-page__empty" id="fav-parks-empty" style="display:none;">
+          <p>還未收藏任何公園</p>
+          <p>去公園詳情頁點 ★ 收藏吧～</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 12: Fav Trails（山徑收藏） -->
+    <section id="page-fav-trails" class="page">
+      <div class="results-page">
+        <div class="results-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="results-page__title">我的山徑收藏</h2>
+          <span class="results-page__count" id="fav-trails-count"></span>
+        </div>
+        <div class="results-page__list" id="fav-trails-list"></div>
+        <div class="results-page__empty" id="fav-trails-empty" style="display:none;">
+          <p>還未收藏任何山徑</p>
+          <p>去山徑詳情頁點 ★ 收藏吧～</p>
+        </div>
+      </div>
+    </section>
+
   </div>
 
-  <!-- JS Modules -->
-  <script type="module" src="js/core/router.js"></script>
-  <script type="module" src="js/ui/toast.js"></script>
-  <script type="module" src="js/ui/landing-page.js"></script>
-  <script type="module" src="js/ui/filter-page.js"></script>
-  <script type="module" src="js/ui/results-page.js"></script>
-  <script type="module" src="js/ui/blindbox-page.js"></script>
-  <script type="module" src="js/ui/dice-tired-page.js"></script>
-  <script type="module" src="js/ui/hiking-filter.js"></script>
-  <script type="module" src="js/ui/hiking-results.js"></script>
-  <script type="module" src="js/ui/hiking-blindbox.js"></script>
-  <script type="module" src="js/ui/park-detail.js"></script>
-  <script type="module" src="js/ui/trail-detail.js"></script>
+  <!-- JS Entry -->
+  <script type="module" src="js/app.js"></script>
 
 </body>
 </html>

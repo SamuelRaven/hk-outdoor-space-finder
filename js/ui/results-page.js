@@ -6,6 +6,7 @@ import { navigate, register } from '../core/router.js';
 import { matchParks } from '../core/matcher.js';
 
 let parks = [];
+let cachedResults = null;  // 从详情页返回时恢复用
 
 function init() {
   const section = document.getElementById('page-results');
@@ -14,8 +15,18 @@ function init() {
   const emptyEl = document.getElementById('results-empty');
 
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
+    cachedResults = null;
     navigate('#/filter');
   });
+
+  // 从详情页返回 → 恢复缓存结果，不重新匹配
+  if (cachedResults) {
+    const { results, filters } = cachedResults;
+    countEl.textContent = `(${results.length})`;
+    emptyEl.style.display = 'none';
+    renderCards(results, listEl, filters);
+    return;
+  }
 
   if (parks.length === 0) {
     fetch('js/data/parks.json')
@@ -37,6 +48,9 @@ function init() {
 function doMatch(listEl, countEl, emptyEl) {
   const filters = (window.__appState && window.__appState.filters) || {};
   const results = matchParks(parks, filters);
+
+  // 快取结果
+  cachedResults = { results, filters };
 
   countEl.textContent = `(${results.length})`;
 
@@ -90,6 +104,8 @@ function getParkDescription(park, filters) {
   return park.description || '';
 }
 
-function destroy() {}
+function destroy() {
+  // 不清理 cachedResults——從詳情頁返回時需要保留
+}
 
 register('page-results', init, destroy);
