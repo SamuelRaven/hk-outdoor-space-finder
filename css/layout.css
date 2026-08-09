@@ -7,36 +7,67 @@ body {
   position: relative;
 }
 
-/* 左上角大圆形 — 移动端缩小 */
+/* 左上角大圆形 */
 body::before {
   content: '';
   position: fixed;
-  top: -60px;
-  left: -50px;
-  width: 150px;
-  height: 150px;
-  border: 2px solid var(--color-black);
+  top: -80px;
+  left: -70px;
+  width: 200px;
+  height: 200px;
+  border: 2.5px solid var(--color-black);
   border-radius: 50% !important;
   background: var(--color-yellow);
-  opacity: 0.15;
+  opacity: 0.18;
   z-index: 0;
   pointer-events: none;
 }
 
-/* 右下角色块 — 移动端缩小 */
+/* 右下角色块 */
 body::after {
   content: '';
   position: fixed;
-  bottom: -30px;
-  right: -20px;
-  width: 120px;
-  height: 120px;
-  border: 2px solid var(--color-black);
+  bottom: -40px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  border: 2.5px solid var(--color-black);
   background: var(--color-blue);
-  opacity: 0.12;
+  opacity: 0.14;
   z-index: 0;
   pointer-events: none;
   transform: rotate(15deg);
+}
+
+/* 右下角小红点 — 用 app-container 的伪元素实现 */
+.app-container::before {
+  content: '';
+  position: fixed;
+  bottom: 130px;
+  right: 25px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-black);
+  border-radius: 50% !important;
+  background: var(--color-red);
+  opacity: 0.16;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 左上角黑色短线 */
+.app-container::after {
+  content: '';
+  position: fixed;
+  top: 120px;
+  left: 10px;
+  width: 60px;
+  height: 3px;
+  background: var(--color-black);
+  opacity: 0.10;
+  z-index: 0;
+  pointer-events: none;
+  transform: rotate(-20deg);
 }
 
 /* ---- App 容器 ---- */

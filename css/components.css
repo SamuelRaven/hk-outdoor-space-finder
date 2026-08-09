@@ -1063,24 +1063,24 @@
    Bauhaus 背景装饰 — 高透明度几何图案 + 缓慢浮动动画
    ======================================== */
 
-/* 浮动动画 — 只用 translate 避免覆盖静态 rotate，极慢极小幅度 */
+/* 浮动动画 — 只用 translate 避免覆盖静态 rotate，流畅可见的幅度 */
 @keyframes float-slow {
   0%, 100% { translate: 0 0; }
-  33%  { translate: 6px -4px; }
-  66%  { translate: -3px 8px; }
+  33%  { translate: 14px -10px; }
+  66%  { translate: -8px 14px; }
 }
 @keyframes float-drift {
   0%, 100% { translate: 0 0; }
-  50%  { translate: -8px -6px; }
+  50%  { translate: -18px -12px; }
 }
 @keyframes float-gentle {
   0%, 100% { translate: 0 0; }
-  25%  { translate: 4px 3px; }
-  75%  { translate: -5px -4px; }
+  25%  { translate: 10px 8px; }
+  75%  { translate: -12px -10px; }
 }
 @keyframes float-wide {
   0%, 100% { translate: 0 0; }
-  50%  { translate: 10px -10px; }
+  50%  { translate: 22px -22px; }
 }
 
 .bauhaus-bg {
@@ -1105,57 +1105,57 @@
 
 /* 给各种装饰加上不同的浮动节奏（只用 translate 不碰 rotate，和静态定位共存） */
 .bauhaus-bg__circle {
-  animation: float-slow 30s ease-in-out infinite;
+  animation: float-slow 12s ease-in-out infinite;
 }
 .bauhaus-bg__circle--red-fill {
-  animation: float-drift 35s ease-in-out infinite;
+  animation: float-drift 14s ease-in-out infinite;
 }
 .bauhaus-bg__circle--yellow {
-  animation: float-gentle 28s ease-in-out infinite;
+  animation: float-gentle 11s ease-in-out infinite;
 }
 .bauhaus-bg__square {
-  animation: float-wide 32s ease-in-out infinite;
+  animation: float-wide 13s ease-in-out infinite;
 }
 .bauhaus-bg__square--blue-fill {
-  animation: float-slow 26s ease-in-out infinite 3s;
+  animation: float-slow 10s ease-in-out infinite 2s;
 }
 .bauhaus-bg__square--black {
-  animation: float-drift 24s ease-in-out infinite 5s;
+  animation: float-drift 9s ease-in-out infinite 3s;
 }
 .bauhaus-bg__triangle {
-  animation: float-gentle 34s ease-in-out infinite 2s;
+  animation: float-gentle 14s ease-in-out infinite 1s;
 }
 .bauhaus-bg__stripe {
-  animation: float-wide 22s ease-in-out infinite 7s;
+  animation: float-wide 8s ease-in-out infinite 2s;
 }
 .bauhaus-bg__stripe--red {
-  animation: float-slow 25s ease-in-out infinite 4s;
+  animation: float-slow 10s ease-in-out infinite 3s;
 }
 .bauhaus-bg__stripe--blue {
-  animation: float-drift 20s ease-in-out infinite 6s;
+  animation: float-drift 9s ease-in-out infinite 4s;
 }
 .bauhaus-bg__stripe--black {
-  animation: float-gentle 27s ease-in-out infinite 8s;
+  animation: float-gentle 12s ease-in-out infinite 5s;
 }
 .bauhaus-bg__line {
-  animation: float-wide 23s ease-in-out infinite 1s;
+  animation: float-wide 9s ease-in-out infinite 1s;
 }
 .bauhaus-bg__line--red {
-  animation: float-slow 29s ease-in-out infinite 3s;
+  animation: float-slow 11s ease-in-out infinite 2s;
 }
 .bauhaus-bg__dot,
 .bauhaus-bg__dot--red,
 .bauhaus-bg__dot--blue {
-  animation: float-gentle 18s ease-in-out infinite 2s;
+  animation: float-gentle 8s ease-in-out infinite 1s;
 }
 .bauhaus-bg__arc {
-  animation: float-drift 31s ease-in-out infinite 5s;
+  animation: float-drift 13s ease-in-out infinite 3s;
 }
 .bauhaus-bg__corner {
-  animation: float-wide 33s ease-in-out infinite 9s;
+  animation: float-wide 14s ease-in-out infinite 4s;
 }
 .bauhaus-bg__cross {
-  animation: float-slow 21s ease-in-out infinite 4s;
+  animation: float-slow 8s ease-in-out infinite 2s;
 }
 
 /* ======== 形状基类 ======== */
@@ -1164,13 +1164,13 @@
   position: absolute;
   border-radius: 50% !important;
   border: 2px solid var(--color-red);
-  opacity: 0.07;
+  opacity: 0.10;
 }
 .bauhaus-bg__circle--red-fill {
   position: absolute;
   border-radius: 50% !important;
   background: var(--color-red);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__circle--yellow {
   position: absolute;
@@ -1182,17 +1182,17 @@
 .bauhaus-bg__square {
   position: absolute;
   border: 2px solid var(--color-blue);
-  opacity: 0.07;
+  opacity: 0.10;
 }
 .bauhaus-bg__square--blue-fill {
   position: absolute;
   background: var(--color-blue);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__square--black {
   position: absolute;
   border: 2px solid var(--color-black);
-  opacity: 0.06;
+  opacity: 0.09;
 }
 
 .bauhaus-bg__triangle {
@@ -1202,23 +1202,23 @@
   border-left: 35px solid transparent;
   border-right: 35px solid transparent;
   border-bottom: 60px solid var(--color-yellow);
-  opacity: 0.06;
+  opacity: 0.09;
 }
 
 .bauhaus-bg__stripe {
   position: absolute;
   background: var(--color-yellow);
-  opacity: 0.06;
+  opacity: 0.09;
 }
 .bauhaus-bg__stripe--red {
   position: absolute;
   background: var(--color-red);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__stripe--blue {
   position: absolute;
   background: var(--color-blue);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__stripe--black {
   position: absolute;
@@ -1229,45 +1229,45 @@
 .bauhaus-bg__line {
   position: absolute;
   background: var(--color-black);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__line--red {
   position: absolute;
   background: var(--color-red);
-  opacity: 0.05;
+  opacity: 0.07;
 }
 
 .bauhaus-bg__dot {
   position: absolute;
   border-radius: 50% !important;
   background: var(--color-black);
-  opacity: 0.06;
+  opacity: 0.09;
 }
 .bauhaus-bg__dot--red {
   position: absolute;
   border-radius: 50% !important;
   background: var(--color-red);
-  opacity: 0.07;
+  opacity: 0.10;
 }
 .bauhaus-bg__dot--blue {
   position: absolute;
   border-radius: 50% !important;
   background: var(--color-blue);
-  opacity: 0.07;
+  opacity: 0.10;
 }
 
 .bauhaus-bg__arc {
   position: absolute;
   border-radius: 50% !important;
   border: 2px solid var(--color-black);
-  opacity: 0.05;
+  opacity: 0.07;
   clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
 }
 
 /* 十字星 — Bauhaus 建筑感 */
 .bauhaus-bg__cross {
   position: absolute;
-  opacity: 0.05;
+  opacity: 0.07;
 }
 .bauhaus-bg__cross::before,
 .bauhaus-bg__cross::after {
@@ -1293,12 +1293,40 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  opacity: 0.06;
+  opacity: 0.09;
   border-left: 2px solid var(--color-black);
   border-bottom: 2px solid var(--color-black);
 }
 
-/* ======== 筛选页 — 10 个装饰元素 ======== */
+/* 菱形 — Bauhaus 经典几何 */
+.bauhaus-bg__diamond {
+  position: absolute;
+  background: var(--color-red);
+  opacity: 0.06;
+  transform: rotate(45deg);
+  animation: float-gentle 12s ease-in-out infinite 3s;
+}
+
+/* 半圆 — 丰富形状变化 */
+.bauhaus-bg__half-circle {
+  position: absolute;
+  border-radius: 50% !important;
+  background: var(--color-blue);
+  opacity: 0.06;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  animation: float-slow 11s ease-in-out infinite 5s;
+}
+
+/* 对角斜线 */
+.bauhaus-bg__diagonal {
+  position: absolute;
+  background: var(--color-yellow);
+  opacity: 0.07;
+  transform: rotate(-30deg);
+  animation: float-drift 10s ease-in-out infinite 4s;
+}
+
+/* === 筛选页 — 10 个装饰元素 === */
 
 .filter-page .bauhaus-bg__circle:nth-child(1) {
   width: 140px; height: 140px;
