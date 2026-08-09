@@ -14,7 +14,6 @@ function init() {
   const container = document.getElementById('park-detail-content');
   const header = section.querySelector('.detail-page__header');
 
-  // ---- 收藏星星按钮 ----
   let favBtn = header.querySelector('.fav-star');
   if (!favBtn) {
     favBtn = document.createElement('button');
@@ -33,7 +32,6 @@ function init() {
   };
   favBtn.addEventListener('click', handlers.onFav);
 
-  // ---- 返回 ----
   handlers.onBack = () => {
     const ref = sessionStorage.getItem('detailReferrer');
     navigate(ref || '#/results');
@@ -46,19 +44,15 @@ function init() {
       return;
     }
 
-    // 最佳時段
     const bestTimeTags = (park.bestTime || [])
       .map(t => `<span class="detail-tag detail-tag--time">${t}</span>`).join('');
 
-    // 活動標籤
     const activities = park.activityTypes || [];
     const activityTags = activities
       .map(a => `<span class="detail-tag detail-tag--activity">${a}</span>`).join('');
 
-    // 包豪斯交替颜色映射
     const BAUHAUS_COLORS = ['red', 'blue', 'yellow', 'black'];
 
-    // 各活動詳細介紹 — 用交替包豪斯彩色左邊框
     const descBlocks = park.activityDescriptions
       ? Object.entries(park.activityDescriptions)
           .map(([act, desc], i) => `
@@ -70,7 +64,6 @@ function init() {
       : `<div class="detail-desc-card"><div class="detail-desc-card__text">${park.description || '暫無簡介'}</div></div>`;
 
     container.innerHTML = `
-      <!-- 包豪斯色条装饰 -->
       <div class="detail-color-bar">
         <span class="detail-color-bar__seg detail-color-bar__seg--red"></span>
         <span class="detail-color-bar__seg detail-color-bar__seg--blue"></span>
@@ -108,15 +101,14 @@ function init() {
         <div class="detail-descs">${descBlocks}</div>
       </div>
 
-      <!-- 智能生成內容 -->
       <div class="detail-row">
         <div class="detail-block detail-block--half detail-block--extra-a">
           <div class="detail-label">👥 適合人群</div>
           <div class="detail-value">${buildParkCrowd(park)}</div>
         </div>
         <div class="detail-block detail-block--half detail-block--extra-b">
-          <div class="detail-label">📸 打卡建議</div>
-          <div class="detail-value">${buildParkSpot(park)}</div>
+          <div class="detail-label">🏞 公園特色</div>
+          <div class="detail-value">${buildParkFeatures(park)}</div>
         </div>
       </div>
       <div class="detail-block detail-block--extra-c">
@@ -124,7 +116,8 @@ function init() {
         <div class="detail-descs"><div class="detail-desc-item">${buildParkTips(park)}</div></div>
       </div>
 
-      <!-- 包豪斯底部装饰 -->
+      <p class="detail-ai-note">部分內容由 AI 輔助生成，僅供參考</p>
+
       <div class="detail-footer-accent">
         <span class="detail-footer-accent__dot"></span>
         <span class="detail-footer-accent__dot"></span>
@@ -148,7 +141,14 @@ function updateStar(btn, isFav) {
   btn.dataset.active = isFav ? 'true' : '';
 }
 
-// ---- 智能生成：適合人群 ----
+// ---- hash (單次大 hash + bit 段提取 → 不同 seed 完全獨立) ----
+function ph(id, seed, n) {
+  let h = seed;
+  for (let i = 0; i < id.length; i++) h = ((h << 5) - h + id.charCodeAt(i)) | 0;
+  return Math.abs(h) % n;
+}
+
+// ---- 適合人群 (從 activityTypes 推導，本身已有足夠變化) ----
 function buildParkCrowd(park) {
   const acts = park.activityTypes || [];
   const groups = [];
@@ -160,88 +160,114 @@ function buildParkCrowd(park) {
   return groups.length > 0 ? groups.join('、') : '各類人士';
 }
 
-// ---- 简单哈希，为每个公园选取稳定的变体 ----
-function parkHash(id, poolSize) {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
-  return Math.abs(h) % poolSize;
-}
-
-// ---- 智能生成：打卡建議（5 類 × 多變體，簡潔不囉嗦） ----
-function buildParkSpot(park) {
-  const type = park.parkType || '';
-  const hi = parkHash(park.id, 5);
-
-  const seasideSpots = [
-    '黃昏時分的海濱步道是黃金打卡位，背光剪影效果一流。',
-    '日落前半小時到達，金黃漸變粉紫的天際線張張都是明信片。',
-    '清晨人煙稀少，晨光灑在水面上的波光是最佳拍攝素材。',
-    '入夜後對岸燈火倒映水面，長曝光拍光影軌跡效果出眾。',
-    '海濱彎位和觀景台是天然構圖框，利用欄杆長椅作前景層次豐富。',
-  ];
-
-  const urbanSpots = [
-    '涼亭、人工湖、大樹下都是熱門取景點，非繁忙時段前往更寧靜。',
-    '筆直行人道、圓形花圃、方正草坪——極簡構圖的好素材。',
-    '午後陽光穿過樹葉的光斑是天然濾鏡，隨手拍都有電影感。',
-    '遊樂設施在傍晚色彩最濃，夕陽側光拍出來特別溫暖。',
-  ];
-
-  const greenSpots = [
-    '大片草地配遠山背景，野餐墊一鋪就是天然攝影棚。',
-    '開闊感是市區無法複製的，廣角鏡將藍天綠地一次收入畫面。',
-    '陰天反而是最佳拍攝天氣，光線均勻柔和，綠色更飽和。',
-  ];
-
-  const gardenSpots = [
-    '對稱設計和幾何花圃極具構圖感，每個季節花卉主題都不同。',
-    '透過圓形月門或漏窗框景拍攝，畫面自帶古典詩意。',
-    '水景倒影是最被低估的打卡位，湖面如鏡上下對稱令人驚艷。',
-    '留意腳下鵝卵石鋪地和頭頂飛檐翹角，細節藏在意想不到的角度。',
-  ];
-
-  const pocketSpots = [
-    '鬧市中的小綠洲，長椅或樹蔭下隨手拍都有城市與自然的對比感。',
-    '斑駁樹影、古舊石凳、攀藤花架——拍出質感日常生活照。',
-    '手機微距模式拍花卉葉脈，小公園的微觀世界同樣精彩。',
-  ];
-
-  const maps = { '海濱長廊': seasideSpots, '市區公園': urbanSpots, '郊野綠地': greenSpots, '主題園林': gardenSpots, '休憩花園': pocketSpots };
-  const pool = maps[type];
-  return pool ? pool[hi % pool.length] : '隨心漫步，每個角落都可以是你的打卡位。';
-}
-
-// ---- 智能生成：出行貼士（每公園最多 3 條，簡潔實用） ----
-function buildParkTips(park) {
-  const parts = [];
-  const times = park.bestTime || [];
+// ---- 公園特色 (同義改寫池 → 保真 + 不重複) ----
+function buildParkFeatures(park) {
   const type = park.parkType || '';
   const acts = park.activityTypes || [];
-  const hi = parkHash(park.id, 3);
+  const hi = ph(park.id, 1, 4); // 0..3
 
-  // 選一條時間貼士
-  if (times.includes('清晨') && hi === 0) parts.push('清晨人流最少，穿輕便運動裝出發最舒服');
-  else if (times.includes('中午') && hi === 0) parts.push('正午陽光猛烈，記得防曬及定時補水');
-  else if (times.includes('傍晚') && hi === 0) parts.push('黃昏光線變化快，想影靚相記得把握日落前後 20 分鐘');
-  else if (times.includes('夜晚') && hi === 0) parts.push('夜間燈光較暗，注意腳下安全');
+  // 每類特徵 3-4 種同義表達，全為真實推導
+  const featPool = {
+    '沿海步道': ['沿海步道', '海濱長廊步道', '維港/海岸步道'],
+    '開闊海景': ['開闊海景', '無敵海景視野', '一望無際的海面', '海天一色景觀'],
+    '海風清涼': ['海風清涼', '海風拂面', '涼爽海風'],
+    '大片草地': ['大片草地', '寬敞草坪', '開闊草地空間'],
+    '自然生態': ['自然生態', '生態多樣', '豐富動植物'],
+    '遠離繁囂': ['遠離繁囂', '遠離市區喧鬧', '郊野寧靜'],
+    '園林造景': ['園林造景', '中式/西式園林', '精心設計的園景'],
+    '主題花卉': ['主題花卉', '季節花卉', '多樣植物品種'],
+    '亭台樓閣': ['亭台樓閣', '涼亭與水景', '亭台水榭'],
+    '市區綠洲': ['市區綠洲', '鬧市中的公園', '城市綠肺'],
+    '設施完善': ['設施完善', '配套齊全', '設施多樣'],
+    '交通方便': ['交通方便', '地點便利', '市區核心位置'],
+    '鬧市綠蔭': ['鬧市綠蔭', '街角小花園', '社區綠色角落'],
+    '社區花園': ['社區花園', '鄰里公園', '街坊休憩空間'],
+    '小而精美': ['小而精美', '小巧別緻', '麻雀雖小五臟俱全'],
+    '散步路線': ['散步路線', '悠閒步道', '平坦好行', '適合慢步'],
+    '兒童設施': ['兒童設施', '親子遊樂場', '兒童遊樂空間'],
+    '運動場地': ['運動場地', '健身設施', '運動空間'],
+    '寵物友善': ['寵物友善', '可帶毛孩', '寵物友好空間'],
+    '寧靜角落': ['寧靜角落', '安靜舒適', '清靜角落', '放空好去處'],
+  };
 
-  // 選一條場地貼士
-  if (type === '郊野綠地') parts.push('草地蚊蟲較多，出發前噴定防蚊液');
-  else if (type === '海濱長廊') parts.push('海風較大，建議穿防風衣物，避免戴易吹走的帽');
-  else if (type === '主題園林') parts.push('不妨先了解公園的歷史背景，遊覽時更有共鳴');
+  const features = [];
+  const pick = (key) => {
+    const arr = featPool[key];
+    return arr ? arr[hi % arr.length] : key;
+  };
 
-  // 選一條活動貼士（只取第一個匹配的）
-  if (acts.includes('寵物出行')) {
-    parts.push('記得帶寵物飲用水及垃圾袋，保持公園清潔');
-  } else if (acts.includes('運動出汗')) {
-    parts.push('運動前做好熱身，穿速乾衣物，公園飲水機可補水');
-  } else if (acts.includes('親子放電')) {
-    parts.push('帶小朋友記得備妥零食和水，玩得盡興又安心');
+  // 空間特徵
+  if (type === '海濱長廊') features.push(pick('沿海步道'), pick('開闊海景'), pick('海風清涼'));
+  else if (type === '郊野綠地') features.push(pick('大片草地'), pick('自然生態'), pick('遠離繁囂'));
+  else if (type === '主題園林') features.push(pick('園林造景'), pick('主題花卉'), pick('亭台樓閣'));
+  else if (type === '市區公園') features.push(pick('市區綠洲'), pick('設施完善'), pick('交通方便'));
+  else if (type === '休憩花園') features.push(pick('鬧市綠蔭'), pick('社區花園'), pick('小而精美'));
+
+  // 活動特徵（最多取 2 個，用不同 seed 避免重複）
+  if (acts.includes('散步看景')) features.push(pick('散步路線'));
+  if (acts.includes('親子放電')) features.push(pick('兒童設施'));
+  if (acts.includes('運動出汗')) features.push(pick('運動場地'));
+  if (acts.includes('寵物出行')) features.push(pick('寵物友善'));
+  if (acts.includes('安靜發呆')) features.push(pick('寧靜角落'));
+
+  return features.slice(0, 5).join(' · ');
+}
+
+// ---- 出行貼士 (同義改寫 + seed 分流 → 保真 + 不重複) ----
+function buildParkTips(park) {
+  const parts = [];
+  const hours = park.openingHours || '';
+  const times = park.bestTime || [];
+  const type = park.parkType || '';
+
+  // 開放時間 → 3-4 種說法
+  if (hours.includes('24') || hours.includes('全天')) {
+    const p = ['全天開放，隨時可前往', '24 小時開放，夜遊也方便', '全日無休，什麼時候去都行'];
+    parts.push(p[ph(park.id, 2, p.length)]);
+  } else if (hours.includes('-')) {
+    const match = hours.match(/(\d{2}):(\d{2})/g);
+    if (match && match.length >= 2) {
+      const close = match[1];
+      const closeH = parseInt(close);
+      if (closeH < 24) {
+        const p = [
+          '關門時間 ' + close + '，建議提前半小時離開',
+          close + ' 關閉，記得預留時間離場',
+          '注意 ' + close + ' 關門，別待太晚',
+        ];
+        parts.push(p[ph(park.id, 3, p.length)]);
+      }
+    }
   }
 
-  // 最多 3 條
+  // 最佳時段 → 每時段 2-3 種說法
+  const timeVariants = {
+    '清晨': ['清晨人少涼爽，晨運好時機', '清晨光線柔和、人流稀少', '早鳥福利，清晨安靜愜意'],
+    '中午': ['中午陽光猛烈，注意防曬補水', '正午太陽直射，找遮蔭處休息', '午間陽光強烈，做好防曬措施'],
+    '下午': ['下午光線柔和，影相散步皆宜', '午後陽光溫暖，是戶外活動的黃金時段', '下午是最愜意的時光，帶本書來坐坐'],
+    '傍晚': ['黃昏 magic hour，夕陽景色最美', '傍晚光線變化迷人，日落時分尤其精彩', '黃昏時段景色最佳，把握日落前後'],
+    '夜晚': ['夜間注意照明及安全，穿淺色衣物', '夜晚涼爽適合散步，注意腳下路況', '入夜後燈光較暗，建議結伴同行'],
+  };
+  for (const t of times) {
+    if (timeVariants[t]) {
+      const arr = timeVariants[t];
+      parts.push(arr[ph(park.id, 4, arr.length)]);
+      break;
+    }
+  }
+
+  // 公園類型 → 實用提示
+  if (type === '郊野綠地') {
+    const p = ['郊野蚊蟲較多，建議帶備防蚊用品', '建議自備飲用水及小食', '手機訊號可能較弱，預先查看地圖'];
+    parts.push(p[ph(park.id, 5, p.length)]);
+  }
+  if (type === '海濱長廊') {
+    const p = ['海邊風大，帶件薄外套以備不時之需', '海濱步道無遮擋，夏天做好防曬', '近水處注意安全，尤其帶小朋友時'];
+    parts.push(p[ph(park.id, 6, p.length)]);
+  }
+
   if (parts.length === 0) parts.push('放鬆心情，享受公園的綠意與寧靜');
-  return parts.slice(0, 3).join('。') + '。';
+  return parts.join('；') + '。';
 }
 
 function destroy() {

@@ -1687,6 +1687,18 @@
 .detail-block--surface  { border-left: 4px solid var(--color-black); }
 .detail-block--desc     { border-left: 4px solid var(--color-red); }
 
+/* AI 輔助標註 */
+.detail-ai-note {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--color-black);
+  opacity: 0.25;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-body);
+  letter-spacing: 0.05em;
+}
+
 /* 底部包豪斯圆点装饰 */
 .detail-footer-accent {
   display: flex; justify-content: center; gap: 10px;
