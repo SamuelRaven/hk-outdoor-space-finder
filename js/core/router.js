@@ -67,12 +67,15 @@ function handleRouteChange() {
  */
 function hashToPageId(hash) {
   switch (hash) {
-    case '#/filter':      return 'page-filter';
-    case '#/results':     return 'page-results';
-    case '#/blindbox':    return 'page-blindbox';
-    case '#/dice-tired':  return 'page-dice-tired';
+    case '#/filter':          return 'page-filter';
+    case '#/results':         return 'page-results';
+    case '#/blindbox':        return 'page-blindbox';
+    case '#/dice-tired':      return 'page-dice-tired';
+    case '#/hiking-filter':   return 'page-hiking-filter';
+    case '#/hiking-results':  return 'page-hiking-results';
+    case '#/hiking-blindbox': return 'page-hiking-blindbox';
     case '#/':
-    default:              return 'page-landing';
+    default:                  return 'page-landing';
   }
 }
 

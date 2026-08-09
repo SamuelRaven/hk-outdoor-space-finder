@@ -3,7 +3,6 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js';
-import { showToast } from './toast.js';
 
 function init() {
   const section = document.getElementById('page-landing');
@@ -14,10 +13,10 @@ function init() {
     navigate('#/filter');
   });
 
-  // 按钮2：大自然徒步登山 → 弹 toast
+  // 按钮2：大自然徒步登山 → 跳转徒步筛选页
   const btnHiking = section.querySelector('[data-action="hiking"]');
   btnHiking.addEventListener('click', () => {
-    showToast('此房間還在裝修中哦~');
+    navigate('#/hiking-filter');
   });
 }
 

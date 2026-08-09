@@ -9,7 +9,7 @@ function init() {
 
   // 「請明日再來吧~」→ 回到筛选页
   section.querySelector('[data-action="tomorrow"]').addEventListener('click', () => {
-    navigate('#/filter');
+    navigate('#/');
   });
 }
 

@@ -1,24 +1,24 @@
 /* ========================================
-   Blind Box Page — 盲盒随机推荐
+   Hiking Blind Box Page — 徒步盲盒随机推荐
    localStorage 持久化：每 10 小时 10 次限额（独立计数）
    ======================================== */
 
 import { navigate, register } from '../core/router.js';
 
-const STORAGE_KEY = 'diceTiredUntil_park';
-const COUNT_KEY = 'diceRollCount_park';
+const STORAGE_KEY = 'diceTiredUntil_hike';
+const COUNT_KEY = 'diceRollCount_hike';
 const COOLDOWN_MS = 10 * 60 * 60 * 1000; // 10 小时
 const MAX_ROLLS = 10;
 
-let parks = [];
+let trails = [];
 let handlers = {};
 
 function init() {
-  const section = document.getElementById('page-blindbox');
-  const stageEl = document.getElementById('bb-stage');
-  const resultEl = document.getElementById('bb-result');
-  const retryBtn = document.getElementById('bb-retry');
-  const diceEl = document.getElementById('dice-cube');
+  const section = document.getElementById('page-hiking-blindbox');
+  const stageEl = document.getElementById('hiking-bb-stage');
+  const resultEl = document.getElementById('hiking-bb-result');
+  const retryBtn = document.getElementById('hiking-bb-retry');
+  const diceEl = document.getElementById('hiking-dice-cube');
 
   // ---- 检查冷却期 ----
   const tiredUntil = localStorage.getItem(STORAGE_KEY);
@@ -32,7 +32,7 @@ function init() {
     localStorage.removeItem(COUNT_KEY);
   }
 
-  // ---- 检查今日次数 ----
+  // ---- 检查次数 ----
   const count = Number(localStorage.getItem(COUNT_KEY)) || 0;
   if (count >= MAX_ROLLS) {
     localStorage.setItem(STORAGE_KEY, Date.now() + COOLDOWN_MS);
@@ -57,7 +57,7 @@ function init() {
   }
 
   // ---- 返回按钮 ----
-  handlers.onBack = () => navigate('#/filter');
+  handlers.onBack = () => navigate('#/hiking-filter');
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
   // ---- 再投一次 ----
@@ -79,11 +79,11 @@ function init() {
   retryBtn.addEventListener('click', handlers.onRetry);
 
   // ---- 首次加载 & 开投 ----
-  if (parks.length === 0) {
-    fetch('js/data/parks.json')
+  if (trails.length === 0) {
+    fetch('js/data/trails.json')
       .then(r => r.json())
       .then(data => {
-        parks = data;
+        trails = data;
         roll(diceEl, stageEl, resultEl, retryBtn);
       });
   } else {
@@ -92,7 +92,7 @@ function init() {
 }
 
 function roll(diceEl, stageEl, resultEl, retryBtn) {
-  const park = parks[Math.floor(Math.random() * parks.length)];
+  const trail = trails[Math.floor(Math.random() * trails.length)];
 
   requestAnimationFrame(() => {
     diceEl.classList.add('dice-cube--rolling');
@@ -106,27 +106,39 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
     const cur = Number(localStorage.getItem(COUNT_KEY)) || 0;
     localStorage.setItem(COUNT_KEY, cur + 1);
 
-    showResult(park, resultEl, retryBtn);
+    showResult(trail, resultEl, retryBtn);
   }, 1300);
 }
 
-function showResult(park, container, retryBtn) {
-  let desc = park.description || '';
-  if (park.activityDescriptions) {
-    const descs = Object.values(park.activityDescriptions);
-    if (descs.length > 0) {
-      desc = descs[Math.floor(Math.random() * descs.length)];
-    }
+function showResult(trail, container, retryBtn) {
+  const sectionText = trail.trailName
+    ? `${trail.trailName} — ${trail.section}`
+    : trail.section;
+
+  let tipsHtml = '';
+  if (trail.tips) {
+    tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
   }
 
+  const diceNote = buildDiceNote(trail);
+  const diceNoteHtml = diceNote
+    ? `<div class="trail-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
+    : '';
+
   container.innerHTML = `
-    <div class="park-card" data-region="${park.region}">
-      <div class="park-card__body">
-        <div class="park-card__name">${park.nameZh}</div>
-        <div class="park-card__hours">${park.openingHours}</div>
-        <div class="park-card__desc">${desc}</div>
+    <div class="trail-card" data-difficulty="${trail.difficulty}">
+      <div class="trail-card__body">
+        <div class="trail-card__name">${trail.nameZh}</div>
+        <div class="trail-card__section">${sectionText}</div>
+        <div class="trail-card__meta">
+          <span class="trail-card__stat">🕐 ${trail.durationHrs} 小時</span>
+          <span class="trail-card__stat">📏 ${trail.lengthKm} 公里</span>
+        </div>
+        <div class="trail-card__desc">${trail.description}</div>
+        ${tipsHtml}
+        ${diceNoteHtml}
       </div>
-      <span class="park-card__region">${park.region}</span>
+      <span class="trail-card__difficulty">${trail.difficulty}</span>
     </div>
   `;
 
@@ -134,17 +146,26 @@ function showResult(park, container, retryBtn) {
   retryBtn.style.display = 'block';
 }
 
+function buildDiceNote(trail) {
+  if (trail.difficulty === '著咩鞋都腳軟') {
+    return '高難度路線！務必結伴同行及做好充足準備';
+  } else if (trail.difficulty === '著行山鞋穩陣D') {
+    return '中等難度路線，出發前記得查看天氣預報～';
+  }
+  return '輕鬆路線，放心享受大自然吧！';
+}
+
 function destroy() {
-  const section = document.getElementById('page-blindbox');
+  const section = document.getElementById('page-hiking-blindbox');
   if (section && handlers.onBack) {
     const backBtn = section.querySelector('[data-action="back"]');
     if (backBtn) backBtn.removeEventListener('click', handlers.onBack);
   }
-  const retryBtn = document.getElementById('bb-retry');
+  const retryBtn = document.getElementById('hiking-bb-retry');
   if (retryBtn && handlers.onRetry) {
     retryBtn.removeEventListener('click', handlers.onRetry);
   }
   handlers = {};
 }
 
-register('page-blindbox', init, destroy);
+register('page-hiking-blindbox', init, destroy);

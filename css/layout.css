@@ -7,33 +7,33 @@ body {
   position: relative;
 }
 
-/* 左上角大圆形 */
+/* 左上角大圆形 — 移动端缩小 */
 body::before {
   content: '';
   position: fixed;
-  top: -80px;
-  left: -60px;
-  width: 200px;
-  height: 200px;
+  top: -60px;
+  left: -50px;
+  width: 150px;
+  height: 150px;
   border: 2px solid var(--color-black);
   border-radius: 50% !important;
   background: var(--color-yellow);
-  opacity: 0.25;
+  opacity: 0.15;
   z-index: 0;
   pointer-events: none;
 }
 
-/* 右下角色块 + 三角组合 */
+/* 右下角色块 — 移动端缩小 */
 body::after {
   content: '';
   position: fixed;
-  bottom: -40px;
-  right: -30px;
-  width: 160px;
-  height: 160px;
+  bottom: -30px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
   border: 2px solid var(--color-black);
   background: var(--color-blue);
-  opacity: 0.18;
+  opacity: 0.12;
   z-index: 0;
   pointer-events: none;
   transform: rotate(15deg);

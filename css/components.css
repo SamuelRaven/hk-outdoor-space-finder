@@ -305,6 +305,40 @@
   transform: rotate(45deg);
 }
 
+/* 公园筛选页 — parkType & activity 专属角标 */
+.filter-btn[data-filter="parkType"]::after {
+  background: var(--color-red);
+  border-radius: 50% !important;
+}
+
+.filter-btn[data-filter="activity"]::after {
+  background: var(--color-blue);
+  width: 0;
+  height: 0;
+  border: none !important;
+  background: transparent;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+  border-bottom: 12px solid var(--color-blue) !important;
+  top: -3px;
+  right: -3px;
+}
+
+/* 徒步筛选页 — 按钮角标 */
+.filter-btn[data-filter="difficulty"]::after {
+  background: var(--color-red);
+}
+
+.filter-btn[data-filter="scenery"]::after {
+  background: var(--color-yellow);
+  border-radius: 50% !important;
+}
+
+.filter-btn[data-filter="surface"]::after {
+  background: var(--color-blue);
+  transform: rotate(45deg);
+}
+
 .filter-btn:active {
   background: var(--color-bg);
 }
@@ -586,7 +620,8 @@
 /* 公园卡片 — 包豪斯风格 */
 .park-card {
   display: flex;
-  background: var(--color-white);
+  background: rgba(255,255,255, 0.92);
+  backdrop-filter: blur(2px);
   border: var(--border-standard);
   position: relative;
   overflow: hidden;
@@ -636,6 +671,7 @@
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-black);
+  text-align: justify;
 }
 
 .park-card__region {
@@ -805,12 +841,10 @@
 }
 
 .dice-tired-page__text {
-  font-family: var(--font-display);
-  font-size: 32px;
+  font-family: var(--font-body);
+  font-size: 26px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  line-height: 1.5;
+  line-height: 1.7;
   padding: var(--space-7) var(--space-5);
   background: var(--color-white);
   border: var(--border-standard);
@@ -846,4 +880,578 @@
 .dice-tired-page__btn {
   width: 100%;
   animation: fadeInUp 0.5s ease-out 0.2s both;
+}
+
+/* ---- 徒步 GO 按钮 — 黄色主题 ---- */
+.go-btn--hike {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.go-btn--hike::after {
+  border-top-color: var(--color-red) !important;
+}
+
+/* ---- 徒步盲盒按钮 — 绿色三角主题 ---- */
+.blindbox-btn--hike {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+.blindbox-btn--hike::before {
+  background: var(--color-white);
+}
+
+/* ---- 徒步筛选按钮选中态 ---- */
+.filter-btn[data-selected="true"] {
+  border-bottom: 3px solid var(--color-yellow);
+}
+
+/* ---- 山径卡片（Trail Card） ---- */
+.trail-card {
+  display: flex;
+  background: rgba(255,255,255, 0.92);
+  backdrop-filter: blur(2px);
+  border: var(--border-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左侧色条 — 按难度着色 */
+.trail-card::before {
+  content: '';
+  width: 6px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.trail-card[data-difficulty="著波鞋就得"]::before { background: var(--color-yellow); }
+.trail-card[data-difficulty="著行山鞋穩陣D"]::before { background: var(--color-blue); }
+.trail-card[data-difficulty="著咩鞋都腳軟"]::before { background: var(--color-red); }
+
+.trail-card__body {
+  flex: 1;
+  padding: var(--space-2);
+  min-width: 0;
+}
+
+.trail-card__name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: var(--color-black);
+}
+
+.trail-card__section {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-black);
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.trail-card__meta {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+}
+
+.trail-card__stat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-black);
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.trail-card__desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-black);
+  text-align: justify;
+}
+
+.trail-card__difficulty {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border: 1px solid var(--color-black);
+  background: var(--color-white);
+}
+
+.trail-card[data-difficulty="著波鞋就得"] .trail-card__difficulty {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.trail-card[data-difficulty="著行山鞋穩陣D"] .trail-card__difficulty {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+.trail-card[data-difficulty="著咩鞋都腳軟"] .trail-card__difficulty {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+/* 山径实用提示 */
+.trail-card__tips {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: justify;
+  color: var(--color-black);
+  opacity: 0.75;
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--color-black);
+  border-top-opacity: 0.15;
+}
+
+/* ========================================
+   Bauhaus 背景装饰 — 高透明度几何图案 + 缓慢浮动动画
+   ======================================== */
+
+/* 浮动动画 — 只用 translate 避免覆盖静态 rotate，极慢极小幅度 */
+@keyframes float-slow {
+  0%, 100% { translate: 0 0; }
+  33%  { translate: 6px -4px; }
+  66%  { translate: -3px 8px; }
+}
+@keyframes float-drift {
+  0%, 100% { translate: 0 0; }
+  50%  { translate: -8px -6px; }
+}
+@keyframes float-gentle {
+  0%, 100% { translate: 0 0; }
+  25%  { translate: 4px 3px; }
+  75%  { translate: -5px -4px; }
+}
+@keyframes float-wide {
+  0%, 100% { translate: 0 0; }
+  50%  { translate: 10px -10px; }
+}
+
+.bauhaus-bg {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* 确保页面内容在装饰之上 */
+.filter-page,
+.results-page,
+.blindbox-page,
+.dice-tired-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* 给各种装饰加上不同的浮动节奏（只用 translate 不碰 rotate，和静态定位共存） */
+.bauhaus-bg__circle {
+  animation: float-slow 30s ease-in-out infinite;
+}
+.bauhaus-bg__circle--red-fill {
+  animation: float-drift 35s ease-in-out infinite;
+}
+.bauhaus-bg__circle--yellow {
+  animation: float-gentle 28s ease-in-out infinite;
+}
+.bauhaus-bg__square {
+  animation: float-wide 32s ease-in-out infinite;
+}
+.bauhaus-bg__square--blue-fill {
+  animation: float-slow 26s ease-in-out infinite 3s;
+}
+.bauhaus-bg__square--black {
+  animation: float-drift 24s ease-in-out infinite 5s;
+}
+.bauhaus-bg__triangle {
+  animation: float-gentle 34s ease-in-out infinite 2s;
+}
+.bauhaus-bg__stripe {
+  animation: float-wide 22s ease-in-out infinite 7s;
+}
+.bauhaus-bg__stripe--red {
+  animation: float-slow 25s ease-in-out infinite 4s;
+}
+.bauhaus-bg__stripe--blue {
+  animation: float-drift 20s ease-in-out infinite 6s;
+}
+.bauhaus-bg__stripe--black {
+  animation: float-gentle 27s ease-in-out infinite 8s;
+}
+.bauhaus-bg__line {
+  animation: float-wide 23s ease-in-out infinite 1s;
+}
+.bauhaus-bg__line--red {
+  animation: float-slow 29s ease-in-out infinite 3s;
+}
+.bauhaus-bg__dot,
+.bauhaus-bg__dot--red,
+.bauhaus-bg__dot--blue {
+  animation: float-gentle 18s ease-in-out infinite 2s;
+}
+.bauhaus-bg__arc {
+  animation: float-drift 31s ease-in-out infinite 5s;
+}
+.bauhaus-bg__corner {
+  animation: float-wide 33s ease-in-out infinite 9s;
+}
+.bauhaus-bg__cross {
+  animation: float-slow 21s ease-in-out infinite 4s;
+}
+
+/* ======== 形状基类 ======== */
+
+.bauhaus-bg__circle {
+  position: absolute;
+  border-radius: 50% !important;
+  border: 2px solid var(--color-red);
+  opacity: 0.07;
+}
+.bauhaus-bg__circle--red-fill {
+  position: absolute;
+  border-radius: 50% !important;
+  background: var(--color-red);
+  opacity: 0.05;
+}
+.bauhaus-bg__circle--yellow {
+  position: absolute;
+  border-radius: 50% !important;
+  border: 2px solid var(--color-yellow);
+  opacity: 0.08;
+}
+
+.bauhaus-bg__square {
+  position: absolute;
+  border: 2px solid var(--color-blue);
+  opacity: 0.07;
+}
+.bauhaus-bg__square--blue-fill {
+  position: absolute;
+  background: var(--color-blue);
+  opacity: 0.05;
+}
+.bauhaus-bg__square--black {
+  position: absolute;
+  border: 2px solid var(--color-black);
+  opacity: 0.06;
+}
+
+.bauhaus-bg__triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 60px solid var(--color-yellow);
+  opacity: 0.06;
+}
+
+.bauhaus-bg__stripe {
+  position: absolute;
+  background: var(--color-yellow);
+  opacity: 0.06;
+}
+.bauhaus-bg__stripe--red {
+  position: absolute;
+  background: var(--color-red);
+  opacity: 0.05;
+}
+.bauhaus-bg__stripe--blue {
+  position: absolute;
+  background: var(--color-blue);
+  opacity: 0.05;
+}
+.bauhaus-bg__stripe--black {
+  position: absolute;
+  background: var(--color-black);
+  opacity: 0.04;
+}
+
+.bauhaus-bg__line {
+  position: absolute;
+  background: var(--color-black);
+  opacity: 0.05;
+}
+.bauhaus-bg__line--red {
+  position: absolute;
+  background: var(--color-red);
+  opacity: 0.05;
+}
+
+.bauhaus-bg__dot {
+  position: absolute;
+  border-radius: 50% !important;
+  background: var(--color-black);
+  opacity: 0.06;
+}
+.bauhaus-bg__dot--red {
+  position: absolute;
+  border-radius: 50% !important;
+  background: var(--color-red);
+  opacity: 0.07;
+}
+.bauhaus-bg__dot--blue {
+  position: absolute;
+  border-radius: 50% !important;
+  background: var(--color-blue);
+  opacity: 0.07;
+}
+
+.bauhaus-bg__arc {
+  position: absolute;
+  border-radius: 50% !important;
+  border: 2px solid var(--color-black);
+  opacity: 0.05;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+/* 十字星 — Bauhaus 建筑感 */
+.bauhaus-bg__cross {
+  position: absolute;
+  opacity: 0.05;
+}
+.bauhaus-bg__cross::before,
+.bauhaus-bg__cross::after {
+  content: '';
+  position: absolute;
+  background: var(--color-black);
+}
+.bauhaus-bg__cross::before {
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.bauhaus-bg__cross::after {
+  height: 100%;
+  width: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* L 形角标 */
+.bauhaus-bg__corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0.06;
+  border-left: 2px solid var(--color-black);
+  border-bottom: 2px solid var(--color-black);
+}
+
+/* ======== 筛选页 — 10 个装饰元素 ======== */
+
+.filter-page .bauhaus-bg__circle:nth-child(1) {
+  width: 140px; height: 140px;
+  top: -40px; right: -40px;
+}
+.filter-page .bauhaus-bg__square:nth-child(2) {
+  width: 70px; height: 70px;
+  bottom: 80px; left: -20px;
+  transform: rotate(15deg);
+}
+.filter-page .bauhaus-bg__stripe:nth-child(3) {
+  width: 90px; height: 6px;
+  bottom: 50px; right: 30px;
+  transform: rotate(-30deg);
+}
+.filter-page .bauhaus-bg__triangle:nth-child(4) {
+  top: 40%; left: -10px;
+}
+.filter-page .bauhaus-bg__dot--blue:nth-child(5) {
+  width: 7px; height: 7px;
+  top: 18%; right: 40px;
+}
+.filter-page .bauhaus-bg__line:nth-child(6) {
+  width: 50px; height: 2px;
+  top: 55%; right: 10px;
+  transform: rotate(-20deg);
+}
+.filter-page .bauhaus-bg__corner:nth-child(7) {
+  bottom: 20px; right: 20px;
+  transform: rotate(180deg);
+}
+.filter-page .bauhaus-bg__dot--red:nth-child(8) {
+  width: 5px; height: 5px;
+  top: 60%; left: 20px;
+}
+.filter-page .bauhaus-bg__square--black:nth-child(9) {
+  width: 24px; height: 24px;
+  top: 12%; left: 30px;
+  transform: rotate(30deg);
+}
+.filter-page .bauhaus-bg__circle--yellow:nth-child(10) {
+  width: 50px; height: 50px;
+  bottom: 20%; left: -15px;
+}
+
+/* ======== 结果页 — 10 个装饰元素 ======== */
+
+.results-page .bauhaus-bg__square--blue-fill:nth-child(1) {
+  width: 100px; height: 100px;
+  top: 30px; right: -30px;
+  transform: rotate(20deg);
+}
+.results-page .bauhaus-bg__stripe:nth-child(2) {
+  width: 140px; height: 5px;
+  bottom: 35%; left: -30px;
+  transform: rotate(45deg);
+}
+.results-page .bauhaus-bg__circle--red-fill:nth-child(3) {
+  width: 120px; height: 120px;
+  bottom: -30px; right: 40px;
+}
+.results-page .bauhaus-bg__line:nth-child(4) {
+  width: 40px; height: 2px;
+  top: 20px; left: 16px;
+}
+.results-page .bauhaus-bg__cross:nth-child(5) {
+  width: 20px; height: 20px;
+  top: 50%; right: 50px;
+}
+.results-page .bauhaus-bg__dot--red:nth-child(6) {
+  width: 6px; height: 6px;
+  bottom: 20%; left: 30px;
+}
+.results-page .bauhaus-bg__stripe--black:nth-child(7) {
+  width: 60px; height: 3px;
+  top: 15%; right: 60px;
+  transform: rotate(-35deg);
+}
+.results-page .bauhaus-bg__circle--yellow:nth-child(8) {
+  width: 60px; height: 60px;
+  top: 65%; left: -20px;
+}
+.results-page .bauhaus-bg__square--black:nth-child(9) {
+  width: 18px; height: 18px;
+  bottom: 15%; right: 30px;
+  transform: rotate(40deg);
+}
+.results-page .bauhaus-bg__line--red:nth-child(10) {
+  width: 30px; height: 2px;
+  top: 70%; right: 15px;
+  transform: rotate(60deg);
+}
+
+/* ======== 盲盒页 — 8 个装饰元素 ======== */
+
+.blindbox-page .bauhaus-bg__circle:nth-child(1) {
+  width: 130px; height: 130px;
+  top: 12%; left: -50px;
+}
+.blindbox-page .bauhaus-bg__arc:nth-child(2) {
+  width: 90px; height: 90px;
+  bottom: 15%; right: -20px;
+}
+.blindbox-page .bauhaus-bg__stripe--red:nth-child(3) {
+  width: 60px; height: 3px;
+  top: 50%; right: 8px;
+  transform: rotate(-15deg);
+}
+.blindbox-page .bauhaus-bg__stripe--blue:nth-child(4) {
+  width: 40px; height: 3px;
+  top: 18%; right: 44px;
+  transform: rotate(55deg);
+}
+.blindbox-page .bauhaus-bg__dot--red:nth-child(5) {
+  width: 5px; height: 5px;
+  top: 35%; left: 30px;
+}
+.blindbox-page .bauhaus-bg__cross:nth-child(6) {
+  width: 16px; height: 16px;
+  bottom: 30%; left: 40px;
+}
+.blindbox-page .bauhaus-bg__square--black:nth-child(7) {
+  width: 20px; height: 20px;
+  top: 55%; left: 70px;
+  transform: rotate(25deg);
+}
+.blindbox-page .bauhaus-bg__circle--yellow:nth-child(8) {
+  width: 40px; height: 40px;
+  top: 8%; right: 20px;
+}
+
+/* ---- 登陆页装饰已存在于 landing__decor ---- */
+
+/* ======== 骰子累了页 — 7 个装饰元素 ======== */
+
+.dice-tired-page .bauhaus-bg__circle--red-fill:nth-child(1) {
+  width: 150px; height: 150px;
+  top: -40px; right: -40px;
+}
+.dice-tired-page .bauhaus-bg__stripe--red:nth-child(2) {
+  width: 80px; height: 3px;
+  bottom: 35%; left: -10px;
+  transform: rotate(30deg);
+}
+.dice-tired-page .bauhaus-bg__stripe--blue:nth-child(3) {
+  width: 50px; height: 3px;
+  top: 28%; right: 12px;
+  transform: rotate(-45deg);
+}
+.dice-tired-page .bauhaus-bg__dot--blue:nth-child(4) {
+  width: 6px; height: 6px;
+  top: 15%; left: 40px;
+}
+.dice-tired-page .bauhaus-bg__line:nth-child(5) {
+  width: 50px; height: 2px;
+  bottom: 25%; right: 30px;
+  transform: rotate(-25deg);
+}
+.dice-tired-page .bauhaus-bg__square--black:nth-child(6) {
+  width: 22px; height: 22px;
+  top: 45%; right: 50px;
+  transform: rotate(35deg);
+}
+.dice-tired-page .bauhaus-bg__cross:nth-child(7) {
+  width: 14px; height: 14px;
+  bottom: 20%; left: 50px;
+}
+
+/* 结果页顶部统合提示条 — 替代每张卡片重复的注意事项 */
+.results-notice {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 500;
+  text-align: justify;
+  color: var(--color-white);
+  background: var(--color-blue);
+  padding: var(--space-1) var(--space-2);
+  margin-bottom: var(--space-2);
+  border: var(--border-standard);
+}
+
+/* 动态注意事项 — 蓝底提示条（保留用于盲盒页单张卡片） */
+
+.trail-card__dynamic-note {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 500;
+  text-align: justify;
+  color: var(--color-white);
+  background: var(--color-blue);
+  padding: 6px var(--space-1);
+  margin-top: var(--space-1);
+  border: var(--border-standard);
 }

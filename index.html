@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>香港公園推薦</title>
+  <title>香港戶外空間推薦</title>
 
   <!-- Google Fonts: Josefin Sans (display) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
           <button class="btn btn-primary" data-action="parks">
             散散步吹吹風
           </button>
-          <button class="btn btn-secondary btn--coming-soon" data-action="hiking">
+          <button class="btn btn-secondary" data-action="hiking">
             徒步登山大出汗
           </button>
         </div>
@@ -49,6 +49,20 @@
     <!-- Page 2: Filters -->
     <section id="page-filter" class="page">
       <div class="filter-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__circle"></div>
+          <div class="bauhaus-bg__square"></div>
+          <div class="bauhaus-bg__stripe"></div>
+          <div class="bauhaus-bg__triangle"></div>
+          <div class="bauhaus-bg__dot--blue"></div>
+          <div class="bauhaus-bg__line"></div>
+          <div class="bauhaus-bg__corner"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+        </div>
 
         <!-- 顶部栏 -->
         <div class="filter-page__header">
@@ -101,6 +115,20 @@
     <!-- Page 3: Results -->
     <section id="page-results" class="page">
       <div class="results-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__square--blue-fill"></div>
+          <div class="bauhaus-bg__stripe"></div>
+          <div class="bauhaus-bg__circle--red-fill"></div>
+          <div class="bauhaus-bg__line"></div>
+          <div class="bauhaus-bg__cross"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__stripe--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__line--red"></div>
+        </div>
         <div class="results-page__header">
           <button class="back-btn" data-action="back">←</button>
           <h2 class="results-page__title">推薦結果</h2>
@@ -119,6 +147,18 @@
     <!-- Page 4: Blind Box -->
     <section id="page-blindbox" class="page">
       <div class="blindbox-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__circle"></div>
+          <div class="bauhaus-bg__arc"></div>
+          <div class="bauhaus-bg__stripe--red"></div>
+          <div class="bauhaus-bg__stripe--blue"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__cross"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+        </div>
         <button class="back-btn" data-action="back">←</button>
 
         <div class="blindbox-page__stage" id="bb-stage">
@@ -149,12 +189,159 @@
     <!-- Page 5: Dice Tired（骰子累了） -->
     <section id="page-dice-tired" class="page">
       <div class="dice-tired-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__circle--red-fill"></div>
+          <div class="bauhaus-bg__stripe--red"></div>
+          <div class="bauhaus-bg__stripe--blue"></div>
+          <div class="bauhaus-bg__dot--blue"></div>
+          <div class="bauhaus-bg__line"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__cross"></div>
+        </div>
         <div class="dice-tired-page__inner">
           <p class="dice-tired-page__text">骰子累了<br>暫時不想被投了~</p>
           <button class="btn btn-primary dice-tired-page__btn" data-action="tomorrow">
             請明日再來吧
           </button>
         </div>
+      </div>
+    </section>
+
+    <!-- Page 6: Hiking Filter（徒步筛选页） -->
+    <section id="page-hiking-filter" class="page">
+      <div class="filter-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__circle"></div>
+          <div class="bauhaus-bg__square"></div>
+          <div class="bauhaus-bg__stripe"></div>
+          <div class="bauhaus-bg__triangle"></div>
+          <div class="bauhaus-bg__dot--blue"></div>
+          <div class="bauhaus-bg__line"></div>
+          <div class="bauhaus-bg__corner"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+        </div>
+        <div class="filter-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="filter-page__title">行山篩選</h2>
+        </div>
+
+        <div class="filter-grid" id="hiking-filter-grid">
+          <!-- 第1行第1列 -->
+          <button class="filter-btn" data-filter="region" data-selected="">
+            <span class="filter-btn__label">地區</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第1行第2列 -->
+          <button class="filter-btn" data-filter="difficulty" data-selected="">
+            <span class="filter-btn__label">難度</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第1-2行第3列：GO! + Reset! 堆叠 -->
+          <div class="go-reset-stack">
+            <button class="go-btn go-btn--hike" data-action="go">GO!</button>
+            <button class="reset-btn" data-action="reset">Reset!</button>
+          </div>
+
+          <!-- 第2行第1列 -->
+          <button class="filter-btn" data-filter="scenery" data-selected="">
+            <span class="filter-btn__label">氛圍</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+
+          <!-- 第2行第2列 -->
+          <button class="filter-btn" data-filter="surface" data-selected="">
+            <span class="filter-btn__label">路況</span>
+            <span class="filter-btn__value">選擇</span>
+          </button>
+        </div>
+
+        <!-- 选项弹出区 -->
+        <div class="filter-options" id="hiking-filter-options"></div>
+
+        <!-- 盲盒按钮 -->
+        <button class="blindbox-btn blindbox-btn--hike" data-action="hiking-blindbox">?</button>
+      </div>
+    </section>
+
+    <!-- Page 7: Hiking Results（徒步结果页） -->
+    <section id="page-hiking-results" class="page">
+      <div class="results-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__square--blue-fill"></div>
+          <div class="bauhaus-bg__stripe"></div>
+          <div class="bauhaus-bg__circle--red-fill"></div>
+          <div class="bauhaus-bg__line"></div>
+          <div class="bauhaus-bg__cross"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__stripe--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__line--red"></div>
+        </div>
+        <div class="results-page__header">
+          <button class="back-btn" data-action="back">←</button>
+          <h2 class="results-page__title">推薦山徑</h2>
+          <span class="results-page__count" id="hiking-results-count"></span>
+        </div>
+        <!-- 根据筛选条件显示的统一安全提示 -->
+        <div class="results-notice" id="hiking-results-notice" style="display:none;"></div>
+
+        <div class="results-list" id="hiking-results-list">
+          <!-- 山径卡片由 JS 动态渲染 -->
+        </div>
+        <div class="results-page__empty" id="hiking-results-empty" style="display:none;">
+          <p>暫無匹配的山徑</p>
+          <p class="results-page__hint">試著放寬篩選條件吧～</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 8: Hiking Blind Box（徒步盲盒页） -->
+    <section id="page-hiking-blindbox" class="page">
+      <div class="blindbox-page">
+
+        <!-- Bauhaus 背景装饰 -->
+        <div class="bauhaus-bg">
+          <div class="bauhaus-bg__circle"></div>
+          <div class="bauhaus-bg__arc"></div>
+          <div class="bauhaus-bg__stripe--red"></div>
+          <div class="bauhaus-bg__stripe--blue"></div>
+          <div class="bauhaus-bg__dot--red"></div>
+          <div class="bauhaus-bg__cross"></div>
+          <div class="bauhaus-bg__square--black"></div>
+          <div class="bauhaus-bg__circle--yellow"></div>
+        </div>
+        <button class="back-btn" data-action="back">←</button>
+
+        <div class="blindbox-page__stage" id="hiking-bb-stage">
+          <p class="blindbox-page__text">命運已擲出骰子<br>你今日要行<span style="letter-spacing:0.15em;">...</span></p>
+
+          <div class="dice-cube" id="hiking-dice-cube">
+            <div class="dice-face dice-face--front">■</div>
+            <div class="dice-face dice-face--back">▲</div>
+            <div class="dice-face dice-face--top">●</div>
+            <div class="dice-face dice-face--bottom">◆</div>
+            <div class="dice-face dice-face--left">◼</div>
+            <div class="dice-face dice-face--right">⬟</div>
+          </div>
+        </div>
+
+        <div class="blindbox-page__result" id="hiking-bb-result" style="display:none;">
+        </div>
+
+        <button class="btn btn-secondary blindbox-page__retry" id="hiking-bb-retry" style="display:none;">
+          再投一次
+        </button>
       </div>
     </section>
 
@@ -168,6 +355,9 @@
   <script type="module" src="js/ui/results-page.js"></script>
   <script type="module" src="js/ui/blindbox-page.js"></script>
   <script type="module" src="js/ui/dice-tired-page.js"></script>
+  <script type="module" src="js/ui/hiking-filter.js"></script>
+  <script type="module" src="js/ui/hiking-results.js"></script>
+  <script type="module" src="js/ui/hiking-blindbox.js"></script>
 
 </body>
 </html>
