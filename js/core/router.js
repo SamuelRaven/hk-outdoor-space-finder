@@ -41,7 +41,16 @@ function handleRouteChange() {
   currentPageId = targetPageId;
 }
 
+export function getHashParam() {
+  const hash = window.location.hash;
+  const parts = hash.split('/');
+  return parts.length > 2 ? parts.slice(2).join('/') : null;
+}
+
 function hashToPageId(hash) {
+  if (hash.startsWith('#/park/'))       return 'page-park-detail';
+  if (hash.startsWith('#/trail/'))      return 'page-trail-detail';
+
   switch (hash) {
     case '#/filter':          return 'page-filter';
     case '#/results':         return 'page-results';
