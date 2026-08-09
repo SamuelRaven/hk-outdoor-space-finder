@@ -56,6 +56,14 @@ function init() {
     retryBtn.removeEventListener('click', handlers.onRetry);
   }
 
+  // ★ 卡片点击委托（在容器上统一监听）
+  resultEl.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-park-id]');
+    if (!card) return;
+    sessionStorage.setItem('detailReferrer', '#/blindbox');
+    navigate(`#/park/${card.dataset.parkId}`);
+  });
+
   // ---- 返回按钮 ----
   handlers.onBack = () => navigate('#/filter');
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
@@ -120,7 +128,7 @@ function showResult(park, container, retryBtn) {
   }
 
   container.innerHTML = `
-    <div class="park-card" data-region="${park.region}" style="cursor:pointer;">
+    <div class="park-card" data-region="${park.region}" data-park-id="${park.id}" style="cursor:pointer;">
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
         <div class="park-card__hours">${park.openingHours}</div>
@@ -129,11 +137,6 @@ function showResult(park, container, retryBtn) {
       <span class="park-card__region">${park.region}</span>
     </div>
   `;
-
-  container.querySelector('.park-card').addEventListener('click', () => {
-    sessionStorage.setItem('detailReferrer', '#/blindbox');
-    navigate(`#/park/${park.id}`);
-  });
 
   container.style.display = 'block';
   retryBtn.style.display = 'block';

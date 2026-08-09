@@ -1540,9 +1540,26 @@
   background: var(--color-white);
 }
 .detail-tag--scenery { background: var(--color-yellow); }
+.detail-tag--time { background: var(--color-yellow); }
 .detail-descs { display: flex; flex-direction: column; gap: var(--space-1); }
 .detail-desc-item {
   font-family: var(--font-body); font-size: 14px; line-height: 1.6;
+  color: var(--color-black);
+}
+/* 活动介绍卡片 */
+.detail-desc-card {
+  background: var(--color-white);
+  border: var(--border-standard);
+  padding: var(--space-2);
+}
+.detail-desc-card__act {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.detail-desc-card__text {
+  font-family: var(--font-body);
+  font-size: 14px; line-height: 1.6;
   color: var(--color-black);
 }
 

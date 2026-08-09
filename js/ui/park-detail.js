@@ -24,14 +24,25 @@ function init() {
       return;
     }
 
-    const activities = park.activityDescriptions ? Object.keys(park.activityDescriptions) : [];
-    const activityTags = activities.map(a => `<span class="detail-tag">${a}</span>`).join('');
+    // 最佳時段
+    const bestTimeTags = (park.bestTime || [])
+      .map(t => `<span class="detail-tag detail-tag--time">${t}</span>`).join('');
 
-    const descItems = park.activityDescriptions
+    // 活動標籤
+    const activities = park.activityTypes || [];
+    const activityTags = activities
+      .map(a => `<span class="detail-tag">${a}</span>`).join('');
+
+    // 各活動詳細介紹
+    const descBlocks = park.activityDescriptions
       ? Object.entries(park.activityDescriptions)
-          .map(([act, desc]) => `<div class="detail-desc-item"><b>${act}</b>：${desc}</div>`)
+          .map(([act, desc]) => `
+            <div class="detail-desc-card">
+              <div class="detail-desc-card__act">${act}</div>
+              <div class="detail-desc-card__text">${desc}</div>
+            </div>`)
           .join('')
-      : `<div class="detail-desc-item">${park.description || '暫無簡介'}</div>`;
+      : `<div class="detail-desc-card"><div class="detail-desc-card__text">${park.description || '暫無簡介'}</div></div>`;
 
     container.innerHTML = `
       <div class="detail-hero">
@@ -41,18 +52,28 @@ function init() {
           <span class="detail-badge detail-badge--type">${park.parkType || ''}</span>
         </div>
       </div>
-      <div class="detail-block">
-        <div class="detail-label">🕐 開放時間</div>
-        <div class="detail-value">${park.openingHours || '請參閱場地公告'}</div>
+
+      <div class="detail-row">
+        <div class="detail-block detail-block--half">
+          <div class="detail-label">🕐 開放時間</div>
+          <div class="detail-value detail-value--big">${park.openingHours || '-'}</div>
+        </div>
+        ${bestTimeTags ? `
+        <div class="detail-block detail-block--half">
+          <div class="detail-label">☀️ 最佳時段</div>
+          <div class="detail-tags">${bestTimeTags}</div>
+        </div>` : ''}
       </div>
+
       ${activities.length ? `
       <div class="detail-block">
         <div class="detail-label">🏷 適合活動</div>
         <div class="detail-tags">${activityTags}</div>
       </div>` : ''}
+
       <div class="detail-block">
-        <div class="detail-label">📝 介紹</div>
-        <div class="detail-descs">${descItems}</div>
+        <div class="detail-label">📝 做咩好</div>
+        <div class="detail-descs">${descBlocks}</div>
       </div>
     `;
   }
