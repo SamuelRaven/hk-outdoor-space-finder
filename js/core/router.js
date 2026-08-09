@@ -1,10 +1,5 @@
 /* ========================================
    Hash-based SPA Router
-   路由映射：
-     #/         → 首页
-     #/filter   → 筛选页
-     #/results  → 结果页
-     #/blindbox → 盲盒页
    ======================================== */
 
 const routes = new Map();
@@ -12,9 +7,6 @@ let currentPageId = null;
 
 /**
  * 注册一个页面
- * @param {string} pageId - 页面标识（对应 section id，如 'page-landing'）
- * @param {Function} initFn - 页面激活时调用
- * @param {Function} [destroyFn] - 页面离开时调用（可选）
  */
 export function register(pageId, initFn, destroyFn) {
   routes.set(pageId, { initFn, destroyFn });
@@ -22,14 +14,24 @@ export function register(pageId, initFn, destroyFn) {
 
 /**
  * 跳转到指定 hash
- * @param {string} hash - 目标 hash（如 '#/filter'）
  */
 export function navigate(hash) {
   window.location.hash = hash;
 }
 
 /**
- * 路由变化处理：隐藏旧页面 → 显示新页面 → 调用生命周期
+ * 从当前 hash 中提取参数
+ * 例: '#/park/ltp' → 'ltp', '#/trail/maclehose-s1' → 'maclehose-s1'
+ * 其他 hash 返回 null
+ */
+export function getHashParam() {
+  const hash = window.location.hash;
+  const parts = hash.split('/');
+  return parts.length > 2 ? parts.slice(2).join('/') : null;
+}
+
+/**
+ * 路由变化处理
  */
 function handleRouteChange() {
   const hash = window.location.hash || '#/';
@@ -46,7 +48,7 @@ function handleRouteChange() {
     if (oldRoute.destroyFn) oldRoute.destroyFn();
   }
 
-  // ★ 安全措施：先移除所有页面的 active 状态，防止残留
+  // 移除所有 active 状态
   document.querySelectorAll('.page--active').forEach(el => {
     el.classList.remove('page--active');
   });
@@ -63,9 +65,13 @@ function handleRouteChange() {
 }
 
 /**
- * hash → page id 映射
+ * hash → page id 映射（支持参数化路由）
  */
 function hashToPageId(hash) {
+  if (hash.startsWith('#/park/'))       return 'page-park-detail';
+  if (hash.startsWith('#/trail/'))      return 'page-trail-detail';
+  if (hash.startsWith('#/search'))      return 'page-search';
+
   switch (hash) {
     case '#/filter':          return 'page-filter';
     case '#/results':         return 'page-results';
@@ -79,11 +85,8 @@ function hashToPageId(hash) {
   }
 }
 
-// 监听浏览器 hash 变化
 window.addEventListener('hashchange', handleRouteChange);
 
-// 页面加载时触发初始路由
-// 使用 DOMContentLoaded 确保所有模块脚本已执行完毕
 if (document.readyState === 'complete') {
   handleRouteChange();
 } else {

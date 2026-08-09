@@ -73,6 +73,12 @@ function renderCards(parkList, container, filters) {
       <span class="park-card__region">${park.region}</span>
     `;
 
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('detailReferrer', '#/results');
+      navigate(`#/park/${park.id}`);
+    });
+
     container.appendChild(card);
   });
 }

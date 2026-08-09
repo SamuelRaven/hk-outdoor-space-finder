@@ -115,6 +115,12 @@ function renderCards(trailList, container) {
       <span class="trail-card__difficulty">${trail.difficulty}</span>
     `;
 
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('detailReferrer', '#/hiking-results');
+      navigate(`#/trail/${trail.id}`);
+    });
+
     container.appendChild(card);
   });
 }

@@ -18,6 +18,14 @@ function init() {
   btnHiking.addEventListener('click', () => {
     navigate('#/hiking-filter');
   });
+
+  // 按钮3：搜尋
+  const btnSearch = section.querySelector('[data-action="search"]');
+  if (btnSearch) {
+    btnSearch.addEventListener('click', () => {
+      navigate('#/search');
+    });
+  }
 }
 
 function destroy() {
