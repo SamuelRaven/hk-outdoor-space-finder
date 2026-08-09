@@ -18,6 +18,14 @@ function init() {
     navigate('#/filter');
   });
 
+  // ★ 事件委托：点击卡片 → 详情页
+  listEl.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-park-id]');
+    if (!card) return;
+    sessionStorage.setItem('detailReferrer', '#/results');
+    navigate(`#/park/${card.dataset.parkId}`);
+  });
+
   // 加载公园数据
   if (parks.length === 0) {
     fetch('js/data/parks.json')
@@ -40,7 +48,6 @@ function doMatch(listEl, countEl, emptyEl) {
   const filters = (window.__appState && window.__appState.filters) || {};
   const results = matchParks(parks, filters);
 
-  // 更新计数
   countEl.textContent = `(${results.length})`;
 
   if (results.length === 0) {
@@ -57,12 +64,12 @@ function renderCards(parkList, container, filters) {
   container.innerHTML = '';
 
   parkList.forEach(park => {
+    const desc = getParkDescription(park, filters);
+
     const card = document.createElement('div');
     card.className = 'park-card';
     card.dataset.region = park.region;
-
-    // 根据用户选择显示对应描述
-    const desc = getParkDescription(park, filters);
+    card.dataset.parkId = park.id;
 
     card.innerHTML = `
       <div class="park-card__body">
@@ -73,27 +80,18 @@ function renderCards(parkList, container, filters) {
       <span class="park-card__region">${park.region}</span>
     `;
 
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      sessionStorage.setItem('detailReferrer', '#/results');
-      navigate(`#/park/${park.id}`);
-    });
-
     container.appendChild(card);
   });
 }
 
 function getParkDescription(park, filters) {
-  // 用户选了活动类型 → 用对应描述
   if (filters.activity && park.activityDescriptions && park.activityDescriptions[filters.activity]) {
     return park.activityDescriptions[filters.activity];
   }
-  // 否则用公园类型描述（取第一个 activity 的描述作为通用描述）
   if (park.activityDescriptions) {
     const first = Object.values(park.activityDescriptions)[0];
     if (first) return first;
   }
-  // fallback
   return park.description || '';
 }
 

@@ -18,6 +18,14 @@ function init() {
     navigate('#/hiking-filter');
   });
 
+  // ★ 事件委托：点击卡片 → 详情页
+  listEl.addEventListener('click', (e) => {
+    const card = e.target.closest('[data-trail-id]');
+    if (!card) return;
+    sessionStorage.setItem('detailReferrer', '#/hiking-results');
+    navigate(`#/trail/${card.dataset.trailId}`);
+  });
+
   // 加载山径数据
   if (trails.length === 0) {
     fetch('js/data/trails.json')
@@ -40,7 +48,6 @@ function doMatch(listEl, countEl, emptyEl) {
   const filters = (window.__appState && window.__appState.hikingFilters) || {};
   const results = matchTrails(trails, filters);
 
-  // 更新计数
   countEl.textContent = `(${results.length})`;
 
   if (results.length === 0) {
@@ -51,7 +58,7 @@ function doMatch(listEl, countEl, emptyEl) {
 
   emptyEl.style.display = 'none';
 
-  // 生成页面顶部统一的动态提示（只出现一次）
+  // 统合提示
   const noticeEl = document.getElementById('hiking-results-notice');
   const noticeText = buildFilterNotice(filters);
   if (noticeEl && noticeText) {
@@ -64,7 +71,6 @@ function doMatch(listEl, countEl, emptyEl) {
   renderCards(results, listEl);
 }
 
-/** 根据用户筛选条件生成一条统合提示 */
 function buildFilterNotice(filters) {
   const parts = [];
   if (filters.difficulty === '著咩鞋都腳軟') {
@@ -87,19 +93,19 @@ function renderCards(trailList, container) {
   container.innerHTML = '';
 
   trailList.forEach(trail => {
-    const card = document.createElement('div');
-    card.className = 'trail-card';
-    card.dataset.difficulty = trail.difficulty;
-
     const sectionText = trail.trailName
       ? `${trail.trailName} — ${trail.section}`
       : trail.section;
 
-    // 只保留 trail 自带的实用贴士
     let tipsHtml = '';
     if (trail.tips) {
       tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
     }
+
+    const card = document.createElement('div');
+    card.className = 'trail-card';
+    card.dataset.difficulty = trail.difficulty;
+    card.dataset.trailId = trail.id;
 
     card.innerHTML = `
       <div class="trail-card__body">
@@ -114,12 +120,6 @@ function renderCards(trailList, container) {
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>
     `;
-
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      sessionStorage.setItem('detailReferrer', '#/hiking-results');
-      navigate(`#/trail/${trail.id}`);
-    });
 
     container.appendChild(card);
   });
