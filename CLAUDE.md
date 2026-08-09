@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-一个移动端纯网页应用，帮助用户筛选并推荐香港的户外公共空间/公园。采用包豪斯（Bauhaus）设计风格。
+一个移动端纯网页应用，帮助用户筛选并推荐香港的户外公共空间/公园及徒步山径。采用包豪斯（Bauhaus）设计风格。当前规模：108 个公园 + 106 条山径，12 个页面。
 
 ---
 
@@ -34,7 +34,10 @@
 ## 技术要点
 
 - **纯静态网页**：HTML + CSS + JS，无框架，无构建工具
-- **路由**：Hash-based SPA（`#/` `#/filter` `#/results` `#/blindbox`）
+- **路由**：Hash-based SPA（12 个页面：`#/` `#/filter` `#/results` `#/blindbox` `#/hiking-filter` `#/hiking-results` `#/hiking-blindbox` `#/park/{id}` `#/trail/{id}` `#/fav-parks` `#/fav-trails` `#/dice-tired`）
+- **入口**：`js/app.js` 统一入口（单行 `<script>` 引入所有模块）
 - **模块加载**：ES Modules（`<script type="module">`）
+- **数据**：108 公园 + 106 山径（JSON，经官方来源交叉验证）
+- **持久化**：localStorage（收藏 + 盲盒冷却计数）
 - **字体**：Google Fonts — Josefin Sans + Inter
 - **部署**：任何静态文件服务器均可
