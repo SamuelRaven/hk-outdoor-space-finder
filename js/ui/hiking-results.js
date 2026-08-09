@@ -17,14 +17,6 @@ function init() {
     navigate('#/hiking-filter');
   });
 
-  // 事件委托：点击卡片 → 详情页
-  listEl.addEventListener('click', (e) => {
-    const card = e.target.closest('[data-trail-id]');
-    if (!card) return;
-    sessionStorage.setItem('detailReferrer', '#/hiking-results');
-    navigate(`#/trail/${card.dataset.trailId}`);
-  });
-
   if (trails.length === 0) {
     fetch('js/data/trails.json')
       .then(r => r.json())
@@ -102,7 +94,7 @@ function renderCards(trailList, container) {
     const card = document.createElement('div');
     card.className = 'trail-card';
     card.dataset.difficulty = trail.difficulty;
-    card.dataset.trailId = trail.id;
+    card.style.cursor = 'pointer';
 
     card.innerHTML = `
       <div class="trail-card__body">
@@ -117,6 +109,11 @@ function renderCards(trailList, container) {
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>
     `;
+
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('detailReferrer', '#/hiking-results');
+      navigate(`#/trail/${trail.id}`);
+    });
 
     container.appendChild(card);
   });

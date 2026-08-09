@@ -17,14 +17,6 @@ function init() {
     navigate('#/filter');
   });
 
-  // 事件委托：点击卡片 → 详情页
-  listEl.addEventListener('click', (e) => {
-    const card = e.target.closest('[data-park-id]');
-    if (!card) return;
-    sessionStorage.setItem('detailReferrer', '#/results');
-    navigate(`#/park/${card.dataset.parkId}`);
-  });
-
   if (parks.length === 0) {
     fetch('js/data/parks.json')
       .then(r => r.json())
@@ -67,7 +59,7 @@ function renderCards(parkList, container, filters) {
     const card = document.createElement('div');
     card.className = 'park-card';
     card.dataset.region = park.region;
-    card.dataset.parkId = park.id;
+    card.style.cursor = 'pointer';
 
     card.innerHTML = `
       <div class="park-card__body">
@@ -77,6 +69,11 @@ function renderCards(parkList, container, filters) {
       </div>
       <span class="park-card__region">${park.region}</span>
     `;
+
+    card.addEventListener('click', () => {
+      sessionStorage.setItem('detailReferrer', '#/results');
+      navigate(`#/park/${park.id}`);
+    });
 
     container.appendChild(card);
   });

@@ -126,7 +126,7 @@ function showResult(trail, container, retryBtn) {
     : '';
 
   container.innerHTML = `
-    <div class="trail-card" data-difficulty="${trail.difficulty}">
+    <div class="trail-card" data-difficulty="${trail.difficulty}" style="cursor:pointer;">
       <div class="trail-card__body">
         <div class="trail-card__name">${trail.nameZh}</div>
         <div class="trail-card__section">${sectionText}</div>
@@ -141,6 +141,11 @@ function showResult(trail, container, retryBtn) {
       <span class="trail-card__difficulty">${trail.difficulty}</span>
     </div>
   `;
+
+  container.querySelector('.trail-card').addEventListener('click', () => {
+    sessionStorage.setItem('detailReferrer', '#/hiking-blindbox');
+    navigate(`#/trail/${trail.id}`);
+  });
 
   container.style.display = 'block';
   retryBtn.style.display = 'block';
