@@ -38,6 +38,9 @@ function handleRouteChange() {
   }
   newRoute.initFn();
 
+  // 切换到新页面时重置滚动位置到顶部
+  window.scrollTo(0, 0);
+
   currentPageId = targetPageId;
 }
 
