@@ -13,20 +13,10 @@ function init() {
   const countEl = document.getElementById('hiking-results-count');
   const emptyEl = document.getElementById('hiking-results-empty');
 
-  // 返回按钮
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
     navigate('#/hiking-filter');
   });
 
-  // ★ 事件委托：点击卡片 → 详情页
-  listEl.addEventListener('click', (e) => {
-    const card = e.target.closest('[data-trail-id]');
-    if (!card) return;
-    sessionStorage.setItem('detailReferrer', '#/hiking-results');
-    navigate(`#/trail/${card.dataset.trailId}`);
-  });
-
-  // 加载山径数据
   if (trails.length === 0) {
     fetch('js/data/trails.json')
       .then(r => r.json())
@@ -58,7 +48,6 @@ function doMatch(listEl, countEl, emptyEl) {
 
   emptyEl.style.display = 'none';
 
-  // 统合提示
   const noticeEl = document.getElementById('hiking-results-notice');
   const noticeText = buildFilterNotice(filters);
   if (noticeEl && noticeText) {
@@ -105,7 +94,6 @@ function renderCards(trailList, container) {
     const card = document.createElement('div');
     card.className = 'trail-card';
     card.dataset.difficulty = trail.difficulty;
-    card.dataset.trailId = trail.id;
 
     card.innerHTML = `
       <div class="trail-card__body">
@@ -125,8 +113,6 @@ function renderCards(trailList, container) {
   });
 }
 
-function destroy() {
-  // 清理
-}
+function destroy() {}
 
 register('page-hiking-results', init, destroy);
