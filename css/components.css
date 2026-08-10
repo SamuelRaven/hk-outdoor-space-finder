@@ -899,6 +899,22 @@
   margin: var(--space-4) auto;
 }
 
+/* 公园再投一次 — 黄底黑字 + 红色方块装饰 */
+#bb-retry {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+#bb-retry::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-red);
+  border: var(--border-standard) !important;
+}
+
 /* ---- 骰子累了页面 ---- */
 .dice-tired-page {
   display: flex;
