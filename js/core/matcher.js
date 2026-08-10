@@ -22,5 +22,5 @@ export function matchParks(parks, filters) {
     results.push(park);
   }
 
-  return results.slice(0, 10);
+  return results;  // 返回全部匹配结果，翻页在 UI 层控制
 }

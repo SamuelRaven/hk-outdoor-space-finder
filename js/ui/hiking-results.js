@@ -12,6 +12,8 @@ let originalOrder = null;    // 默认排序（匹配器返回的原始顺序）
 let distanceOrder = null;    // 距离排序结果
 let isDistanceSort = false;  // 当前是否按距离排序
 let userCoords = null;       // 缓存用户位置
+let currentPage = 1;         // 当前页码
+const PAGE_SIZE = 10;
 
 function init() {
   const section = document.getElementById('page-hiking-results');
@@ -19,10 +21,12 @@ function init() {
   const countEl = document.getElementById('hiking-results-count');
   const emptyEl = document.getElementById('hiking-results-empty');
   const sortBtn = document.getElementById('trail-sort-distance');
+  const pgnEl = document.getElementById('hiking-pagination');
 
-  // 每次进入页面重置排序状态
+  // 每次进入页面重置排序状态和页码
   isDistanceSort = false;
   distanceOrder = null;
+  currentPage = 1;
   updateSortButton(sortBtn, false);
 
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
@@ -31,23 +35,29 @@ function init() {
     distanceOrder = null;
     isDistanceSort = false;
     userCoords = null;
+    currentPage = 1;
     navigate('#/hiking-filter');
   });
 
   // 距离排序按钮
   if (sortBtn) {
-    sortBtn.addEventListener('click', () => handleSortClick(sortBtn, listEl, countEl));
+    sortBtn.addEventListener('click', () => handleSortClick(sortBtn, listEl, countEl, pgnEl));
   }
 
   // 从详情页返回 → 恢复缓存结果
   if (cachedResults) {
-    const { results, filters } = cachedResults;
-    countEl.textContent = `(${results.length})`;
+    const { allResults, filters } = cachedResults;
+    countEl.textContent = `(${allResults.length})`;
     emptyEl.style.display = 'none';
-    originalOrder = results;
+    originalOrder = allResults;
     showNotice(filters);
-    renderCards(results, listEl);
-    if (sortBtn) sortBtn.style.display = results.length > 0 ? '' : 'none';
+    if (isDistanceSort && distanceOrder) {
+      renderCards(distanceOrder.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE), listEl);
+    } else {
+      renderCards(allResults.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE), listEl);
+    }
+    renderPagination(allResults.length, pgnEl, listEl, countEl, sortBtn);
+    if (sortBtn) sortBtn.style.display = allResults.length > 0 ? '' : 'none';
     return;
   }
 
@@ -56,7 +66,7 @@ function init() {
       .then(r => r.json())
       .then(data => {
         trails = data;
-        doMatch(listEl, countEl, emptyEl, sortBtn);
+        doMatch(listEl, countEl, emptyEl, sortBtn, pgnEl);
       })
       .catch(err => {
         console.error('加载 trails.json 失败:', err);
@@ -64,24 +74,26 @@ function init() {
         emptyEl.style.display = 'block';
       });
   } else {
-    doMatch(listEl, countEl, emptyEl, sortBtn);
+    doMatch(listEl, countEl, emptyEl, sortBtn, pgnEl);
   }
 }
 
-function doMatch(listEl, countEl, emptyEl, sortBtn) {
+function doMatch(listEl, countEl, emptyEl, sortBtn, pgnEl) {
   const filters = (window.__appState && window.__appState.hikingFilters)
     || (() => { try { const s = sessionStorage.getItem('trailFilters'); return s ? JSON.parse(s) : {}; } catch { return {}; } })();
-  const results = matchTrails(trails, filters);
+  const allResults = matchTrails(trails, filters);
 
-  cachedResults = { results, filters };
-  originalOrder = results;
+  cachedResults = { allResults, filters };
+  originalOrder = allResults;
   isDistanceSort = false;
+  currentPage = 1;
   updateSortButton(sortBtn, false);
 
-  countEl.textContent = `(${results.length})`;
+  countEl.textContent = `(${allResults.length})`;
 
-  if (results.length === 0) {
+  if (allResults.length === 0) {
     listEl.innerHTML = '';
+    if (pgnEl) pgnEl.innerHTML = '';
     emptyEl.style.display = 'block';
     if (sortBtn) sortBtn.style.display = 'none';
     return;
@@ -90,31 +102,34 @@ function doMatch(listEl, countEl, emptyEl, sortBtn) {
   emptyEl.style.display = 'none';
   if (sortBtn) sortBtn.style.display = '';
   showNotice(filters);
-  renderCards(results, listEl);
+  const pageItems = allResults.slice(0, PAGE_SIZE);
+  renderCards(pageItems, listEl);
+  renderPagination(allResults.length, pgnEl, listEl, countEl, sortBtn);
 }
 
-async function handleSortClick(sortBtn, listEl, countEl) {
+async function handleSortClick(sortBtn, listEl, countEl, pgnEl) {
   if (isDistanceSort) {
-    // 取消距离排序 → 恢复默认顺序
     isDistanceSort = false;
+    currentPage = 1;
     updateSortButton(sortBtn, false);
-    renderCards(originalOrder, listEl);
+    renderCards(originalOrder.slice(0, PAGE_SIZE), listEl);
+    renderPagination(originalOrder.length, pgnEl, listEl, countEl, sortBtn);
     const toast = await import('./toast.js?v=4');
     toast.showToast('已取消按距離排序');
     return;
   }
 
-  // 如果已有缓存的距离排序结果，直接切换
   if (distanceOrder) {
     isDistanceSort = true;
+    currentPage = 1;
     updateSortButton(sortBtn, true);
-    renderCards(distanceOrder, listEl);
+    renderCards(distanceOrder.slice(0, PAGE_SIZE), listEl);
+    renderPagination(distanceOrder.length, pgnEl, listEl, countEl, sortBtn);
     const toast = await import('./toast.js?v=4');
     toast.showToast('已按距離排序');
     return;
   }
 
-  // 获取用户位置（每次都重新请求，不缓存失败）
   const geoResult = await getUserPosition();
   if (!geoResult.coords) {
     const toast = await import('./toast.js?v=4');
@@ -123,14 +138,72 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   }
   userCoords = geoResult.coords;
 
-  // 按距离排序
   distanceOrder = sortByDistance(originalOrder, userCoords.lat, userCoords.lng);
   isDistanceSort = true;
+  currentPage = 1;
   updateSortButton(sortBtn, true);
-  renderCards(distanceOrder, listEl);
+  renderCards(distanceOrder.slice(0, PAGE_SIZE), listEl);
+  renderPagination(distanceOrder.length, pgnEl, listEl, countEl, sortBtn);
 
   const toast = await import('./toast.js?v=4');
   toast.showToast('已按距離排序');
+}
+
+function getActiveList() {
+  return isDistanceSort ? (distanceOrder || originalOrder) : originalOrder;
+}
+
+function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
+  if (!container) return;
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+  if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+  const build = (page) => {
+    currentPage = page;
+    const list = getActiveList();
+    const items = list.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
+    renderCards(items, listEl);
+    listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    renderPagination(totalItems, container, listEl, countEl, sortBtn);
+  };
+
+  let html = '';
+  html += `<button class="pgn-btn" ${currentPage===1?'disabled':''} title="首頁">◀</button>`;
+  html += `<button class="pgn-btn" ${currentPage===1?'disabled':''} title="上一頁">←</button>`;
+
+  html += '<span class="pgn-pages">';
+  if (totalPages <= 5) {
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="pgn-num${i===currentPage?' pgn-num--active':''}">${i}</button>`;
+    }
+  } else {
+    html += `<button class="pgn-num${1===currentPage?' pgn-num--active':''}">1</button>`;
+    if (currentPage > 3) html += '<span class="pgn-ellipsis">…</span>';
+    for (let i = Math.max(2, currentPage-1); i <= Math.min(totalPages-1, currentPage+1); i++) {
+      html += `<button class="pgn-num${i===currentPage?' pgn-num--active':''}">${i}</button>`;
+    }
+    if (currentPage < totalPages-2) html += '<span class="pgn-ellipsis">…</span>';
+    html += `<button class="pgn-num${totalPages===currentPage?' pgn-num--active':''}">${totalPages}</button>`;
+  }
+  html += '</span>';
+
+  html += `<button class="pgn-btn" ${currentPage===totalPages?'disabled':''} title="下一頁">→</button>`;
+  html += `<button class="pgn-btn" ${currentPage===totalPages?'disabled':''} title="尾頁">▶</button>`;
+
+  container.innerHTML = html;
+
+  const children = container.querySelectorAll('.pgn-btn, .pgn-num');
+  children.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.textContent;
+      if (t === '◀') { build(1); return; }
+      if (t === '←') { if (currentPage > 1) build(currentPage-1); return; }
+      if (t === '→') { if (currentPage < totalPages) build(currentPage+1); return; }
+      if (t === '▶') { build(totalPages); return; }
+      const n = parseInt(t);
+      if (n >= 1 && n <= totalPages) build(n);
+    });
+  });
 }
 
 function updateSortButton(btn, active) {
