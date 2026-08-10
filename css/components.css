@@ -755,14 +755,15 @@
   font-size: 14px;
   transition: background 0.15s, color 0.15s;
 }
-/* 箭头 — 纯三角形无框 */
+/* 箭头 — 纯三角形无框，包豪斯配色 */
 .pgn-arrow {
   background: none;
   border: none;
-  color: var(--color-black);
-  opacity: 0.8;
-  transition: opacity 0.15s;
+  opacity: 0.85;
+  transition: opacity 0.15s, color 0.15s;
 }
+.pgn-arrow--left  { color: var(--color-red); }
+.pgn-arrow--right { color: var(--color-blue); }
 .pgn-arrow:hover { opacity: 1; }
 .pgn-num:hover { background: var(--color-yellow); }
 .pgn-num:active { background: var(--color-black); color: var(--color-white); }

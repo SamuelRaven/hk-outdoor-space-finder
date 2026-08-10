@@ -73,8 +73,8 @@ function init() {
     }
 
     const sectionText = trail.trailName
-      ? `${trail.trailName} — ${trail.section}`
-      : trail.section;
+      ? `${trail.trailName}${trail.section ? ' — ' + trail.section : ''}`
+      : (trail.section || '');
 
     const sceneryTags = (trail.scenery || [])
       .map(s => `<span class="detail-tag detail-tag--scenery">${s}</span>`)

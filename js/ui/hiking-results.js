@@ -23,11 +23,14 @@ function init() {
   const sortBtn = document.getElementById('trail-sort-distance');
   const pgnEl = document.getElementById('hiking-pagination');
 
-  // 每次进入页面重置排序状态和页码
-  isDistanceSort = false;
-  distanceOrder = null;
-  currentPage = 1;
-  updateSortButton(sortBtn, false);
+  // 每次从筛选页进入时重置排序状态（从详情页返回不重置）
+  const isReturnFromDetail = !!cachedResults;
+  if (!isReturnFromDetail) {
+    isDistanceSort = false;
+    distanceOrder = null;
+    currentPage = 1;
+  }
+  updateSortButton(sortBtn, isDistanceSort);
 
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
     cachedResults = null;
@@ -169,7 +172,7 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   };
 
   let html = '';
-  html += `<button class="pgn-arrow" ${currentPage===1?'disabled':''} title="上一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="14,0 0,8 14,16" fill="currentColor"/></svg></button>`;
+  html += `<button class="pgn-arrow pgn-arrow--left" ${currentPage===1?'disabled':''} title="上一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="14,0 0,8 14,16" fill="currentColor"/></svg></button>`;
 
   html += '<span class="pgn-pages">';
   if (totalPages <= 5) {
@@ -187,7 +190,7 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   }
   html += '</span>';
 
-  html += `<button class="pgn-arrow" ${currentPage===totalPages?'disabled':''} title="下一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="0,0 14,8 0,16" fill="currentColor"/></svg></button>`;
+  html += `<button class="pgn-arrow pgn-arrow--right" ${currentPage===totalPages?'disabled':''} title="下一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="0,0 14,8 0,16" fill="currentColor"/></svg></button>`;
 
   container.innerHTML = html;
 
@@ -251,8 +254,8 @@ function renderCards(trailList, container) {
 
   trailList.forEach(trail => {
     const sectionText = trail.trailName
-      ? `${trail.trailName} — ${trail.section}`
-      : trail.section;
+      ? `${trail.trailName}${trail.section ? ' — ' + trail.section : ''}`
+      : (trail.section || '');
 
     let tipsHtml = '';
     if (trail.tips) {
