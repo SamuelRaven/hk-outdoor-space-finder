@@ -17,23 +17,42 @@ export function calcDistance(lat1, lng1, lat2, lng2) {
 }
 
 /**
- * 獲取用戶位置（每次調用都重新請求，不緩存失敗結果）
+ * 檢查瀏覽器定位權限狀態
+ * @returns {Promise<'granted'|'denied'|'prompt'|'unknown'>}
+ */
+async function checkPermission() {
+  if (!navigator.permissions) return 'unknown';
+  try {
+    const status = await navigator.permissions.query({ name: 'geolocation' });
+    return status.state;
+  } catch {
+    return 'unknown';
+  }
+}
+
+/**
+ * 獲取用戶位置（每次調用都重新請求）
  * @returns {Promise<{coords: {lat:number,lng:number}|null, error: string|null}>}
  */
-export function getUserPosition() {
+export async function getUserPosition() {
+  if (!navigator.geolocation) {
+    return { coords: null, error: 'unsupported' };
+  }
+
+  // 先用 Permissions API 檢查當前狀態
+  const perm = await checkPermission();
+  if (perm === 'denied') {
+    // 瀏覽器層級已拒絕 → 用戶需要去設定中手動開啟
+    return { coords: null, error: 'denied' };
+  }
+
   return new Promise((resolve) => {
-    if (!navigator.geolocation) {
-      resolve({ coords: null, error: 'unsupported' });
-      return;
-    }
     navigator.geolocation.getCurrentPosition(
       pos => resolve({ coords: { lat: pos.coords.latitude, lng: pos.coords.longitude }, error: null }),
       (err) => {
-        // code 1 = PERMISSION_DENIED, 2 = POSITION_UNAVAILABLE, 3 = TIMEOUT
-        const error = err.code === 1 ? 'denied' : 'unavailable';
-        resolve({ coords: null, error });
+        resolve({ coords: null, error: err.code === 1 ? 'denied' : 'unavailable' });
       },
-      { enableHighAccuracy: false, timeout: 8000 }
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     );
   });
 }
