@@ -1,43 +1,31 @@
 /* ========================================
-   Share — 分享工具 (Web Share API + clipboard fallback)
+   Share — 分享工具 (Web Share API)
    ======================================== */
 
-/**
- * 检测是否为微信内置浏览器
- * 微信的 navigator.share 行为异常，需要走 clipboard fallback
- */
 function isWeChat() {
   return /MicroMessenger/i.test(navigator.userAgent);
 }
 
 /**
- * 分享内容（优先 Web Share API，失败则复制链接）
- * 微信环境直接走剪贴板
+ * 分享内容
  * @param {{ title: string, text: string, url: string }} opts
- * @returns {Promise<'shared'|'copied'|'failed'>}
+ * @returns {Promise<'shared'|'cancelled'|'wechat'|'failed'>}
  */
 export async function shareItem({ title, text, url }) {
   // 微信环境不支持
   if (isWeChat()) return 'wechat';
 
-  // Web Share API — 移动端原生分享面板
+  // Web Share API
   if (navigator.share) {
     try {
       await navigator.share({ title, text, url });
       return 'shared';
     } catch (err) {
-      // 用户取消不算错误，继续走 fallback
       if (err.name === 'AbortError') return 'cancelled';
     }
   }
 
-  // Fallback: 复制链接到剪贴板
-  try {
-    await navigator.clipboard.writeText(text + '\n' + url);
-    return 'copied';
-  } catch {
-    return 'failed';
-  }
+  return 'failed';
 }
 
 /**

@@ -2,9 +2,9 @@
    Hiking Results Page — 山径推荐结果
    ======================================== */
 
-import { navigate, register } from '../core/router.js?v=3';
-import { matchTrails } from '../core/trail-matcher.js?v=3';
-import { getUserPosition, sortByDistance } from '../core/geo.js?v=3';
+import { navigate, register } from '../core/router.js?v=4';
+import { matchTrails } from '../core/trail-matcher.js?v=4';
+import { getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 
 let trails = [];
 let cachedResults = null;    // 从详情页返回时恢复用
@@ -69,7 +69,8 @@ function init() {
 }
 
 function doMatch(listEl, countEl, emptyEl, sortBtn) {
-  const filters = (window.__appState && window.__appState.hikingFilters) || {};
+  const filters = (window.__appState && window.__appState.hikingFilters)
+    || (() => { try { const s = sessionStorage.getItem('trailFilters'); return s ? JSON.parse(s) : {}; } catch { return {}; } })();
   const results = matchTrails(trails, filters);
 
   cachedResults = { results, filters };
@@ -98,7 +99,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
     isDistanceSort = false;
     updateSortButton(sortBtn, false);
     renderCards(originalOrder, listEl);
-    const toast = await import('./toast.js?v=3');
+    const toast = await import('./toast.js?v=4');
     toast.showToast('已取消按距離排序');
     return;
   }
@@ -108,7 +109,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
     isDistanceSort = true;
     updateSortButton(sortBtn, true);
     renderCards(distanceOrder, listEl);
-    const toast = await import('./toast.js?v=3');
+    const toast = await import('./toast.js?v=4');
     toast.showToast('已按距離排序');
     return;
   }
@@ -116,7 +117,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   // 获取用户位置（每次都重新请求，不缓存失败）
   const geoResult = await getUserPosition();
   if (!geoResult.coords) {
-    const toast = await import('./toast.js?v=3');
+    const toast = await import('./toast.js?v=4');
     toast.showToast('請允許瀏覽器使用定位權限');
     return;
   }
@@ -128,7 +129,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   updateSortButton(sortBtn, true);
   renderCards(distanceOrder, listEl);
 
-  const toast = await import('./toast.js?v=3');
+  const toast = await import('./toast.js?v=4');
   toast.showToast('已按距離排序');
 }
 

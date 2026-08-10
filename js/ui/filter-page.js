@@ -3,7 +3,7 @@
    状态机管理四个筛选器 + GO + 盲盒
    ======================================== */
 
-import { navigate, register } from '../core/router.js';
+import { navigate, register } from '../core/router.js?v=4';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];
@@ -59,6 +59,7 @@ function init() {
     }
     window.__appState = window.__appState || {};
     window.__appState.filters = { ...state };
+    sessionStorage.setItem('parkFilters', JSON.stringify(state));
     navigate('#/results');
   });
 

@@ -16,6 +16,10 @@ export function calcDistance(lat1, lng1, lat2, lng2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+function isWeChat() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
 /**
  * 檢查瀏覽器定位權限狀態
  * @returns {Promise<'granted'|'denied'|'prompt'|'unknown'>}
@@ -35,14 +39,17 @@ async function checkPermission() {
  * @returns {Promise<{coords: {lat:number,lng:number}|null, error: string|null}>}
  */
 export async function getUserPosition() {
+  // 微信内置浏览器不支持标准 Geolocation API
+  if (isWeChat()) {
+    return { coords: null, error: 'wechat' };
+  }
+
   if (!navigator.geolocation) {
     return { coords: null, error: 'unsupported' };
   }
 
-  // 先用 Permissions API 檢查當前狀態
   const perm = await checkPermission();
   if (perm === 'denied') {
-    // 瀏覽器層級已拒絕 → 用戶需要去設定中手動開啟
     return { coords: null, error: 'denied' };
   }
 
