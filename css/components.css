@@ -419,7 +419,7 @@
 .reset-btn {
   flex: 1;
   min-width: 72px;
-  background: #D4726A;  /* 柔和砖红，不刺眼 */
+  background: var(--color-blue);
   color: var(--color-white);
   border: var(--border-standard);
   font-family: var(--font-display);
@@ -449,6 +449,11 @@
 
 .reset-btn:active {
   background: var(--color-bg);
+}
+
+/* 山径筛选页 Reset! — 包豪斯经典红 */
+#page-hiking-filter .reset-btn {
+  background: var(--color-red);
 }
 
 /* 选项弹出区 */
