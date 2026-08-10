@@ -117,10 +117,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   const geoResult = await getUserPosition();
   if (!geoResult.coords) {
     const toast = await import('./toast.js');
-    const msg = geoResult.error === 'denied'
-      ? '請在瀏覽器設定中允許本網站使用定位 📍'
-      : '請開啟手機定位後再試 📍';
-    toast.showToast(msg, 3000);
+    toast.showToast('請打開手機定位\n並允許瀏覽器使用定位權限 刷新即可', 3500);
     return;
   }
   userCoords = geoResult.coords;

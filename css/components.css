@@ -93,7 +93,8 @@
   transition: opacity 0.3s;
   pointer-events: none;
   z-index: 1000;
-  white-space: nowrap;
+  white-space: pre-line;
+  text-align: center;
 }
 
 /* Toast 装饰 — 左侧蓝色方块 + 右下红色小方 */
