@@ -419,7 +419,7 @@
 .reset-btn {
   flex: 1;
   min-width: 72px;
-  background: var(--color-blue);
+  background: #D4726A;  /* 柔和砖红，不刺眼 */
   color: var(--color-white);
   border: var(--border-standard);
   font-family: var(--font-display);
