@@ -168,7 +168,6 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   };
 
   let html = '';
-  html += `<button class="pgn-btn" ${currentPage===1?'disabled':''} title="首頁">◀</button>`;
   html += `<button class="pgn-btn" ${currentPage===1?'disabled':''} title="上一頁">←</button>`;
 
   html += '<span class="pgn-pages">';
@@ -188,7 +187,6 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   html += '</span>';
 
   html += `<button class="pgn-btn" ${currentPage===totalPages?'disabled':''} title="下一頁">→</button>`;
-  html += `<button class="pgn-btn" ${currentPage===totalPages?'disabled':''} title="尾頁">▶</button>`;
 
   container.innerHTML = html;
 
@@ -196,10 +194,8 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   children.forEach(btn => {
     btn.addEventListener('click', () => {
       const t = btn.textContent;
-      if (t === '◀') { build(1); return; }
       if (t === '←') { if (currentPage > 1) build(currentPage-1); return; }
       if (t === '→') { if (currentPage < totalPages) build(currentPage+1); return; }
-      if (t === '▶') { build(totalPages); return; }
       const n = parseInt(t);
       if (n >= 1 && n <= totalPages) build(n);
     });
