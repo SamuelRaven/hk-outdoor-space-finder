@@ -740,24 +740,34 @@
   margin-top: var(--space-3);
   padding-bottom: var(--space-3);
 }
-.pgn-btn,
+.pgn-arrow,
 .pgn-num {
   width: 36px; height: 36px;
   display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+/* 页码 — 方形包豪斯按钮 */
+.pgn-num {
   background: var(--color-white);
   border: 2px solid var(--color-black);
   font-family: var(--font-mono);
   font-size: 14px;
-  cursor: pointer;
   transition: background 0.15s, color 0.15s;
-  padding: 0;
 }
-.pgn-btn:hover,
+/* 箭头 — 纯三角形无框 */
+.pgn-arrow {
+  background: none;
+  border: none;
+  color: var(--color-black);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+.pgn-arrow:hover { opacity: 1; }
 .pgn-num:hover { background: var(--color-yellow); }
-.pgn-btn:active,
 .pgn-num:active { background: var(--color-black); color: var(--color-white); }
 .pgn-num--active { background: var(--color-black); color: var(--color-white); }
-.pgn-btn[disabled] { opacity: 0.2; cursor: default; pointer-events: none; }
+.pgn-arrow[disabled] { opacity: 0.15; cursor: default; pointer-events: none; }
 .pgn-pages { display: flex; gap: 4px; }
 .pgn-ellipsis {
   width: 36px; height: 36px;

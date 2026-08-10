@@ -170,14 +170,15 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
     const list = getActiveList();
     const items = list.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
     renderCards(items, listEl, cachedResults.filters);
-    // scroll to top of results
-    listEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // scroll to top of page
+    const pageEl = document.getElementById('page-results');
+    if (pageEl) pageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     // re-render pagination
     renderPagination(totalItems, container, listEl, countEl, sortBtn);
   };
 
   let html = '';
-  html += `<button class="pgn-btn" ${currentPage===1?'disabled':''} title="上一頁">←</button>`;
+  html += `<button class="pgn-arrow" ${currentPage===1?'disabled':''} title="上一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="14,0 0,8 14,16" fill="currentColor"/></svg></button>`;
 
   // page numbers with ellipsis
   html += '<span class="pgn-pages">';
@@ -196,20 +197,19 @@ function renderPagination(totalItems, container, listEl, countEl, sortBtn) {
   }
   html += '</span>';
 
-  html += `<button class="pgn-btn" ${currentPage===totalPages?'disabled':''} title="下一頁">→</button>`;
+  html += `<button class="pgn-arrow" ${currentPage===totalPages?'disabled':''} title="下一頁"><svg width="14" height="16" viewBox="0 0 14 16"><polygon points="0,0 14,8 0,16" fill="currentColor"/></svg></button>`;
 
   container.innerHTML = html;
 
   // bind events
-  const children = container.querySelectorAll('.pgn-btn, .pgn-num');
-  const texts = [];
-  children.forEach(c => texts.push(c.textContent));
-  children.forEach((btn, idx) => {
+  container.querySelectorAll('.pgn-arrow, .pgn-num').forEach(btn => {
     btn.addEventListener('click', () => {
-      const t = btn.textContent;
-      if (t === '←') { if (currentPage > 1) build(currentPage-1); return; }
-      if (t === '→') { if (currentPage < totalPages) build(currentPage+1); return; }
-      const n = parseInt(t);
+      if (btn.classList.contains('pgn-arrow')) {
+        if (btn.title === '上一頁' && currentPage > 1) build(currentPage-1);
+        else if (btn.title === '下一頁' && currentPage < totalPages) build(currentPage+1);
+        return;
+      }
+      const n = parseInt(btn.textContent);
       if (n >= 1 && n <= totalPages) build(n);
     });
   });
