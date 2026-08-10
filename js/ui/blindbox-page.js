@@ -137,6 +137,27 @@ function roll(diceEl, stageEl, resultEl, retryBtn) {
   }, 1300);
 }
 
+function buildDiceNote(park) {
+  // 简单 hash 取 variant
+  const h = park.id.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+  if (park.parkType === '海濱長廊') {
+    const p = ['海風吹拂的步道，黃昏時分最迷人～', '沿海散步總能讓人心情平靜下來～', '記得帶件薄外套，海邊風大但很舒服～'];
+    return p[h % p.length];
+  } else if (park.parkType === '市區公園') {
+    const p = ['鬧市中的綠洲，放工過來行個圈剛剛好～', '交通超方便，隨時都可以來歇歇～', '城市裡的後花園，忙裡偷閒的最佳選擇～'];
+    return p[h % p.length];
+  } else if (park.parkType === '郊野綠地') {
+    const p = ['遠離塵囂的好去處，預留半天慢慢探索～', '山林中的寧靜角落，記得帶水和小食～', '大自然的懷抱，深呼吸放鬆身心～'];
+    return p[h % p.length];
+  } else if (park.parkType === '主題園林') {
+    const p = ['每個角落都有設計巧思，慢慢走用心看～', '園林一步一景，手機記得充滿電～', '精緻的景觀設計，像走進一幅山水畫～'];
+    return p[h % p.length];
+  }
+  // 休憩花園
+  const p = ['小巧安靜的角落，帶本書來坐坐很愜意～', '社區中的秘密花園，獨處放空的好地方～', '麻雀雖小五臟俱全，短暫休息剛剛好～'];
+  return p[h % p.length];
+}
+
 function showResult(park, container, retryBtn) {
   cachedPark = park;  // ★ 缓存，供详情页返回时恢复
 
@@ -148,12 +169,18 @@ function showResult(park, container, retryBtn) {
     }
   }
 
+  const diceNote = buildDiceNote(park);
+  const diceNoteHtml = diceNote
+    ? `<div class="park-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
+    : '';
+
   container.innerHTML = `
     <div class="park-card" data-region="${park.region}" data-park-id="${park.id}" style="cursor:pointer;">
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
         <div class="park-card__hours">${park.openingHours}</div>
         <div class="park-card__desc">${desc}</div>
+        ${diceNoteHtml}
       </div>
       <span class="park-card__region">${park.region}</span>
     </div>

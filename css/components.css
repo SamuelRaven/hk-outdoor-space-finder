@@ -1578,6 +1578,20 @@
 
 /* 动态注意事项 — 蓝底提示条（保留用于盲盒页单张卡片） */
 
+/* 公园盲盒骰子提示 */
+.park-card__dynamic-note {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.6;
+  font-weight: 500;
+  text-align: justify;
+  color: var(--color-white);
+  background: var(--color-red);
+  padding: 6px var(--space-1);
+  margin-top: var(--space-1);
+  border: var(--border-standard);
+}
+
 .trail-card__dynamic-note {
   font-family: var(--font-body);
   font-size: 12px;
