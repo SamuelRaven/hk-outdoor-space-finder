@@ -17,8 +17,11 @@ function isWeChat() {
  * @returns {Promise<'shared'|'copied'|'failed'>}
  */
 export async function shareItem({ title, text, url }) {
-  // Web Share API — 移动端原生分享面板（微信除外，其实现有 bug）
-  if (navigator.share && !isWeChat()) {
+  // 微信环境不支持
+  if (isWeChat()) return 'wechat';
+
+  // Web Share API — 移动端原生分享面板
+  if (navigator.share) {
     try {
       await navigator.share({ title, text, url });
       return 'shared';

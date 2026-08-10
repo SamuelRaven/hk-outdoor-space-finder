@@ -2,9 +2,9 @@
    Trail Detail Page
    ======================================== */
 
-import { navigate, register, getHashParam } from '../core/router.js?v=2';
-import { isFavorite, toggleFavorite } from '../core/favorites.js?v=2';
-import { shareItem, getTrailShareText } from '../core/share.js?v=2';
+import { navigate, register, getHashParam } from '../core/router.js?v=3';
+import { isFavorite, toggleFavorite } from '../core/favorites.js?v=3';
+import { shareItem, getTrailShareText } from '../core/share.js?v=3';
 
 let trails = [];
 let handlers = {};
@@ -45,7 +45,7 @@ function init() {
     const nowFav = toggleFavorite('trail', trailId);
     updateStar(favBtn, nowFav);
     const msg = nowFav ? '★ 已收藏' : '☆ 已取消收藏';
-    const toast = await import('./toast.js?v=2');
+    const toast = await import('./toast.js?v=3');
     toast.showToast(msg);
   };
   favBtn.addEventListener('click', handlers.onFav);
@@ -54,8 +54,8 @@ function init() {
     const trail = trails.find(t => t.id === trailId);
     if (!trail) return;
     const result = await shareItem(getTrailShareText(trail));
-    const toast = await import('./toast.js?v=2');
-    if (result === 'shared') toast.showToast('已分享 ✉️');
+    const toast = await import('./toast.js?v=3');
+    if (result === 'wechat') toast.showToast('暫不支持微信分享');
     else if (result === 'copied') toast.showToast('連結已複製！發給朋友吧 📋');
   };
   shareBtn.addEventListener('click', handlers.onShare);

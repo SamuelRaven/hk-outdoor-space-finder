@@ -2,9 +2,9 @@
    Results Page — 公园推荐结果
    ======================================== */
 
-import { navigate, register } from '../core/router.js?v=2';
-import { matchParks } from '../core/matcher.js?v=2';
-import { getUserPosition, sortByDistance } from '../core/geo.js?v=2';
+import { navigate, register } from '../core/router.js?v=3';
+import { matchParks } from '../core/matcher.js?v=3';
+import { getUserPosition, sortByDistance } from '../core/geo.js?v=3';
 
 let parks = [];
 let cachedResults = null;    // 从详情页返回时恢复用
@@ -95,7 +95,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
     isDistanceSort = false;
     updateSortButton(sortBtn, false);
     renderCards(originalOrder, listEl, cachedResults.filters);
-    const toast = await import('./toast.js?v=2');
+    const toast = await import('./toast.js?v=3');
     toast.showToast('已取消按距離排序');
     return;
   }
@@ -105,7 +105,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
     isDistanceSort = true;
     updateSortButton(sortBtn, true);
     renderCards(distanceOrder, listEl, cachedResults.filters);
-    const toast = await import('./toast.js?v=2');
+    const toast = await import('./toast.js?v=3');
     toast.showToast('已按距離排序');
     return;
   }
@@ -113,8 +113,8 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   // 获取用户位置（每次都重新请求，不缓存失败）
   const geoResult = await getUserPosition();
   if (!geoResult.coords) {
-    const toast = await import('./toast.js?v=2');
-    toast.showToast('請打開手機定位<br>並允許瀏覽器使用定位權限 刷新即可', 3500);
+    const toast = await import('./toast.js?v=3');
+    toast.showToast('請允許瀏覽器使用定位權限');
     return;
   }
   userCoords = geoResult.coords;
@@ -125,7 +125,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   updateSortButton(sortBtn, true);
   renderCards(distanceOrder, listEl, cachedResults.filters);
 
-  const toast = await import('./toast.js?v=2');
+  const toast = await import('./toast.js?v=3');
   toast.showToast('已按距離排序');
 }
 
