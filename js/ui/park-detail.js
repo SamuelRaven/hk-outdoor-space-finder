@@ -56,7 +56,7 @@ function init() {
     const result = await shareItem(getParkShareText(park));
     const toast = await import('./toast.js?v=4');
     if (result === 'wechat') toast.showToast('暫不支持微信分享');
-    else if (result === 'shared') toast.showToast('已分享');
+    else if (result === 'shared') toast.showToast('已分享', 2500);
   };
   shareBtn.addEventListener('click', handlers.onShare);
 

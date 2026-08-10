@@ -17,41 +17,21 @@ export function calcDistance(lat1, lng1, lat2, lng2) {
 }
 
 /**
- * 檢查瀏覽器定位權限狀態
- * @returns {Promise<'granted'|'denied'|'prompt'|'unknown'>}
- */
-async function checkPermission() {
-  if (!navigator.permissions) return 'unknown';
-  try {
-    const status = await navigator.permissions.query({ name: 'geolocation' });
-    return status.state;
-  } catch {
-    return 'unknown';
-  }
-}
-
-/**
  * 獲取用戶位置（每次調用都重新請求）
  * @returns {Promise<{coords: {lat:number,lng:number}|null, error: string|null}>}
  */
-export async function getUserPosition() {
-  if (!navigator.geolocation) {
-    return { coords: null, error: 'unsupported' };
-  }
-
-  // Permissions API 预检（不支持时跳过，不阻断）
-  const perm = await checkPermission();
-  if (perm === 'denied') {
-    return { coords: null, error: 'denied' };
-  }
-
+export function getUserPosition() {
   return new Promise((resolve) => {
+    if (!navigator.geolocation) {
+      resolve({ coords: null, error: 'unsupported' });
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
       pos => resolve({ coords: { lat: pos.coords.latitude, lng: pos.coords.longitude }, error: null }),
       (err) => {
         resolve({ coords: null, error: err.code === 1 ? 'denied' : 'unavailable' });
       },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      { enableHighAccuracy: false, timeout: 10000 }
     );
   });
 }
