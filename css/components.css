@@ -911,20 +911,6 @@
   animation: fadeInUp 0.5s ease-out 0.2s both;
 }
 
-.dice-tired-page__reset {
-  display: block;
-  margin: var(--space-2) auto 0;
-  background: none;
-  border: none;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-black);
-  opacity: 0.3;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.dice-tired-page__reset:active { opacity: 0.6; }
-
 /* ---- 徒步 GO 按钮 — 黄色主题 ---- */
 .go-btn--hike {
   background: var(--color-yellow);
