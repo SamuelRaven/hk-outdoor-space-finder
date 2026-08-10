@@ -108,7 +108,7 @@ function init() {
 
   // ---- 首次加载 & 开投 ----
   if (trails.length === 0) {
-    fetch('js/data/trails.json')
+    fetch('js/data/trails.json?v=2')
       .then(r => r.json())
       .then(data => {
         trails = data;

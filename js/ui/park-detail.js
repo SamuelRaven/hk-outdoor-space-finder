@@ -155,7 +155,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json').then(r => r.json()).then(data => {
+    fetch('js/data/parks.json?v=2').then(r => r.json()).then(data => {
       parks = data;
       render(parks.find(p => p.id === parkId));
     });
