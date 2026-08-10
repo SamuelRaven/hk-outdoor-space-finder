@@ -39,7 +39,7 @@ export function getParkShareText(park) {
   return {
     title: `🌿 ${park.nameZh}`,
     text: [`${park.region} · ${park.district}`, sub].filter(Boolean).join('\n'),
-    url: buildShareUrl(`#/park/${park.id}`),
+    url: buildShareUrl(`share/park/${park.id}.html`),
   };
 }
 
@@ -56,7 +56,7 @@ export function getTrailShareText(trail) {
       `${trail.difficulty} · ${trail.lengthKm}km`,
       desc,
     ].filter(Boolean).join('\n'),
-    url: buildShareUrl(`#/trail/${trail.id}`),
+    url: buildShareUrl(`share/trail/${trail.id}.html`),
   };
 }
 
