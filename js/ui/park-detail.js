@@ -191,7 +191,6 @@ function buildParkCrowd(park) {
 // ---- 公園特色 (優先使用真實數據，無則同義改寫池推導) ----
 function buildParkFeatures(park) {
   if (park.features && park.features.trim()) return park.features;
-  if (park.description && park.description.trim()) return park.description;
   const type = park.parkType || '';
   const acts = park.activityTypes || [];
   const hi = ph(park.id, 1, 4); // 0..3
