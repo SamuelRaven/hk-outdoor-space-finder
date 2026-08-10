@@ -59,10 +59,15 @@ function init() {
       renderCards(allResults.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE), listEl, cachedResults.filters);
     }
     renderPagination(allResults.length, pgnEl, listEl, countEl, sortBtn);
-    // 恢复离开时的滚动位置
+    // 恢复离开时的滚动位置（双帧 rAF 确保布局完成）
     const savedScroll = sessionStorage.getItem('resultsScrollY');
     if (savedScroll) {
-      setTimeout(() => { window.scrollTo(0, parseInt(savedScroll)); sessionStorage.removeItem('resultsScrollY'); }, 0);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, parseInt(savedScroll));
+          sessionStorage.removeItem('resultsScrollY');
+        });
+      });
     }
     return;
   }

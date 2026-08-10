@@ -63,7 +63,12 @@ function init() {
     if (sortBtn) sortBtn.style.display = allResults.length > 0 ? '' : 'none';
     const savedScroll = sessionStorage.getItem('hikingScrollY');
     if (savedScroll) {
-      setTimeout(() => { window.scrollTo(0, parseInt(savedScroll)); sessionStorage.removeItem('hikingScrollY'); }, 0);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, parseInt(savedScroll));
+          sessionStorage.removeItem('hikingScrollY');
+        });
+      });
     }
     return;
   }
