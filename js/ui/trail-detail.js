@@ -4,6 +4,7 @@
 
 import { navigate, register, getHashParam } from '../core/router.js';
 import { isFavorite, toggleFavorite } from '../core/favorites.js';
+import { shareItem, getTrailShareText } from '../core/share.js';
 
 let trails = [];
 let handlers = {};
@@ -14,14 +15,31 @@ function init() {
   const container = document.getElementById('trail-detail-content');
   const header = section.querySelector('.detail-page__header');
 
-  let favBtn = header.querySelector('.fav-star');
+  // 创建操作按钮容器（收藏 + 分享）
+  let actions = header.querySelector('.detail-actions');
+  if (!actions) {
+    actions = document.createElement('div');
+    actions.className = 'detail-actions';
+    header.appendChild(actions);
+  }
+
+  let favBtn = actions.querySelector('.fav-star');
   if (!favBtn) {
     favBtn = document.createElement('button');
     favBtn.className = 'fav-star';
     favBtn.setAttribute('aria-label', '收藏');
-    header.appendChild(favBtn);
+    actions.appendChild(favBtn);
   }
   updateStar(favBtn, isFavorite('trail', trailId));
+
+  let shareBtn = actions.querySelector('.share-btn');
+  if (!shareBtn) {
+    shareBtn = document.createElement('button');
+    shareBtn.className = 'share-btn';
+    shareBtn.setAttribute('aria-label', '分享');
+    shareBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22,12 L1,4 L8,12 L1,20 Z"/><line x1="22" y1="12" x2="8" y2="12"/></svg>';
+    actions.appendChild(shareBtn);
+  }
 
   handlers.onFav = async () => {
     const nowFav = toggleFavorite('trail', trailId);
@@ -31,6 +49,16 @@ function init() {
     toast.showToast(msg);
   };
   favBtn.addEventListener('click', handlers.onFav);
+
+  handlers.onShare = async () => {
+    const trail = trails.find(t => t.id === trailId);
+    if (!trail) return;
+    const result = await shareItem(getTrailShareText(trail));
+    const toast = await import('./toast.js');
+    if (result === 'shared') toast.showToast('已分享 ✉️');
+    else if (result === 'copied') toast.showToast('連結已複製！發給朋友吧 📋');
+  };
+  shareBtn.addEventListener('click', handlers.onShare);
 
   handlers.onBack = () => {
     const ref = sessionStorage.getItem('detailReferrer');
@@ -328,6 +356,10 @@ function destroy() {
   if (section && handlers.onFav) {
     const favBtn = section.querySelector('.fav-star');
     if (favBtn) favBtn.removeEventListener('click', handlers.onFav);
+  }
+  if (section && handlers.onShare) {
+    const shareBtn = section.querySelector('.share-btn');
+    if (shareBtn) shareBtn.removeEventListener('click', handlers.onShare);
   }
   handlers = {};
 }

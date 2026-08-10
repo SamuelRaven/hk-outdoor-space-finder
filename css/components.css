@@ -607,6 +607,33 @@
   opacity: 0.5;
 }
 
+/* 距离排序 — 三原色圆点横排 (SVG) */
+.sort-distance {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sort-distance__icon {
+  display: block;
+}
+
+.sort-distance__c {
+  transition: transform 0.3s ease;
+}
+
+.sort-distance__c--red   { fill: var(--color-red);   stroke: var(--color-black); stroke-width: 1.5; }
+.sort-distance__c--yellow{ fill: var(--color-yellow); stroke: var(--color-black); stroke-width: 1.5; }
+.sort-distance__c--blue  { fill: var(--color-blue);  stroke: var(--color-black); stroke-width: 1.5; }
+
+/* 激活：红蓝对调 (translateX) */
+.sort-distance--active .sort-distance__c--red   { transform: translateX(28px); }
+.sort-distance--active .sort-distance__c--blue  { transform: translateX(-28px); }
+
 /* 卡片列表 */
 .results-list {
   display: flex;
@@ -1545,9 +1572,17 @@
   padding: var(--space-2) var(--space-2) 0;
 }
 
-/* 收藏星星 — 详情页右上角 */
-.fav-star {
+/* 操作按钮容器（收藏 + 分享） — 详情页右上角 */
+.detail-actions {
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 收藏星星 */
+.fav-star {
   background: none;
   border: none;
   font-size: 28px;
@@ -1561,6 +1596,22 @@
 .fav-star[data-active="true"] {
   color: var(--color-yellow);
   -webkit-text-stroke: 1px var(--color-black);
+}
+
+/* 分享按钮 */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
+}
+
+.share-btn:active {
+  transform: scale(0.9);
 }
 .detail-page__title {
   font-family: var(--font-display); font-size: 20px; font-weight: 700;

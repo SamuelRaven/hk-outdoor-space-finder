@@ -4,27 +4,48 @@
 
 import { navigate, register } from '../core/router.js';
 import { matchParks } from '../core/matcher.js';
+import { getUserPosition, sortByDistance } from '../core/geo.js';
 
 let parks = [];
-let cachedResults = null;  // 从详情页返回时恢复用
+let cachedResults = null;    // 从详情页返回时恢复用
+let originalOrder = null;    // 默认排序（匹配器返回的原始顺序）
+let distanceOrder = null;    // 距离排序结果
+let isDistanceSort = false;  // 当前是否按距离排序
+let userCoords = null;       // 缓存用户位置
 
 function init() {
   const section = document.getElementById('page-results');
   const listEl = document.getElementById('results-list');
   const countEl = document.getElementById('results-count');
   const emptyEl = document.getElementById('results-empty');
+  const sortBtn = document.getElementById('park-sort-distance');
+
+  // 每次进入页面重置排序状态
+  isDistanceSort = false;
+  distanceOrder = null;
+  updateSortButton(sortBtn, false);
 
   section.querySelector('[data-action="back"]').addEventListener('click', () => {
     cachedResults = null;
+    originalOrder = null;
+    distanceOrder = null;
+    isDistanceSort = false;
+    userCoords = null;
     navigate('#/filter');
   });
 
-  // 从详情页返回 → 恢复缓存结果，不重新匹配
+  // 距离排序按钮
+  if (sortBtn) {
+    sortBtn.addEventListener('click', () => handleSortClick(sortBtn, listEl, countEl));
+  }
+
+  // 从详情页返回 → 恢复缓存结果
   if (cachedResults) {
-    const { results, filters } = cachedResults;
+    const { results } = cachedResults;
     countEl.textContent = `(${results.length})`;
     emptyEl.style.display = 'none';
-    renderCards(results, listEl, filters);
+    originalOrder = results;
+    renderCards(results, listEl, cachedResults.filters);
     return;
   }
 
@@ -33,7 +54,7 @@ function init() {
       .then(r => r.json())
       .then(data => {
         parks = data;
-        doMatch(listEl, countEl, emptyEl);
+        doMatch(listEl, countEl, emptyEl, sortBtn);
       })
       .catch(err => {
         console.error('加载 parks.json 失败:', err);
@@ -41,27 +62,86 @@ function init() {
         emptyEl.style.display = 'block';
       });
   } else {
-    doMatch(listEl, countEl, emptyEl);
+    doMatch(listEl, countEl, emptyEl, sortBtn);
   }
 }
 
-function doMatch(listEl, countEl, emptyEl) {
+function doMatch(listEl, countEl, emptyEl, sortBtn) {
   const filters = (window.__appState && window.__appState.filters) || {};
   const results = matchParks(parks, filters);
 
-  // 快取结果
   cachedResults = { results, filters };
+  originalOrder = results;
+  isDistanceSort = false;
+  updateSortButton(sortBtn, false);
 
   countEl.textContent = `(${results.length})`;
 
   if (results.length === 0) {
     listEl.innerHTML = '';
     emptyEl.style.display = 'block';
+    if (sortBtn) sortBtn.style.display = 'none';
     return;
   }
 
   emptyEl.style.display = 'none';
+  if (sortBtn) sortBtn.style.display = '';
   renderCards(results, listEl, filters);
+}
+
+async function handleSortClick(sortBtn, listEl, countEl) {
+  if (isDistanceSort) {
+    // 取消距离排序 → 恢复默认顺序
+    isDistanceSort = false;
+    updateSortButton(sortBtn, false);
+    renderCards(originalOrder, listEl, cachedResults.filters);
+    const toast = await import('./toast.js');
+    toast.showToast('已取消按距離排序');
+    return;
+  }
+
+  // 如果已有缓存的距离排序结果，直接切换
+  if (distanceOrder) {
+    isDistanceSort = true;
+    updateSortButton(sortBtn, true);
+    renderCards(distanceOrder, listEl, cachedResults.filters);
+    const toast = await import('./toast.js');
+    toast.showToast('已按距離排序');
+    return;
+  }
+
+  // 获取用户位置
+  if (!userCoords) {
+    userCoords = await getUserPosition();
+  }
+
+  if (!userCoords) {
+    const toast = await import('./toast.js');
+    toast.showToast('請開啟手機定位後再試 📍', 3000);
+    return;
+  }
+
+  // 按距离排序
+  distanceOrder = sortByDistance(originalOrder, userCoords.lat, userCoords.lng);
+  isDistanceSort = true;
+  updateSortButton(sortBtn, true);
+  renderCards(distanceOrder, listEl, cachedResults.filters);
+
+  const toast = await import('./toast.js');
+  toast.showToast('已按距離排序');
+}
+
+function updateSortButton(btn, active) {
+  if (!btn) return;
+  if (active) {
+    btn.classList.add('sort-distance--active');
+    btn.setAttribute('aria-label', '取消距離排序');
+    btn.title = '取消按距離排序';
+  } else {
+    btn.classList.remove('sort-distance--active');
+    btn.setAttribute('aria-label', '按距離排序');
+    btn.title = '按距離排序';
+  }
 }
 
 function renderCards(parkList, container, filters) {

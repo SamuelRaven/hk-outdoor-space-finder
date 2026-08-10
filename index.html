@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>香港戶外空間推薦</title>
 
+  <!-- Open Graph — 分享連結時預覽卡片 -->
+  <meta property="og:title" content="香港戶外空間推薦">
+  <meta property="og:description" content="101 個公園 + 105 條山徑，幫你揀最啱嘅戶外好去處">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_HK">
+
   <!-- Google Fonts: Josefin Sans (display) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +20,7 @@
   <link rel="stylesheet" href="css/bauhaus-tokens.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/components.css?v=7">
 </head>
 <body>
 
@@ -135,6 +141,13 @@
         <div class="results-page__header">
           <button class="back-btn" data-action="back">←</button>
           <h2 class="results-page__title">最啱你嘅公園</h2>
+          <button class="sort-distance" id="park-sort-distance" aria-label="按距離排序" title="按距離排序">
+            <svg width="42" height="14" viewBox="0 0 42 14" class="sort-distance__icon">
+              <circle cx="7" cy="7" r="5" class="sort-distance__c sort-distance__c--red"/>
+              <circle cx="21" cy="7" r="5" class="sort-distance__c sort-distance__c--yellow"/>
+              <circle cx="35" cy="7" r="5" class="sort-distance__c sort-distance__c--blue"/>
+            </svg>
+          </button>
           <span class="results-page__count" id="results-count"></span>
         </div>
         <div class="results-list" id="results-list">
@@ -300,6 +313,13 @@
         <div class="results-page__header">
           <button class="back-btn" data-action="back">←</button>
           <h2 class="results-page__title">今日行呢度</h2>
+          <button class="sort-distance" id="trail-sort-distance" aria-label="按距離排序" title="按距離排序">
+            <svg width="42" height="14" viewBox="0 0 42 14" class="sort-distance__icon">
+              <circle cx="7" cy="7" r="5" class="sort-distance__c sort-distance__c--red"/>
+              <circle cx="21" cy="7" r="5" class="sort-distance__c sort-distance__c--yellow"/>
+              <circle cx="35" cy="7" r="5" class="sort-distance__c sort-distance__c--blue"/>
+            </svg>
+          </button>
           <span class="results-page__count" id="hiking-results-count"></span>
         </div>
         <!-- 根据筛选条件显示的统一安全提示 -->

@@ -1,0 +1,1463 @@
+{
+  "generatedAt": "2026-08-10T05:02:58.630Z",
+  "source": "photon.komoot.io (OpenStreetMap)",
+  "parks": {
+    "hkp": {
+      "lat": 22.277418,
+      "lng": 114.1615078,
+      "name": "香港公園 Hong Kong Park",
+      "osmType": "leisure/park"
+    },
+    "hkzbg": {
+      "lat": 22.2776022,
+      "lng": 114.1564006,
+      "name": "香港動植物公園 Hong Kong Zoological & Botanical Garden",
+      "osmType": "tourism/zoo"
+    },
+    "smp": {
+      "lat": 22.2897428,
+      "lng": 114.1450767,
+      "name": "中山紀念公園 Sun Yat Sen Memorial Park",
+      "osmType": "leisure/park"
+    },
+    "tamar": {
+      "lat": 22.2810194,
+      "lng": 114.1654279,
+      "name": "添馬公園 Tamar Park",
+      "osmType": "leisure/park"
+    },
+    "hrp": {
+      "lat": 22.2858808,
+      "lng": 114.1477084,
+      "name": "荷李活道公園 Hollywood Road Park",
+      "osmType": "leisure/park"
+    },
+    "blake": {
+      "lat": 22.284354,
+      "lng": 114.1481257,
+      "name": "卜公花園 Blake Garden",
+      "osmType": "leisure/park"
+    },
+    "chater": {
+      "lat": 22.2804896,
+      "lng": 114.1612582,
+      "name": "遮打花園 Chater Garden",
+      "osmType": "leisure/garden"
+    },
+    "bbp": {
+      "lat": 22.2849993,
+      "lng": 114.1303542,
+      "name": "卑路乍灣公園 Belcher Bay Park",
+      "osmType": "leisure/park"
+    },
+    "vpg": {
+      "lat": 22.2737556,
+      "lng": 114.1442481,
+      "name": "山頂公園 Victoria Peak Garden",
+      "osmType": "leisure/park"
+    },
+    "cwdpr": {
+      "lat": 22.2898278,
+      "lng": 114.1371431,
+      "name": "中西區海濱長廊-西區副食品批發市場段 Central and Western District Promenade - Western Wholesale Food Market Section",
+      "osmType": "leisure/park"
+    },
+    "vip": {
+      "lat": 22.2824022,
+      "lng": 114.1887806,
+      "name": "維多利亞公園 Victoria Park",
+      "osmType": "leisure/park"
+    },
+    "wcp": {
+      "lat": 22.2755479,
+      "lng": 114.1760591,
+      "name": "灣仔公園 Wan Chai Park",
+      "osmType": "leisure/park"
+    },
+    "bowen": {
+      "lat": 22.2726402,
+      "lng": 114.1658574,
+      "name": "寶雲道花園 Bowen Road Garden",
+      "osmType": "leisure/park"
+    },
+    "southorn": {
+      "lat": 22.2768525,
+      "lng": 114.1721897,
+      "name": "修頓遊樂場 Southorn Playground",
+      "osmType": "leisure/sports_centre"
+    },
+    "hbrg": {
+      "lat": 22.280468,
+      "lng": 114.1754685,
+      "name": "港灣道花園 Harbour Road Garden",
+      "osmType": "leisure/garden"
+    },
+    "cwp": {
+      "lat": 22.2672211,
+      "lng": 114.2384414,
+      "name": "柴灣公園 Chai Wan Park",
+      "osmType": "leisure/park"
+    },
+    "qb": {
+      "lat": 22.2885683,
+      "lng": 114.2156007,
+      "name": "鰂魚涌公園 Quarry Bay Park",
+      "osmType": "leisure/park"
+    },
+    "abp": {
+      "lat": 22.2827395,
+      "lng": 114.2249283,
+      "name": "愛秩序灣公園 Aldrich Bay Park",
+      "osmType": "leisure/park"
+    },
+    "cswp": {
+      "lat": 22.2865852,
+      "lng": 114.2009185,
+      "name": "賽西湖公園 Choi Sai Woo Park",
+      "osmType": "leisure/park"
+    },
+    "aberdeen": {
+      "lat": 22.2473273,
+      "lng": 114.1542196,
+      "name": "香港仔海濱公園 Aberdeen Promenade",
+      "osmType": "leisure/park"
+    },
+    "aplc": {
+      "lat": 22.2449241,
+      "lng": 114.1579521,
+      "name": "鴨脷洲公園 Ap Lei Chau Park",
+      "osmType": "leisure/park"
+    },
+    "wtp": {
+      "lat": 22.2448765,
+      "lng": 114.1526803,
+      "name": "鴨脷洲風之塔公園 Ap Lei Chau Wind Tower Park",
+      "osmType": "leisure/park"
+    },
+    "wfbp": {
+      "lat": 22.2507693,
+      "lng": 114.134753,
+      "name": "瀑布灣公園 Waterfall Bay Park",
+      "osmType": "leisure/park"
+    },
+    "cyber": {
+      "lat": 22.2576468,
+      "lng": 114.1309376,
+      "name": "數碼港海濱公園 Cyberport Waterfront Park",
+      "osmType": "leisure/park"
+    },
+    "chk": {
+      "lat": 22.2108583,
+      "lng": 114.197936,
+      "name": "舂坎角公園 Chung Hom Kok Park",
+      "osmType": "leisure/park"
+    },
+    "smhp": {
+      "lat": 22.2179517,
+      "lng": 114.2081918,
+      "name": "赤柱馬坑公園 Stanley Ma Hang Park",
+      "osmType": "leisure/park"
+    },
+    "klp": {
+      "lat": 22.3005333,
+      "lng": 114.1701152,
+      "name": "九龍公園 Kowloon Park",
+      "osmType": "leisure/park"
+    },
+    "cherry": {
+      "lat": 22.3153831,
+      "lng": 114.1661323,
+      "name": "櫻桃街公園 Cherry Street Park",
+      "osmType": "leisure/park"
+    },
+    "sghill": {
+      "lat": 22.2961461,
+      "lng": 114.1746354,
+      "name": "訊號山花園 Signal Hill Garden",
+      "osmType": "leisure/garden"
+    },
+    "tstep": {
+      "lat": 22.2963843,
+      "lng": 114.1759179,
+      "name": "尖沙咀東海濱平台花園 Tsim Sha Tsui East Waterfront Podium Garden",
+      "osmType": "leisure/park"
+    },
+    "uc": {
+      "lat": 22.3044867,
+      "lng": 114.1796935,
+      "name": "香港理工大學 The Hong Kong Polytechnic University",
+      "osmType": "amenity/university"
+    },
+    "kpp": {
+      "lat": 22.3107469,
+      "lng": 114.1736556,
+      "name": "京士柏遊樂場 King's Park Recreation Ground",
+      "osmType": "leisure/park"
+    },
+    "wkcd": {
+      "lat": 22.3044867,
+      "lng": 114.1796935,
+      "name": "香港理工大學 The Hong Kong Polytechnic University",
+      "osmType": "amenity/university"
+    },
+    "lck": {
+      "lat": 22.3363278,
+      "lng": 114.1364395,
+      "name": "荔枝角公園 Lai Chi Kok Park",
+      "osmType": "leisure/park"
+    },
+    "ncp": {
+      "lat": 22.3238346,
+      "lng": 114.1574153,
+      "name": "南昌公園 Nam Cheong Park",
+      "osmType": "leisure/park"
+    },
+    "skmp": {
+      "lat": 22.336531,
+      "lng": 114.1698863,
+      "name": "石硤尾公園 Shek Kip Mei Park",
+      "osmType": "leisure/park"
+    },
+    "tcs": {
+      "lat": 22.3263702,
+      "lng": 114.159403,
+      "name": "通州街公園 Tung Chau Street Park",
+      "osmType": "leisure/park"
+    },
+    "sspp": {
+      "lat": 22.3307054,
+      "lng": 114.156184,
+      "name": "深水埗公園 Sham Shui Po Park",
+      "osmType": "leisure/park"
+    },
+    "fhp": {
+      "lat": 22.3279201,
+      "lng": 114.1743072,
+      "name": "花墟公園 Fa Hui Park",
+      "osmType": "leisure/park"
+    },
+    "kwt": {
+      "lat": 22.3321294,
+      "lng": 114.1902445,
+      "name": "九龍寨城公園 Kowloon Walled City Park",
+      "osmType": "leisure/park"
+    },
+    "kltp": {
+      "lat": 22.3322413,
+      "lng": 114.1838666,
+      "name": "九龍仔公園 Kowloon Tsai Park",
+      "osmType": "leisure/park"
+    },
+    "ktct": {
+      "lat": 22.3301595,
+      "lng": 114.1899368,
+      "name": "九龍城 Kowloon City",
+      "osmType": "place/suburb"
+    },
+    "ktrp": {
+      "lat": 22.3098266,
+      "lng": 114.213271,
+      "name": "啟德跑道公園碼頭 Runway Park Pier",
+      "osmType": "man_made/pier"
+    },
+    "cdap": {
+      "lat": 22.3204914,
+      "lng": 114.1912101,
+      "name": "牛棚藝術公園 Cattle Depot Art Park",
+      "osmType": "leisure/park"
+    },
+    "crp": {
+      "lat": 22.3314949,
+      "lng": 114.188506,
+      "name": "賈炳達道公園 Carpenter Road Park",
+      "osmType": "leisure/park"
+    },
+    "hsp": {
+      "lat": 22.3140797,
+      "lng": 114.1916997,
+      "name": "海心公園 Hoi Sham Park",
+      "osmType": "leisure/park"
+    },
+    "hutp": {
+      "lat": 22.3076523,
+      "lng": 114.1909644,
+      "name": "和黃公園 Hutchison Park",
+      "osmType": "leisure/park"
+    },
+    "ksrp": {
+      "lat": 22.3140516,
+      "lng": 114.1858256,
+      "name": "高山道公園 Ko Shan Road Park",
+      "osmType": "leisure/park"
+    },
+    "mp": {
+      "lat": 22.3399743,
+      "lng": 114.1894546,
+      "name": "摩士公園 Morse Park",
+      "osmType": "highway/bus_stop"
+    },
+    "ncwp": {
+      "lat": 22.3356986,
+      "lng": 114.2152517,
+      "name": "牛池灣公園 Ngau Chi Wan Park",
+      "osmType": "leisure/park"
+    },
+    "pkvrp": {
+      "lat": 22.3442665,
+      "lng": 114.2033392,
+      "name": "蒲崗村道公園 Po Kong Village Road Park",
+      "osmType": "leisure/park"
+    },
+    "lrp": {
+      "lat": 22.3452529,
+      "lng": 114.1830763,
+      "name": "獅子山公園 Lion Rock Park",
+      "osmType": "leisure/park"
+    },
+    "nl": {
+      "lat": 22.3393548,
+      "lng": 114.2048532,
+      "name": "南蓮園池 Nan Lian Garden",
+      "osmType": "leisure/garden"
+    },
+    "ftp": {
+      "lat": 22.3426608,
+      "lng": 114.1978852,
+      "name": "鳳德公園 Fung Tak Park",
+      "osmType": "leisure/park"
+    },
+    "hhp": {
+      "lat": 22.3397438,
+      "lng": 114.2060681,
+      "name": "斧山公園 Hammer Hill Park",
+      "osmType": "leisure/park"
+    },
+    "jvp": {
+      "lat": 22.3294667,
+      "lng": 114.2206958,
+      "name": "佐敦谷公園 Jordan Valley Park",
+      "osmType": "leisure/park"
+    },
+    "ktp": {
+      "lat": 22.3122878,
+      "lng": 114.2173693,
+      "name": "觀塘海濱花園 Kwun Tong Promenade",
+      "osmType": "leisure/park"
+    },
+    "ntkp": {
+      "lat": 22.3226747,
+      "lng": 114.2152658,
+      "name": "牛頭角公園 Ngau Tau Kok Park",
+      "osmType": "leisure/park"
+    },
+    "laguna": {
+      "lat": 22.3068569,
+      "lng": 114.2260818,
+      "name": "麗港公園 Laguna Park",
+      "osmType": "leisure/park"
+    },
+    "ltp": {
+      "lat": 22.3108729,
+      "lng": 114.2403327,
+      "name": "藍田公園 Lam Tin Park",
+      "osmType": "leisure/park"
+    },
+    "klbp": {
+      "lat": 22.3269378,
+      "lng": 114.207139,
+      "name": "九龍灣公園 Kowloon Bay Park",
+      "osmType": "leisure/park"
+    },
+    "cklwp": {
+      "lat": 22.3054134,
+      "lng": 114.2238576,
+      "name": "茶果嶺海濱公園  Cha Kwo Ling Promenade",
+      "osmType": "leisure/park"
+    },
+    "stp": {
+      "lat": 22.3796413,
+      "lng": 114.1897618,
+      "name": "沙田公園 Sha Tin Park",
+      "osmType": "leisure/park"
+    },
+    "mosp": {
+      "lat": 22.4269823,
+      "lng": 114.2312594,
+      "name": "馬鞍山公園 Ma On Shan Park",
+      "osmType": "leisure/park"
+    },
+    "mosprom": {
+      "lat": 22.4174932,
+      "lng": 114.2230727,
+      "name": "馬鞍山海濱長廊 Ma On Shan Promenade",
+      "osmType": "leisure/park"
+    },
+    "yckp": {
+      "lat": 22.3832097,
+      "lng": 114.1992355,
+      "name": "圓洲角公園 Yuen Chau Kok Park",
+      "osmType": "leisure/park"
+    },
+    "hkvelo": {
+      "lat": 22.3135313,
+      "lng": 114.2618609,
+      "name": "香港單車館公園 Hong Kong Velodrome Park",
+      "osmType": "leisure/park"
+    },
+    "php": {
+      "lat": 22.318503,
+      "lng": 114.2577304,
+      "name": "寶康公園 Po Hong Park",
+      "osmType": "leisure/park"
+    },
+    "ptp": {
+      "lat": 22.3249616,
+      "lng": 114.2532492,
+      "name": "寶翠公園 Po Tsui Park",
+      "osmType": "leisure/park"
+    },
+    "hmklp": {
+      "lat": 22.3132481,
+      "lng": 114.2652908,
+      "name": "坑口文曲里公園 Hang Hau Man Kuk Lane Park",
+      "osmType": "leisure/park"
+    },
+    "tkowp": {
+      "lat": 22.3031139,
+      "lng": 114.2640806,
+      "name": "將軍澳海濱公園 Tseung Kwan O Waterfront Park",
+      "osmType": "leisure/park"
+    },
+    "tmsp": {
+      "lat": 22.3096329,
+      "lng": 114.2590308,
+      "name": "唐明街公園 Tong Ming Street Park",
+      "osmType": "leisure/park"
+    },
+    "ymrp": {
+      "lat": 22.4856612,
+      "lng": 114.1449668,
+      "name": "一鳴路公園 Yat Ming Road Park",
+      "osmType": "leisure/park"
+    },
+    "tpkp": {
+      "lat": 22.4331248,
+      "lng": 114.1891978,
+      "name": "大埔滘公園 Tai Po Kau Park",
+      "osmType": "leisure/park"
+    },
+    "kfp": {
+      "lat": 22.4454337,
+      "lng": 114.1747215,
+      "name": "廣福公園 Kwong Fuk Park",
+      "osmType": "leisure/park"
+    },
+    "twp": {
+      "lat": 22.3670056,
+      "lng": 114.1127794,
+      "name": "荃灣公園 Tsuen Wan Park",
+      "osmType": "leisure/park"
+    },
+    "twrp": {
+      "lat": 22.3626531,
+      "lng": 114.1124383,
+      "name": "荃灣海濱公園 Tsuen Wan Riviera Park",
+      "osmType": "leisure/park"
+    },
+    "smvp": {
+      "lat": 22.3753595,
+      "lng": 114.1273909,
+      "name": "城門谷公園 Shing Mun Valley Park",
+      "osmType": "leisure/park"
+    },
+    "jctw": {
+      "lat": 22.370237,
+      "lng": 114.1184778,
+      "name": "賽馬會德華公園 Jockey Club Tak Wah Park",
+      "osmType": "leisure/park"
+    },
+    "typ": {
+      "lat": 22.3560472,
+      "lng": 114.1057378,
+      "name": "青衣公園 Tsing Yi Park",
+      "osmType": "leisure/park"
+    },
+    "tynep": {
+      "lat": 22.3621567,
+      "lng": 114.0983868,
+      "name": "青衣東北公園 Tsing Yi Northeast Park",
+      "osmType": "leisure/park"
+    },
+    "typrom": {
+      "lat": 22.3631316,
+      "lng": 114.1053217,
+      "name": "青衣海濱長廊 Tsing Yi Promenade",
+      "osmType": "highway/pedestrian"
+    },
+    "ckcp": {
+      "lat": 22.3560375,
+      "lng": 114.1327816,
+      "name": "中葵涌公園 Central Kwai Chung Park",
+      "osmType": "leisure/park"
+    },
+    "kcp": {
+      "lat": 22.3547072,
+      "lng": 114.1195172,
+      "name": "葵涌公園 Kwai Chung Park",
+      "osmType": "leisure/park"
+    },
+    "sylmp": {
+      "lat": 22.3715913,
+      "lng": 114.1373516,
+      "name": "石蔭梨木道公園 Shek Yam Lei Muk Road Park",
+      "osmType": "leisure/park"
+    },
+    "tmprom": {
+      "lat": 22.3443273,
+      "lng": 113.9581956,
+      "name": "屯門－赤鱲角隧道 Tuen Mun – Chek Lap Kok Tunnel",
+      "osmType": "highway/motorway"
+    },
+    "ylp": {
+      "lat": 22.441841,
+      "lng": 114.0188523,
+      "name": "元朗公園 Yuen Long Park",
+      "osmType": "leisure/park"
+    },
+    "tswp": {
+      "lat": 22.456696,
+      "lng": 114.0012087,
+      "name": "天水圍公園 Tin Shui Wai Park",
+      "osmType": "leisure/park"
+    },
+    "hkwt": {
+      "lat": 22.4683911,
+      "lng": 114.0075148,
+      "name": "香港濕地公園 Hong Kong Wetland Park",
+      "osmType": "leisure/park"
+    },
+    "tsrp": {
+      "lat": 22.4660763,
+      "lng": 114.0017771,
+      "name": "天秀路公園 Tin Sau Road Park",
+      "osmType": "leisure/park"
+    },
+    "mtrp": {
+      "lat": 22.3125986,
+      "lng": 113.9172999,
+      "name": "香港國際機場 Hong Kong International Airport",
+      "osmType": "aeroway/aerodrome"
+    },
+    "ccp": {
+      "lat": 22.2039684,
+      "lng": 114.0247962,
+      "name": "長洲公園 Cheung Chau Park",
+      "osmType": "leisure/park"
+    },
+    "tpwp": {
+      "lat": 22.4520866,
+      "lng": 114.1899964,
+      "name": "大埔海濱公園 Tai Po Waterfront Park",
+      "osmType": "leisure/park"
+    },
+    "pswc": {
+      "lat": 22.428535,
+      "lng": 114.2109045,
+      "name": "白石角海濱長廊 Pak Shek Kok Promenade",
+      "osmType": "leisure/park"
+    },
+    "ndp": {
+      "lat": 22.4985646,
+      "lng": 114.1338498,
+      "name": "北區公園 North District Park",
+      "osmType": "leisure/park"
+    },
+    "flrp": {
+      "lat": 22.4919851,
+      "lng": 114.1438514,
+      "name": "粉嶺康樂公園 Fanling Hong Lok Park",
+      "osmType": "leisure/park"
+    },
+    "tmsmp": {
+      "lat": 22.3915697,
+      "lng": 113.9736578,
+      "name": "屯門公園 Tuen Mun Park",
+      "osmType": "leisure/park"
+    },
+    "bfp": {
+      "lat": 22.3738595,
+      "lng": 113.9578998,
+      "name": "蝴蝶灣公園 Butterfly Beach Park",
+      "osmType": "leisure/park"
+    },
+    "tcnp": {
+      "lat": 22.2915929,
+      "lng": 113.9506068,
+      "name": "東涌北公園 Tung Chung North Park",
+      "osmType": "leisure/park"
+    },
+    "yzcp": {
+      "lat": 22.4473069,
+      "lng": 114.1773555,
+      "name": "元洲仔公園 Yuen Chau Tsai Park",
+      "osmType": "leisure/park"
+    },
+    "wsp": {
+      "lat": 22.4503571,
+      "lng": 114.1760814,
+      "name": "完善公園 Yuen Shin Park",
+      "osmType": "leisure/park"
+    }
+  },
+  "trails": {
+    "maclehose-s1": {
+      "lat": 22.3973323,
+      "lng": 114.3190286,
+      "name": "北潭涌 Pak Tam Chung",
+      "osmType": "place/hamlet",
+      "query": "北潭涌, 西貢, Hong Kong",
+      "startPoint": "北潭涌"
+    },
+    "maclehose-s2": {
+      "lat": 22.375697,
+      "lng": 114.3751479,
+      "name": "浪茄 Long Ke",
+      "osmType": "place/hamlet",
+      "query": "浪茄, 西貢, Hong Kong",
+      "startPoint": "浪茄"
+    },
+    "maclehose-s3": {
+      "lat": 22.3822489,
+      "lng": 114.2728277,
+      "name": "西貢 Sai Kung",
+      "osmType": "place/town",
+      "query": "北潭凹, 西貢, Hong Kong",
+      "startPoint": "北潭凹"
+    },
+    "maclehose-s4": {
+      "lat": 22.3815527,
+      "lng": 114.1904697,
+      "name": "沙田 Sha Tin",
+      "osmType": "place/town",
+      "query": "企嶺下, 沙田, Hong Kong",
+      "startPoint": "企嶺下"
+    },
+    "maclehose-s5": {
+      "lat": 22.4116868,
+      "lng": 114.2112234,
+      "name": "香港沙田凱悅酒店 Hyatt Regency Hong Kong, Sha Tin",
+      "osmType": "building/hotel",
+      "query": "大老山, 沙田, Hong Kong",
+      "startPoint": "大老山"
+    },
+    "maclehose-s6": {
+      "lat": 22.3716605,
+      "lng": 114.1134699,
+      "name": "荃灣 Tsuen Wan",
+      "osmType": "place/town",
+      "query": "大埔公路, 荃灣, Hong Kong",
+      "startPoint": "大埔公路"
+    },
+    "maclehose-s7": {
+      "lat": 22.3869905,
+      "lng": 114.1500745,
+      "name": "城門水塘 Shing Mun Reservoir",
+      "osmType": "water/reservoir",
+      "query": "城門水塘, 荃灣, Hong Kong",
+      "startPoint": "城門水塘"
+    },
+    "maclehose-s8": {
+      "lat": 22.411892,
+      "lng": 114.1582048,
+      "name": "鉛礦坳 Lead Mine Pass",
+      "osmType": "information/board",
+      "query": "鉛礦坳, 荃灣, Hong Kong",
+      "startPoint": "鉛礦坳"
+    },
+    "maclehose-s9": {
+      "lat": 22.4200512,
+      "lng": 114.115569,
+      "name": "荃錦公路 Route Twisk",
+      "osmType": "highway/secondary",
+      "query": "荃錦公路, 元朗, Hong Kong",
+      "startPoint": "荃錦公路"
+    },
+    "maclehose-s10": {
+      "lat": 22.3944237,
+      "lng": 114.0623652,
+      "name": "田夫仔 Tin Fu Tsai",
+      "osmType": "place/hamlet",
+      "query": "田夫仔, 屯門, Hong Kong",
+      "startPoint": "田夫仔"
+    },
+    "wilson-s1": {
+      "lat": 22.2253259,
+      "lng": 114.2034742,
+      "name": "赤柱峽道 Stanley Gap Road",
+      "osmType": "highway/secondary",
+      "query": "赤柱峽道, 南區, Hong Kong",
+      "startPoint": "赤柱峽道"
+    },
+    "wilson-s2": {
+      "lat": 22.2577199,
+      "lng": 114.1995852,
+      "name": "陽明山莊 Hong Kong Parkview",
+      "osmType": "landuse/residential",
+      "query": "陽明山莊, 東區, Hong Kong",
+      "startPoint": "陽明山莊"
+    },
+    "wilson-s3": {
+      "lat": 22.3822489,
+      "lng": 114.2728277,
+      "name": "西貢 Sai Kung",
+      "osmType": "place/town",
+      "query": "藍田, 西貢, Hong Kong",
+      "startPoint": "藍田"
+    },
+    "wilson-s4": {
+      "lat": 22.3360401,
+      "lng": 114.2381974,
+      "name": "井欄樹 Tseng Lan Shue",
+      "osmType": "place/village",
+      "query": "井欄樹, 黃大仙, Hong Kong",
+      "startPoint": "井欄樹"
+    },
+    "wilson-s5": {
+      "lat": 22.3415759,
+      "lng": 114.1948272,
+      "name": "黃大仙 Wong Tai Sin",
+      "osmType": "railway/station",
+      "query": "沙田坳, 黃大仙, Hong Kong",
+      "startPoint": "沙田坳"
+    },
+    "wilson-s6": {
+      "lat": 22.3541252,
+      "lng": 114.1543757,
+      "name": "九龍水塘 Kowloon Reservoir",
+      "osmType": "water/reservoir",
+      "query": "九龍水塘, 沙田, Hong Kong",
+      "startPoint": "九龍水塘"
+    },
+    "wilson-s7": {
+      "lat": 22.3869905,
+      "lng": 114.1500745,
+      "name": "城門水塘 Shing Mun Reservoir",
+      "osmType": "water/reservoir",
+      "query": "城門水塘, 大埔, Hong Kong",
+      "startPoint": "城門水塘"
+    },
+    "wilson-s8": {
+      "lat": 22.4263502,
+      "lng": 114.1589373,
+      "name": "元墩下 Yuen Tun Ha",
+      "osmType": "place/hamlet",
+      "query": "元墩下, 大埔, Hong Kong",
+      "startPoint": "元墩下"
+    },
+    "wilson-s9": {
+      "lat": 22.4567162,
+      "lng": 114.1587619,
+      "name": "九龍坑山 Cloudy Hill (Kau Lung Hang Shan) 衞奕信徑 Wilson Path",
+      "osmType": "information/guidepost",
+      "query": "九龍坑山, 大埔, Hong Kong",
+      "startPoint": "九龍坑山"
+    },
+    "wilson-s10": {
+      "lat": 22.5169493,
+      "lng": 114.2135927,
+      "name": "北區 North District",
+      "osmType": "boundary/administrative",
+      "query": "八仙嶺仙姑峰, 北區, Hong Kong",
+      "startPoint": "八仙嶺仙姑峰"
+    },
+    "hk-trail-s1": {
+      "lat": 22.271123,
+      "lng": 114.1501414,
+      "name": "山頂 The Peak",
+      "osmType": "railway/station",
+      "query": "山頂, 中西區, Hong Kong",
+      "startPoint": "山頂"
+    },
+    "hk-trail-s5": {
+      "lat": 22.259333,
+      "lng": 114.1922511,
+      "name": "黃泥涌峽道 Wong Nai Chung Gap Road",
+      "osmType": "highway/secondary",
+      "query": "黃泥涌峽, 東區, Hong Kong",
+      "startPoint": "黃泥涌峽"
+    },
+    "hk-trail-s6": {
+      "lat": 22.2574442,
+      "lng": 114.212873,
+      "name": "柏架山道 Mount Parker Road",
+      "osmType": "highway/pedestrian",
+      "query": "柏架山道, 南區, Hong Kong",
+      "startPoint": "柏架山道"
+    },
+    "hk-trail-s8": {
+      "lat": 22.2271045,
+      "lng": 114.2396607,
+      "name": "土地灣 To Tei Wan",
+      "osmType": "highway/bus_stop",
+      "query": "土地灣, 南區, Hong Kong",
+      "startPoint": "土地灣"
+    },
+    "lantau-s1": {
+      "lat": 22.263809,
+      "lng": 113.9983808,
+      "name": "富崗山路 Fu Kong Shan Road",
+      "osmType": "highway/residential",
+      "query": "梅窩, 離島, Hong Kong",
+      "startPoint": "梅窩"
+    },
+    "lantau-s2": {
+      "lat": 22.2591335,
+      "lng": 113.9866714,
+      "name": "南山 Nam Shan",
+      "osmType": "place/locality",
+      "query": "南山, 離島, Hong Kong",
+      "startPoint": "南山"
+    },
+    "lantau-s3": {
+      "lat": 22.2481929,
+      "lng": 113.9432239,
+      "name": "伯公坳 Pak Kung Au",
+      "osmType": "natural/saddle",
+      "query": "伯公坳, 離島, Hong Kong",
+      "startPoint": "伯公坳"
+    },
+    "lantau-s4": {
+      "lat": 22.2681747,
+      "lng": 113.9074287,
+      "name": "昂坪360救援徑 Ngong Ping 360 Rescue Trail",
+      "osmType": "highway/footway",
+      "query": "昂坪, 離島, Hong Kong",
+      "startPoint": "昂坪"
+    },
+    "lantau-s5": {
+      "lat": 22.2697422,
+      "lng": 113.8877557,
+      "name": "深屈道 Sham Wat Road",
+      "osmType": "highway/unclassified",
+      "query": "深屈道, 離島, Hong Kong",
+      "startPoint": "深屈道"
+    },
+    "lantau-s6": {
+      "lat": 22.2325985,
+      "lng": 113.8674958,
+      "name": "萬丈布 Man Cheung Po",
+      "osmType": "place/locality",
+      "query": "萬丈布, 離島, Hong Kong",
+      "startPoint": "萬丈布"
+    },
+    "lantau-s7": {
+      "lat": 22.2541524,
+      "lng": 113.8636197,
+      "name": "大澳 Tai O",
+      "osmType": "place/town",
+      "query": "大澳, 離島, Hong Kong",
+      "startPoint": "大澳"
+    },
+    "lantau-s8": {
+      "lat": 22.2027387,
+      "lng": 113.8645623,
+      "name": "狗嶺涌 Kau Ling Chung",
+      "osmType": "place/locality",
+      "query": "狗嶺涌, 離島, Hong Kong",
+      "startPoint": "狗嶺涌"
+    },
+    "lantau-s9": {
+      "lat": 22.2335698,
+      "lng": 113.8991501,
+      "name": "石壁水塘 Shek Pik Reservoir",
+      "osmType": "water/reservoir",
+      "query": "石壁水塘, 離島, Hong Kong",
+      "startPoint": "石壁水塘"
+    },
+    "lantau-s12": {
+      "lat": 22.2415464,
+      "lng": 113.9772366,
+      "name": "貝澳 Pui O",
+      "osmType": "place/suburb",
+      "query": "貝澳, 離島, Hong Kong",
+      "startPoint": "貝澳"
+    },
+    "lions-rock": {
+      "lat": 22.3595436,
+      "lng": 114.1862334,
+      "name": "獅子山郊野公園 Lion Rock Country Park",
+      "osmType": "boundary/national_park",
+      "query": "獅子山郊野公園, 黃大仙, Hong Kong",
+      "startPoint": null
+    },
+    "tai-mo-shan": {
+      "lat": 22.4055785,
+      "lng": 114.105334,
+      "name": "大帽山郊野公園",
+      "osmType": "information/board",
+      "query": "大帽山郊野公園, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tun": {
+      "lat": 22.2935438,
+      "lng": 113.9601086,
+      "name": "大嶼山 Lantau",
+      "osmType": "place/borough",
+      "query": "大嶼山, 離島, Hong Kong",
+      "startPoint": null
+    },
+    "sharp-peak": {
+      "lat": 22.3972167,
+      "lng": 114.3478242,
+      "name": "西貢東郊野公園 Sai Kung East Country Park",
+      "osmType": "boundary/national_park",
+      "query": "西貢東郊野公園, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "plover-cove-reservoir": {
+      "lat": 22.48036,
+      "lng": 114.24067,
+      "name": "船灣郊野公園 Shuen Wan Country Park",
+      "osmType": "highway/bus_stop",
+      "query": "船灣郊野公園, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "ng-tung-waterfall": {
+      "lat": 22.4279879,
+      "lng": 114.16253,
+      "name": "大帽山郊野公園6號郊遊地點 Picnic Site No 6, Tai Mo Shan Country Park",
+      "osmType": "tourism/picnic_site",
+      "query": "大帽山郊野公園, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tam-family": {
+      "lat": 22.2236763,
+      "lng": 114.2084991,
+      "name": "大潭郊野公園 Tai Tam Country Park",
+      "osmType": "information/board",
+      "query": "大潭郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "nam-sang-wai": {
+      "lat": 22.4462068,
+      "lng": 114.0352848,
+      "name": "元朗 Yuen Long",
+      "osmType": "railway/station",
+      "query": "元朗, 元朗, Hong Kong",
+      "startPoint": null
+    },
+    "high-west": {
+      "lat": 22.2886708,
+      "lng": 114.1524373,
+      "name": "港澳客運碼頭 Hong Kong-Macau Ferry Terminal",
+      "osmType": "shop/mall",
+      "query": "太平山, 中西區, Hong Kong",
+      "startPoint": null
+    },
+    "south-nam-shan": {
+      "lat": 22.2478643,
+      "lng": 114.1675119,
+      "name": "黃竹坑 Wong Chuk Hang",
+      "osmType": "railway/station",
+      "query": "黃竹坑, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "red-incense-burner": {
+      "lat": 22.2873555,
+      "lng": 114.202069,
+      "name": "寶馬山 Braemar Hill",
+      "osmType": "place/quarter",
+      "query": "寶馬山, 東區, Hong Kong",
+      "startPoint": null
+    },
+    "devils-peak": {
+      "lat": 22.2886954,
+      "lng": 114.2386453,
+      "name": "鯉魚門 Lei Yue Mun",
+      "osmType": "place/suburb",
+      "query": "鯉魚門, 觀塘, Hong Kong",
+      "startPoint": null
+    },
+    "fei-ngo-shan": {
+      "lat": 22.3556883,
+      "lng": 114.2139469,
+      "name": "飛鵝山2號變電站",
+      "osmType": "building/service",
+      "query": "飛鵝山, 黃大仙, Hong Kong",
+      "startPoint": null
+    },
+    "eagles-nest": {
+      "lat": 22.3595436,
+      "lng": 114.1862334,
+      "name": "獅子山郊野公園 Lion Rock Country Park",
+      "osmType": "boundary/national_park",
+      "query": "獅子山郊野公園, 深水埗, Hong Kong",
+      "startPoint": null
+    },
+    "high-junk-peak": {
+      "lat": 22.2846714,
+      "lng": 114.2962298,
+      "name": "清水灣 Clear Water Bay",
+      "osmType": "natural/bay",
+      "query": "清水灣, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tun-short": {
+      "lat": 22.3973323,
+      "lng": 114.3190286,
+      "name": "北潭涌 Pak Tam Chung",
+      "osmType": "place/hamlet",
+      "query": "北潭涌, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "castle-peak": {
+      "lat": 22.3443273,
+      "lng": 113.9581956,
+      "name": "屯門－赤鱲角隧道 Tuen Mun – Chek Lap Kok Tunnel",
+      "osmType": "highway/motorway",
+      "query": "屯門, 屯門, Hong Kong",
+      "startPoint": null
+    },
+    "tai-lam-chung": {
+      "lat": 22.392407,
+      "lng": 114.0220764,
+      "name": "大欖郊野公園 Tai Lam Country Park",
+      "osmType": "boundary/national_park",
+      "query": "大欖郊野公園, 屯門, Hong Kong",
+      "startPoint": null
+    },
+    "yuen-tsu-ancient": {
+      "lat": 22.3716605,
+      "lng": 114.1134699,
+      "name": "荃灣 Tsuen Wan",
+      "osmType": "place/town",
+      "query": "荃灣至元朗, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "shing-mun-reservoir": {
+      "lat": 22.3849696,
+      "lng": 114.1437497,
+      "name": "城門郊野公園遊客中心 Shing Mun Country Park Visitor Centre",
+      "osmType": "office/yes",
+      "query": "城門郊野公園, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "ma-on-shan-country": {
+      "lat": 22.4079413,
+      "lng": 114.2368479,
+      "name": "馬鞍山郊野公園 Ma On Shan Country Park",
+      "osmType": "highway/bus_stop",
+      "query": "馬鞍山郊野公園, 沙田, Hong Kong",
+      "startPoint": null
+    },
+    "pineapple-hill": {
+      "lat": 22.3443273,
+      "lng": 113.9581956,
+      "name": "屯門－赤鱲角隧道 Tuen Mun – Chek Lap Kok Tunnel",
+      "osmType": "highway/motorway",
+      "query": "屯門, 屯門, Hong Kong",
+      "startPoint": null
+    },
+    "lau-shui-heung": {
+      "lat": 22.5049199,
+      "lng": 114.173215,
+      "name": "八仙嶺郊野公園鶴藪管理站 Pat Sin Leng Country Park Hok Tau Management Centre",
+      "osmType": "landuse/farmyard",
+      "query": "八仙嶺郊野公園, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "luk-keng-to-kuk-po": {
+      "lat": 22.5461031,
+      "lng": 114.2240381,
+      "name": "現代小學士教育 (沙頭角) Modern Bachelor Education Centre (Sha Tau Kok)",
+      "osmType": "amenity/tuition",
+      "query": "沙頭角, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "lai-chi-wo": {
+      "lat": 22.5461031,
+      "lng": 114.2240381,
+      "name": "現代小學士教育 (沙頭角) Modern Bachelor Education Centre (Sha Tau Kok)",
+      "osmType": "amenity/tuition",
+      "query": "沙頭角, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "lung-ha-wan": {
+      "lat": 22.2846714,
+      "lng": 114.2962298,
+      "name": "清水灣 Clear Water Bay",
+      "osmType": "natural/bay",
+      "query": "清水灣, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tan-country": {
+      "lat": 22.4697951,
+      "lng": 114.3414847,
+      "name": "西貢西郊野公園（灣仔擴建部份）Sai Kung West Country Park (Wan Tsai Extension)",
+      "osmType": "boundary/national_park",
+      "query": "西貢西郊野公園, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "nam-chung-country": {
+      "lat": 22.5049199,
+      "lng": 114.173215,
+      "name": "八仙嶺郊野公園鶴藪管理站 Pat Sin Leng Country Park Hok Tau Management Centre",
+      "osmType": "landuse/farmyard",
+      "query": "八仙嶺郊野公園, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "tung-o-ancient": {
+      "lat": 22.2935438,
+      "lng": 113.9601086,
+      "name": "大嶼山 Lantau",
+      "osmType": "place/borough",
+      "query": "大嶼山, 離島, Hong Kong",
+      "startPoint": null
+    },
+    "plover-cove-country": {
+      "lat": 22.48036,
+      "lng": 114.24067,
+      "name": "船灣郊野公園 Shuen Wan Country Park",
+      "osmType": "highway/bus_stop",
+      "query": "船灣郊野公園, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "hok-tau": {
+      "lat": 22.5049199,
+      "lng": 114.173215,
+      "name": "八仙嶺郊野公園鶴藪管理站 Pat Sin Leng Country Park Hok Tau Management Centre",
+      "osmType": "landuse/farmyard",
+      "query": "八仙嶺郊野公園, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "sharp-island": {
+      "lat": 22.3822489,
+      "lng": 114.2728277,
+      "name": "西貢 Sai Kung",
+      "osmType": "place/town",
+      "query": "西貢, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "lamma-island": {
+      "lat": 22.2231097,
+      "lng": 114.1155803,
+      "name": "南丫島 Lamma Island",
+      "osmType": "place/suburb",
+      "query": "南丫島, 離島, Hong Kong",
+      "startPoint": null
+    },
+    "tung-ping-chau": {
+      "lat": 22.5455581,
+      "lng": 114.4283418,
+      "name": "東平洲 Tung Ping Chau",
+      "osmType": "place/island",
+      "query": "東平洲, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "tap-mun": {
+      "lat": 22.4757176,
+      "lng": 114.3618788,
+      "name": "塔門 Grass Island",
+      "osmType": "place/island",
+      "query": "塔門, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "po-toi-island": {
+      "lat": 22.3125986,
+      "lng": 113.9172999,
+      "name": "香港國際機場 Hong Kong International Airport",
+      "osmType": "aeroway/aerodrome",
+      "query": "蒲台島, 離島, Hong Kong",
+      "startPoint": null
+    },
+    "po-pin-chau": {
+      "lat": 22.3972167,
+      "lng": 114.3478242,
+      "name": "西貢東郊野公園 Sai Kung East Country Park",
+      "osmType": "boundary/national_park",
+      "query": "西貢東郊野公園, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "siu-hawaii": {
+      "lat": 22.3195472,
+      "lng": 114.2531226,
+      "name": "康盛花園 Hong Sing Garden",
+      "osmType": "landuse/residential",
+      "query": "將軍澳, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tong-lychee": {
+      "lat": 22.392407,
+      "lng": 114.0220764,
+      "name": "大欖郊野公園 Tai Lam Country Park",
+      "osmType": "boundary/national_park",
+      "query": "大欖郊野公園, 元朗, Hong Kong",
+      "startPoint": null
+    },
+    "tung-lung-island": {
+      "lat": 22.3125986,
+      "lng": 113.9172999,
+      "name": "香港國際機場 Hong Kong International Airport",
+      "osmType": "aeroway/aerodrome",
+      "query": "東龍島, 離島, Hong Kong",
+      "startPoint": null
+    },
+    "wan-tsai-peninsula": {
+      "lat": 22.4697951,
+      "lng": 114.3414847,
+      "name": "西貢西郊野公園（灣仔擴建部份）Sai Kung West Country Park (Wan Tsai Extension)",
+      "osmType": "boundary/national_park",
+      "query": "西貢西郊野公園, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "boa-vista": {
+      "lat": 22.2236763,
+      "lng": 114.2084991,
+      "name": "大潭郊野公園 Tai Tam Country Park",
+      "osmType": "information/board",
+      "query": "大潭郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "cape-daguilar": {
+      "lat": 22.2186431,
+      "lng": 114.2495374,
+      "name": "石澳郊野公園 Shek O Country Park",
+      "osmType": "boundary/national_park",
+      "query": "石澳郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "tsiu-hang": {
+      "lat": 22.3745938,
+      "lng": 114.2643032,
+      "name": "獅子會自然教育中心 Lions Nature Education Centre",
+      "osmType": "tourism/museum",
+      "query": "獅子會自然教育中心, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "aberdeen-nature": {
+      "lat": 22.2539638,
+      "lng": 114.1599719,
+      "name": "香港仔郊野公園香港仔管理站 Aberdeen Country Park Aberdeen Management Centre",
+      "osmType": "landuse/farmyard",
+      "query": "香港仔郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tong-nature": {
+      "lat": 22.392407,
+      "lng": 114.0220764,
+      "name": "大欖郊野公園 Tai Lam Country Park",
+      "osmType": "boundary/national_park",
+      "query": "大欖郊野公園, 元朗, Hong Kong",
+      "startPoint": null
+    },
+    "sham-tseng": {
+      "lat": 22.3697239,
+      "lng": 114.0506575,
+      "name": "大欖郊野公園青龍頭公廁 (深井燒烤區場地１)",
+      "osmType": "amenity/toilets",
+      "query": "大欖郊野公園, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "kap-lung": {
+      "lat": 22.4462068,
+      "lng": 114.0352848,
+      "name": "元朗 Yuen Long",
+      "osmType": "railway/station",
+      "query": "荃錦坳至雷公田, 元朗, Hong Kong",
+      "startPoint": null
+    },
+    "pokfulam-reservoir": {
+      "lat": 22.2631236,
+      "lng": 114.1434899,
+      "name": "薄扶林郊野公園 Pok Fu Lam Country Park",
+      "osmType": "boundary/national_park",
+      "query": "薄扶林郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "wong-chuk-hang": {
+      "lat": 22.2478643,
+      "lng": 114.1675119,
+      "name": "黃竹坑 Wong Chuk Hang",
+      "osmType": "railway/station",
+      "query": "黃竹坑, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "kam-shan-family": {
+      "lat": 22.3618624,
+      "lng": 114.1512482,
+      "name": "金山郊野公園 Kam Shan Country Park",
+      "osmType": "boundary/national_park",
+      "query": "金山郊野公園, 深水埗, Hong Kong",
+      "startPoint": null
+    },
+    "tai-tam-country-trail": {
+      "lat": 22.2236763,
+      "lng": 114.2084991,
+      "name": "大潭郊野公園 Tai Tam Country Park",
+      "osmType": "information/board",
+      "query": "大潭郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "aberdeen-reservoir": {
+      "lat": 22.2539638,
+      "lng": 114.1599719,
+      "name": "香港仔郊野公園香港仔管理站 Aberdeen Country Park Aberdeen Management Centre",
+      "osmType": "landuse/farmyard",
+      "query": "香港仔郊野公園, 南區, Hong Kong",
+      "startPoint": null
+    },
+    "garden-hill": {
+      "lat": 22.3358077,
+      "lng": 114.163862,
+      "name": "嘉頓山 Garden Hill",
+      "osmType": "natural/peak",
+      "query": "嘉頓山, 深水埗, Hong Kong",
+      "startPoint": null
+    },
+    "red-light-hill": {
+      "lat": 22.3301595,
+      "lng": 114.1899368,
+      "name": "九龍城 Kowloon City",
+      "osmType": "place/suburb",
+      "query": "紅燈山, 九龍城, Hong Kong",
+      "startPoint": null
+    },
+    "ping-shan-kt": {
+      "lat": 22.3132614,
+      "lng": 114.2319368,
+      "name": "香港專業教育學院 (觀塘) Hong Kong Institute of Vocational Education (Kwun Tong)",
+      "osmType": "amenity/college",
+      "query": "平山, 觀塘, Hong Kong",
+      "startPoint": null
+    },
+    "tai-mei-tuk-family": {
+      "lat": 22.4709931,
+      "lng": 114.2348847,
+      "name": "大美督家樂徑觀景台 Tai Mei Tuk Family Walk Viewing Point",
+      "osmType": "tourism/viewpoint",
+      "query": "大美督家樂徑, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "chuen-lung-family": {
+      "lat": 22.3944824,
+      "lng": 114.1062756,
+      "name": "川龍家樂徑 Chuen Lung Family Walk",
+      "osmType": "highway/footway",
+      "query": "川龍家樂徑, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "ho-pui-family": {
+      "lat": 22.4462068,
+      "lng": 114.0352848,
+      "name": "元朗 Yuen Long",
+      "osmType": "railway/station",
+      "query": "河背水塘家樂徑, 元朗, Hong Kong",
+      "startPoint": null
+    },
+    "fung-hang-family": {
+      "lat": 22.5278553,
+      "lng": 114.2213571,
+      "name": "鳳坑家樂徑 Fung Hang Family Walk",
+      "osmType": "highway/footway",
+      "query": "鳳坑家樂徑, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "wong-shek-family": {
+      "lat": 22.3822489,
+      "lng": 114.2728277,
+      "name": "西貢 Sai Kung",
+      "osmType": "place/town",
+      "query": "黃石家樂徑, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "sheung-yiu-family": {
+      "lat": 22.3822489,
+      "lng": 114.2728277,
+      "name": "西貢 Sai Kung",
+      "osmType": "place/town",
+      "query": "上窰家樂徑, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "bride-pool-nature": {
+      "lat": 22.5034857,
+      "lng": 114.2366366,
+      "name": "新娘潭自然教育徑 Bride's Pool Nature Trail",
+      "osmType": "highway/footway",
+      "query": "新娘潭自然教育徑, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "ma-shi-chau-nature": {
+      "lat": 22.4507617,
+      "lng": 114.2291668,
+      "name": "馬屎洲自然教育徑 Ma Shi Chau Nature Trail",
+      "osmType": "highway/footway",
+      "query": "馬屎洲自然教育徑, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "pineapple-dam-nature": {
+      "lat": 22.388914,
+      "lng": 114.146553,
+      "name": "​菠蘿壩自然教育徑 Pinapple Dam Nature Trail",
+      "osmType": "highway/steps",
+      "query": "菠蘿壩自然教育徑, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "tai-po-kau-nature": {
+      "lat": 22.4693164,
+      "lng": 114.1947005,
+      "name": "香港教育大學 The Education University of Hong Kong",
+      "osmType": "amenity/university",
+      "query": "大埔滘自然教育徑, 大埔, Hong Kong",
+      "startPoint": null
+    },
+    "pak-tam-chung-nature": {
+      "lat": 22.3914193,
+      "lng": 114.320986,
+      "name": "北潭涌自然教育徑 Pak Tam Chung Nature Trail",
+      "osmType": "highway/footway",
+      "query": "北潭涌自然教育徑, 西貢, Hong Kong",
+      "startPoint": null
+    },
+    "tai-mo-shan-family": {
+      "lat": 22.4037056,
+      "lng": 114.1060794,
+      "name": "大帽山家樂徑 Tai Mo Shan Family Walk",
+      "osmType": "highway/footway",
+      "query": "大帽山家樂徑, 荃灣, Hong Kong",
+      "startPoint": null
+    },
+    "hok-tau-family": {
+      "lat": 22.4867506,
+      "lng": 114.1819193,
+      "name": "鶴藪水塘家樂徑 Hok Tau Reservoir Family Walk",
+      "osmType": "highway/footway",
+      "query": "鶴藪水塘家樂徑, 北區, Hong Kong",
+      "startPoint": null
+    },
+    "peak-circle": {
+      "lat": 22.2828768,
+      "lng": 114.1378586,
+      "name": "香港大學 The University of Hong Kong",
+      "osmType": "amenity/university",
+      "query": "太平山山頂環迴徑, 中西區, Hong Kong",
+      "startPoint": null
+    },
+    "pui-o": {
+      "lat": 22.2415464,
+      "lng": 113.9772366,
+      "name": "貝澳 Pui O",
+      "osmType": "place/suburb",
+      "query": "貝澳, 離島, Hong Kong",
+      "startPoint": null
+    }
+  },
+  "summary": {
+    "parkHit": 101,
+    "parkMiss": 0,
+    "parkTotal": 101,
+    "trailHit": 105,
+    "trailMiss": 0,
+    "trailTotal": 105,
+    "trailUniqueCoords": 78
+  }
+}
