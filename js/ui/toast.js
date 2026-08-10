@@ -17,7 +17,7 @@ export function showToast(message, duration = 2000) {
   // 创建新 toast
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.textContent = message;
+  toast.innerHTML = message;
   document.body.appendChild(toast);
 
   // 触发动画

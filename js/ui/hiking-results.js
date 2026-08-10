@@ -117,7 +117,7 @@ async function handleSortClick(sortBtn, listEl, countEl) {
   const geoResult = await getUserPosition();
   if (!geoResult.coords) {
     const toast = await import('./toast.js');
-    toast.showToast('請打開手機定位\n並允許瀏覽器使用定位權限 刷新即可', 3500);
+    toast.showToast('請打開手機定位<br>並允許瀏覽器使用定位權限 刷新即可', 3500);
     return;
   }
   userCoords = geoResult.coords;

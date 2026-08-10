@@ -93,8 +93,9 @@
   transition: opacity 0.3s;
   pointer-events: none;
   z-index: 1000;
-  white-space: pre-line;
+  white-space: normal;
   text-align: center;
+  max-width: 90vw;
 }
 
 /* Toast 装饰 — 左侧蓝色方块 + 右下红色小方 */
