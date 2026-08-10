@@ -61,6 +61,10 @@ function init() {
     }
     renderPagination(allResults.length, pgnEl, listEl, countEl, sortBtn);
     if (sortBtn) sortBtn.style.display = allResults.length > 0 ? '' : 'none';
+    const savedScroll = sessionStorage.getItem('hikingScrollY');
+    if (savedScroll) {
+      setTimeout(() => { window.scrollTo(0, parseInt(savedScroll)); sessionStorage.removeItem('hikingScrollY'); }, 0);
+    }
     return;
   }
 
@@ -283,6 +287,7 @@ function renderCards(trailList, container) {
 
     card.addEventListener('click', () => {
       sessionStorage.setItem('detailReferrer', '#/hiking-results');
+      sessionStorage.setItem('hikingScrollY', window.scrollY);
       navigate(`#/trail/${trail.id}`);
     });
 

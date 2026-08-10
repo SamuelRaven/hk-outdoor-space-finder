@@ -59,6 +59,11 @@ function init() {
       renderCards(allResults.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE), listEl, cachedResults.filters);
     }
     renderPagination(allResults.length, pgnEl, listEl, countEl, sortBtn);
+    // 恢复离开时的滚动位置
+    const savedScroll = sessionStorage.getItem('resultsScrollY');
+    if (savedScroll) {
+      setTimeout(() => { window.scrollTo(0, parseInt(savedScroll)); sessionStorage.removeItem('resultsScrollY'); }, 0);
+    }
     return;
   }
 
@@ -253,6 +258,7 @@ function renderCards(parkList, container, filters) {
 
     card.addEventListener('click', () => {
       sessionStorage.setItem('detailReferrer', '#/results');
+      sessionStorage.setItem('resultsScrollY', window.scrollY);
       navigate(`#/park/${park.id}`);
     });
 
