@@ -17,19 +17,23 @@ export function calcDistance(lat1, lng1, lat2, lng2) {
 }
 
 /**
- * 獲取用戶位置
- * @returns {Promise<{lat:number, lng:number}|null>}
+ * 獲取用戶位置（每次調用都重新請求，不緩存失敗結果）
+ * @returns {Promise<{coords: {lat:number,lng:number}|null, error: string|null}>}
  */
 export function getUserPosition() {
   return new Promise((resolve) => {
     if (!navigator.geolocation) {
-      resolve(null);
+      resolve({ coords: null, error: 'unsupported' });
       return;
     }
     navigator.geolocation.getCurrentPosition(
-      pos => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-      () => resolve(null),
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+      pos => resolve({ coords: { lat: pos.coords.latitude, lng: pos.coords.longitude }, error: null }),
+      (err) => {
+        // code 1 = PERMISSION_DENIED, 2 = POSITION_UNAVAILABLE, 3 = TIMEOUT
+        const error = err.code === 1 ? 'denied' : 'unavailable';
+        resolve({ coords: null, error });
+      },
+      { enableHighAccuracy: false, timeout: 8000 }
     );
   });
 }

@@ -3,13 +3,22 @@
    ======================================== */
 
 /**
+ * 检测是否为微信内置浏览器
+ * 微信的 navigator.share 行为异常，需要走 clipboard fallback
+ */
+function isWeChat() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+/**
  * 分享内容（优先 Web Share API，失败则复制链接）
+ * 微信环境直接走剪贴板
  * @param {{ title: string, text: string, url: string }} opts
  * @returns {Promise<'shared'|'copied'|'failed'>}
  */
 export async function shareItem({ title, text, url }) {
-  // Web Share API — 移动端原生分享面板
-  if (navigator.share) {
+  // Web Share API — 移动端原生分享面板（微信除外，其实现有 bug）
+  if (navigator.share && !isWeChat()) {
     try {
       await navigator.share({ title, text, url });
       return 'shared';
@@ -24,7 +33,6 @@ export async function shareItem({ title, text, url }) {
     await navigator.clipboard.writeText(text + '\n' + url);
     return 'copied';
   } catch {
-    // 最后的保底 — 选中文本让用户手动复制
     return 'failed';
   }
 }

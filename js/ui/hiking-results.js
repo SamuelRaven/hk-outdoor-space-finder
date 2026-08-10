@@ -113,16 +113,17 @@ async function handleSortClick(sortBtn, listEl, countEl) {
     return;
   }
 
-  // 获取用户位置
-  if (!userCoords) {
-    userCoords = await getUserPosition();
-  }
-
-  if (!userCoords) {
+  // 获取用户位置（每次都重新请求，不缓存失败）
+  const geoResult = await getUserPosition();
+  if (!geoResult.coords) {
     const toast = await import('./toast.js');
-    toast.showToast('請開啟手機定位後再試 📍', 3000);
+    const msg = geoResult.error === 'denied'
+      ? '請在瀏覽器設定中允許定位權限 📍'
+      : '請開啟手機定位後再試 📍';
+    toast.showToast(msg, 3000);
     return;
   }
+  userCoords = geoResult.coords;
 
   // 按距离排序
   distanceOrder = sortByDistance(originalOrder, userCoords.lat, userCoords.lng);

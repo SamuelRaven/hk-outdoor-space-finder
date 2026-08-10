@@ -37,7 +37,7 @@ function init() {
     shareBtn = document.createElement('button');
     shareBtn.className = 'share-btn';
     shareBtn.setAttribute('aria-label', '分享');
-    shareBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22,12 L1,4 L8,12 L1,20 Z"/><line x1="22" y1="12" x2="8" y2="12"/></svg>';
+    shareBtn.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M22,12 L1,4 L8,12 L1,20 Z"/><line x1="22" y1="12" x2="8" y2="12"/></svg>';
     actions.appendChild(shareBtn);
   }
 
