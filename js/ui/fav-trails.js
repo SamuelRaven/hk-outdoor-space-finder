@@ -4,6 +4,7 @@
 
 import { navigate, register } from '../core/router.js';
 import { getFavorites } from '../core/favorites.js';
+import { formatDuration } from '../core/format.js';
 
 let trails = [];
 
@@ -52,7 +53,7 @@ function init() {
           <div class="trail-card__name">${trail.nameZh}</div>
           <div class="trail-card__section">${sectionText}</div>
           <div class="trail-card__meta">
-            <span class="trail-card__stat">🕐 ${trail.durationHrs} 小時</span>
+            <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
             <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
           </div>
           <div class="trail-card__desc">${trail.description}</div>
@@ -71,7 +72,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=2')
+    fetch('js/data/trails.json?v=4')
       .then(r => r.json())
       .then(data => {
         trails = data;

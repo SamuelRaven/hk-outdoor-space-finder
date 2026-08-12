@@ -4,6 +4,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
+import { matchTrails } from '../core/trail-matcher.js?v=4';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];
@@ -13,6 +14,7 @@ const SURFACES = ['石屎路為主', '山徑為主', '樓梯為主', '混合'];
 
 // ---- 状态 ----
 let districtsData = {};
+let trails = [];
 let state = {};
 let filterGrid, optionsContainer;
 
@@ -44,6 +46,14 @@ function init() {
       .then(r => r.json())
       .then(data => { districtsData = data; })
       .catch(err => console.error('加载 districts.json 失败:', err));
+  }
+
+  // 加载山径数据（用于交叉筛选兼容性检查）
+  if (trails.length === 0) {
+    fetch('js/data/trails.json?v=4')
+      .then(r => r.json())
+      .then(data => { trails = data; })
+      .catch(err => console.error('加载 trails.json 失败:', err));
   }
 
   // 返回按钮
@@ -104,16 +114,41 @@ function handleFilterTap(filterName) {
   }
 }
 
+// ---- 交叉筛选兼容性 ----
+function getIncompatibleOptions(groupKey) {
+  const incompatible = new Set();
+  if (trails.length === 0) return incompatible;
+
+  const optionLists = { region: REGIONS, difficulty: DIFFICULTIES, scenery: SCENERIES, surface: SURFACES };
+  const options = optionLists[groupKey];
+  if (!options) return incompatible;
+
+  const otherKeys = Object.keys(optionLists).filter(k => k !== groupKey);
+  const hasOtherSelections = otherKeys.some(k => state[k]);
+  if (!hasOtherSelections) return incompatible;
+
+  for (const option of options) {
+    if (option === state[groupKey]) continue;
+    const testState = { ...state, [groupKey]: option };
+    if (groupKey === 'region') testState.district = null;
+    if (matchTrails(trails, testState).length === 0) incompatible.add(option);
+  }
+  return incompatible;
+}
+
 // ---- 地区选项（与公园版相同：大区 → 小区级联） ----
 function showRegionOptions() {
   optionsContainer.innerHTML = '';
+  const incompatible = getIncompatibleOptions('region');
 
   REGIONS.forEach(region => {
     const chip = document.createElement('button');
     chip.className = 'chip';
     if (region === state.region) chip.classList.add('chip--selected');
+    if (incompatible.has(region)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = region;
     chip.addEventListener('click', () => {
+      if (chip.disabled) return;
       if (region === state.region) {
         state.region = null;
         state.district = null;
@@ -134,11 +169,23 @@ function showRegionOptions() {
     optionsContainer.appendChild(divider);
 
     districtsData[state.region].forEach(district => {
+      let districtIncompatible = false;
+      if (trails.length > 0) {
+        const otherKeys = ['difficulty', 'scenery', 'surface'];
+        const hasOther = otherKeys.some(k => state[k]);
+        if (hasOther) {
+          const testState = { ...state, district: district };
+          if (matchTrails(trails, testState).length === 0) districtIncompatible = true;
+        }
+      }
+
       const chip = document.createElement('button');
       chip.className = 'chip';
       if (district === state.district) chip.classList.add('chip--selected');
+      if (districtIncompatible && district !== state.district) { chip.disabled = true; chip.classList.add('chip--disabled'); }
       chip.textContent = district;
       chip.addEventListener('click', () => {
+        if (chip.disabled) return;
         state.district = (district === state.district) ? null : district;
         updateDistrictDisplay();
         showRegionOptions();
@@ -158,12 +205,15 @@ function updateDistrictDisplay() {
 // ---- 难度选项 ----
 function showDifficultyOptions() {
   optionsContainer.innerHTML = '';
+  const incompatible = getIncompatibleOptions('difficulty');
   DIFFICULTIES.forEach(diff => {
     const chip = document.createElement('button');
     chip.className = 'chip';
     if (diff === state.difficulty) chip.classList.add('chip--selected');
+    if (incompatible.has(diff)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = diff;
     chip.addEventListener('click', () => {
+      if (chip.disabled) return;
       state.difficulty = (diff === state.difficulty) ? null : diff;
       updateFilterBtn('difficulty', state.difficulty || '選擇');
       showDifficultyOptions();
@@ -175,12 +225,15 @@ function showDifficultyOptions() {
 // ---- 氛围选项 ----
 function showSceneryOptions() {
   optionsContainer.innerHTML = '';
+  const incompatible = getIncompatibleOptions('scenery');
   SCENERIES.forEach(sc => {
     const chip = document.createElement('button');
     chip.className = 'chip';
     if (sc === state.scenery) chip.classList.add('chip--selected');
+    if (incompatible.has(sc)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sc;
     chip.addEventListener('click', () => {
+      if (chip.disabled) return;
       state.scenery = (sc === state.scenery) ? null : sc;
       updateFilterBtn('scenery', state.scenery || '選擇');
       showSceneryOptions();
@@ -192,12 +245,15 @@ function showSceneryOptions() {
 // ---- 路况选项 ----
 function showSurfaceOptions() {
   optionsContainer.innerHTML = '';
+  const incompatible = getIncompatibleOptions('surface');
   SURFACES.forEach(sf => {
     const chip = document.createElement('button');
     chip.className = 'chip';
     if (sf === state.surface) chip.classList.add('chip--selected');
+    if (incompatible.has(sf)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sf;
     chip.addEventListener('click', () => {
+      if (chip.disabled) return;
       state.surface = (sf === state.surface) ? null : sf;
       updateFilterBtn('surface', state.surface || '選擇');
       showSurfaceOptions();

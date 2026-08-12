@@ -4,7 +4,8 @@
 
 import { navigate, register } from '../core/router.js?v=4';
 import { matchParks } from '../core/matcher.js?v=4';
-import { getUserPosition, sortByDistance } from '../core/geo.js?v=4';
+import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
+import { formatDistance } from '../core/format.js?v=4';
 
 let parks = [];
 let cachedResults = null;    // 从详情页返回时恢复用
@@ -29,6 +30,10 @@ function init() {
     isDistanceSort = false;
     distanceOrder = null;
     currentPage = 1;
+    // 尝试获取用户位置（用于显示距离，静默失败）
+    if (!userCoords) {
+      getUserPosition().then(r => { if (r.coords) userCoords = r.coords; });
+    }
   }
   updateSortButton(sortBtn, isDistanceSort);
 
@@ -73,7 +78,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=2')
+    fetch('js/data/parks.json?v=4')
       .then(r => r.json())
       .then(data => {
         parks = data;
@@ -118,9 +123,6 @@ function doMatch(listEl, countEl, emptyEl, sortBtn, pgnEl) {
 }
 
 async function handleSortClick(sortBtn, listEl, countEl, pgnEl) {
-  // 缓存当前排序用的完整列表
-  const fullList = isDistanceSort ? (distanceOrder || originalOrder) : originalOrder;
-
   if (isDistanceSort) {
     // 取消距离排序 → 恢复默认顺序
     isDistanceSort = false;
@@ -247,6 +249,12 @@ function renderCards(parkList, container, filters) {
   parkList.forEach(park => {
     const desc = getParkDescription(park, filters);
 
+    let distanceHtml = '';
+    if (userCoords && park.lat != null && park.lng != null) {
+      const km = calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng);
+      distanceHtml = `<span class="park-card__distance">${formatDistance(km)}</span>`;
+    }
+
     const card = document.createElement('div');
     card.className = 'park-card';
     card.dataset.region = park.region;
@@ -259,6 +267,7 @@ function renderCards(parkList, container, filters) {
         <div class="park-card__desc">${desc}</div>
       </div>
       <span class="park-card__region">${park.region}</span>
+      ${distanceHtml}
     `;
 
     card.addEventListener('click', () => {
@@ -272,13 +281,6 @@ function renderCards(parkList, container, filters) {
 }
 
 function getParkDescription(park, filters) {
-  if (filters.activity && park.activityDescriptions && park.activityDescriptions[filters.activity]) {
-    return park.activityDescriptions[filters.activity];
-  }
-  if (park.activityDescriptions) {
-    const first = Object.values(park.activityDescriptions)[0];
-    if (first) return first;
-  }
   return park.description || '';
 }
 

@@ -108,7 +108,7 @@ function init() {
 
   // ---- 首次加载 & 开投 ----
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=2')
+    fetch('js/data/parks.json?v=4')
       .then(r => r.json())
       .then(data => {
         parks = data;
@@ -181,12 +181,6 @@ function showResult(park, container, retryBtn) {
   cachedPark = park;  // ★ 缓存，供详情页返回时恢复
 
   let desc = park.description || '';
-  if (park.activityDescriptions) {
-    const descs = Object.values(park.activityDescriptions);
-    if (descs.length > 0) {
-      desc = descs[Math.floor(Math.random() * descs.length)];
-    }
-  }
 
   const diceNote = buildDiceNote(park);
   const diceNoteHtml = diceNote

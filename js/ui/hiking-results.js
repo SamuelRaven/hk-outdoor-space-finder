@@ -4,7 +4,8 @@
 
 import { navigate, register } from '../core/router.js?v=4';
 import { matchTrails } from '../core/trail-matcher.js?v=4';
-import { getUserPosition, sortByDistance } from '../core/geo.js?v=4';
+import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
+import { formatDistance, formatDuration } from '../core/format.js?v=4';
 
 let trails = [];
 let cachedResults = null;    // 从详情页返回时恢复用
@@ -29,6 +30,10 @@ function init() {
     isDistanceSort = false;
     distanceOrder = null;
     currentPage = 1;
+    // 尝试获取用户位置（用于显示距离，静默失败）
+    if (!userCoords) {
+      getUserPosition().then(r => { if (r.coords) userCoords = r.coords; });
+    }
   }
   updateSortButton(sortBtn, isDistanceSort);
 
@@ -74,7 +79,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=2')
+    fetch('js/data/trails.json?v=4')
       .then(r => r.json())
       .then(data => {
         trails = data;
@@ -271,6 +276,12 @@ function renderCards(trailList, container) {
       tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
     }
 
+    let distanceHtml = '';
+    if (userCoords && trail.lat != null && trail.lng != null) {
+      const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
+      distanceHtml = `<span class="trail-card__distance">${formatDistance(km)}</span>`;
+    }
+
     const card = document.createElement('div');
     card.className = 'trail-card';
     card.dataset.difficulty = trail.difficulty;
@@ -281,13 +292,14 @@ function renderCards(trailList, container) {
         <div class="trail-card__name">${trail.nameZh}</div>
         <div class="trail-card__section">${sectionText}</div>
         <div class="trail-card__meta">
-          <span class="trail-card__stat">🕐 ${trail.durationHrs} 小時</span>
+          <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
           <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
         </div>
         <div class="trail-card__desc">${trail.description}</div>
         ${tipsHtml}
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>
+      ${distanceHtml}
     `;
 
     card.addEventListener('click', () => {

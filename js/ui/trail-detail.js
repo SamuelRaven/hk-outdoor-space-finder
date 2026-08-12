@@ -5,9 +5,12 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=4';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
+import { formatDistance, formatDuration } from '../core/format.js?v=4';
+import { calcDistance, getUserPosition } from '../core/geo.js?v=4';
 
 let trails = [];
 let handlers = {};
+let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-trail-detail');
@@ -66,6 +69,16 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
+  // 尝试获取用户位置（用于显示距离）
+  getUserPosition().then(r => {
+    if (r.coords) {
+      userCoords = r.coords;
+      if (trails.length > 0) {
+        render(trails.find(t => t.id === trailId));
+      }
+    }
+  });
+
   function render(trail) {
     if (!trail) {
       container.innerHTML = '<p class="detail-empty">找不到這條山徑 😢</p>';
@@ -99,6 +112,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${trail.region} · ${trail.district}</span>
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
+          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">📍 ${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}</span>` : ''}
         </div>
       </div>
 
@@ -109,7 +123,7 @@ function init() {
         </div>
         <div class="detail-block detail-block--half detail-block--duration">
           <div class="detail-label">🕐 需時</div>
-          <div class="detail-value detail-value--big">${trail.durationHrs} 小時</div>
+          <div class="detail-value detail-value--big">${formatDuration(trail.durationHrs)}</div>
         </div>
       </div>
 
@@ -163,7 +177,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=2').then(r => r.json()).then(data => {
+    fetch('js/data/trails.json?v=4').then(r => r.json()).then(data => {
       trails = data;
       render(trails.find(t => t.id === trailId));
     });
@@ -196,27 +210,33 @@ function buildCrowd(trail) {
   else range = 'long';
 
   // seed=1, 每組合 3-4 變體
-  const hi = bh(trail.id, 1) % 4;
+  const hi = bh(trail.id, 1) % 6;
 
-  const pool = {
+    const pool = {
     '著波鞋就得': {
       short: [
         '老少咸宜，新手入門首選，親子家庭皆適合。',
         '一家大細輕鬆行，完全無壓力。',
         '平坦易行，推嬰兒車也無問題。',
         '零門檻路線，任何人穿上波鞋就能出發。',
+        '全程石屎路面，長者同細路都可以安心慢慢行。',
+        '適合所有年齡層，是一條不用做功課就能出發的輕鬆路線。',
       ],
       mid: [
         '難度低但路程稍長，適合有耐力的初階山友。',
         '適合初學者及家庭，平緩好行但預留半天。',
         '全程平路為主，只要不趕時間慢慢行都應付到。',
         '初階中的長線，適合想挑戰距離但不想爬坡的朋友。',
+        '大人細路都啱，路程雖長但坡度平緩，帶小朋友慢慢行也無問題。',
+        '適合週末想輕鬆出走的行山入門者，路線平易近人。',
       ],
       long: [
         '平路為主但距離長，適合有耐力的入門山友。',
         '難度不高但路程不短，考驗的是腳力而非技術。',
         '全程平坦好行，是訓練耐力的好選擇。',
         '入門級長線，適合喜歡慢慢走、享受沿途風景的旅人。',
+        '適合想挑戰長距離但不想爬坡的初階山友，路線友善景色優美。',
+        '初學者想突破自己的好選擇——技術門檻低，只需準備好腳力與心情。',
       ],
     },
     '著行山鞋穩陣D': {
@@ -225,18 +245,24 @@ function buildCrowd(trail) {
         '短程但有坡度，是從入門進階的理想試煉。',
         '路段有些爬升但距離短，初階想挑戰的首選。',
         '中等難度入門，適合想試試自己體能水平的人。',
+        '適合入門後想更上一層樓的山友，短程有坡是絕佳的進階練習。',
+        '平時有運動習慣就能享受，是從散步級升級到登山級的最佳過渡。',
       ],
       mid: [
         '適合有規律運動習慣的行山愛好者，建議結伴。',
         '中等體能要求，平時有做運動就能享受。',
         '進階入門的好選擇，有挑戰但不至於太辛苦。',
         '難度與距離均衡，是週末鍛鍊的絕佳路線。',
+        '適合想認真行山但未至於挑戰極限的山友，汗水與風景比例剛剛好。',
+        '中等難度的黃金區間——有足夠爬升滿足運動量，又不至於透支體力。',
       ],
       long: [
         '中等難度但路程長，需穩定體能，宜提早出發。',
         '適合有中級經驗的山友，考驗續航力多於技術。',
         '路線長且有些爬升，帶足補給預留全日。',
         '需要一定體能基礎，但技術門檻不高。',
+        '適合有長途行山經驗的愛好者，是考驗耐力與配速的好路線。',
+        '給行慣中短途想挑戰更長距離的山友——做足準備、預留全日、享受過程。',
       ],
     },
     '著咩鞋都腳軟': {
@@ -245,22 +271,27 @@ function buildCrowd(trail) {
         '距離雖短但路段陡峭，新手切勿獨自挑戰。',
         '體能消耗大，是高難度的短途衝刺路線。',
         '路短但絕不輕鬆，適合追求挑戰的資深山友。',
+        '短小精悍的高難度路線，適合想在三小時內體驗極限爬升的進階山友。',
+        '濃縮的精華——短距離內集齊陡坡碎石與攀爬，是技術型山友的訓練場。',
       ],
       mid: [
         '體能要求高，適合有豐富經驗的進階行山者。',
         '挑戰級路線，出發前務必檢查天氣及裝備。',
         '需要一定攀爬技巧，不適合畏高或體能一般者。',
         '給準備好突破自己的山友——爬升多、路段 technical。',
+        '適合行山經驗豐富且體能充沛的資深山友，是自我挑戰的標誌性路線。',
+        '需要穩定的體能輸出與良好的路線判斷力，適合有數十條行山經驗的愛好者。',
       ],
       long: [
         '高難度長途，僅推薦體能充沛且裝備齊全的資深山友。',
         '技術與體能的雙重考驗，新手絕對不要越級挑戰。',
         '是給行山老手的終極試煉，帶足糧水預留全日。',
         '整段路對體能和意志都是考驗，做足準備再出發。',
+        '香港最具挑戰性的路線之一，適合已完成多條中級路線想挑戰自我的行山發燒友。',
+        '給追求終極滿足感的你——完成這條路線，你已經站在香港行山者的前列。',
       ],
     },
   };
-
   const arr = pool[d] && pool[d][range];
   return arr ? arr[hi] : '請按自身體能判斷是否適合前往。';
 }
@@ -292,7 +323,7 @@ function buildHighlights(trail) {
   const sceneries = trail.scenery || [];
 
   // 風景標籤 → 多種定義表述（同義改寫，非編造）
-  const defs = {
+    const defs = {
     '山海之間': [
       '路段沿海岸山脊而行，可同時欣賞山景與海景',
       '山與海交織的路段，一邊是翠綠山巒，一邊是蔚藍大海',
@@ -300,6 +331,10 @@ function buildHighlights(trail) {
       '穿梭於山海交界處，同時擁有山的沉穩與海的遼闊',
       '依山傍海的經典路段，山海景觀不斷交替變換',
       '海風與山風交匯的路線，同時感受兩種截然不同的自然氣息',
+      '海岸線在腳下蜿蜒，浪濤聲伴隨整段路程，海天一色令人心曠神怡',
+      '走在山腰小徑上，左邊是蔥鬱山坡，右邊是無盡大海，每個轉彎都是驚喜',
+      '居高臨下俯瞰島嶼與海灣，海面在陽光下閃爍如碎銀般的光澤',
+      '山海在此交會，蜿蜒的海岸線與起伏的山脊構成香港最具代表性的地貌畫卷',
     ],
     '深山林蔭': [
       '穿梭於樹木茂密的林間，綠蔭蔽日涼爽舒適',
@@ -308,6 +343,10 @@ function buildHighlights(trail) {
       '被林木包圍的路段，空氣清新生機盎然',
       '古木參天的林徑，蕨類與苔蘚覆蓋兩旁，充滿原始森林感',
       '樹林密度恰到好處，既能遮陽又不遮擋遠處山景',
+      '穿行於亞熱帶次生林中，耳邊此起彼落的鳥鳴與樹葉沙沙聲交織成自然交響曲',
+      '林間小道蜿蜒向前，兩旁藤蔓與灌木交織，每一步都像走進綠色隧道',
+      '樹冠層層疊疊過濾了烈日，地面上光影斑駁如印象派畫作般柔和',
+      '竹林與喬木混生的路段，不同樹種的氣息在空氣中混合成獨特的山林味道',
     ],
     '水庫平湖': [
       '途經水塘或湖泊，平靜水面倒映周邊山色',
@@ -316,6 +355,10 @@ function buildHighlights(trail) {
       '傍水路段，開闊水面與周邊山景構成絕佳景觀',
       '水壩路段視野最開闊，雨後水量充沛時景觀更震撼',
       '環湖而行，不同角度觀賞湖水顏色由淺藍到深藍的漸變',
+      '水塘邊微風輕拂，湖面泛起細碎漣漪，偶有飛鳥掠過水面激起一圈圈波紋',
+      '平靜的水庫像一面巨大的鏡子，完美倒映著天空的雲彩與環抱的群山',
+      '沿湖岸漫步，陽光在水面鋪開一條閃爍的金色光帶，隨步伐移動而變幻',
+      '水壩上回望，滿溢的水面與翠綠山谷構成一幅靜謐的山水畫',
     ],
     '登頂大景': [
       '路段包含高點或山頂，視野開闊可遠眺周邊',
@@ -324,6 +367,10 @@ function buildHighlights(trail) {
       '高點路段視野無遮擋，是遠眺周邊地貌的最佳位置',
       '山頂風大但景色值回票價，晴天時能見度可達數十公里',
       '登頂一刻豁然開朗，四周山巒如波浪般向天邊延伸',
+      '站在山巔，腳下是連綿起伏的丘陵與錯落有致的城市天際線，壯闊得令人屏息',
+      '最高點的風景是給堅持到最後的人最好的獎勵，極目遠眺，遠山近海一覽無遺',
+      '攻頂後回望來時路，才發現自己已經走了那麼遠，天地之大盡在眼前',
+      '山頂的風吹散了所有疲憊，俯瞰腳下萬物皆小的感覺讓一切辛苦都化為滿足',
     ],
     '瀑布溪澗': [
       '沿途有瀑布或溪流，夏季水量充沛時最為壯觀',
@@ -332,6 +379,10 @@ function buildHighlights(trail) {
       '依水而行，溪水清澈見底，是夏日行山的首選',
       '雨後兩三天水量最豐沛，瀑布聲勢浩大震懾人心',
       '沿澗道而行，清涼水氣撲面，是夏季避暑的絕佳路線',
+      '瀑布從高處傾瀉而下，水花四濺中形成一道若隱若現的彩虹，涼意撲面而來',
+      '溪水在岩石間跳躍奔流，清澈得可以看見水底的每一顆鵝卵石',
+      '坐在溪邊大石上，把腳浸入冰涼的溪水中，聽著淙淙水聲，暑氣全消',
+      '瀑布下方的水潭碧綠如翡翠，四周蕨類茂密，彷彿走進了熱帶雨林的秘境',
     ],
     '歷史遺跡': [
       '途經古道、村落或戰時遺址等歷史地標',
@@ -340,9 +391,12 @@ function buildHighlights(trail) {
       '行山同時穿越歷史，沿途可見歲月留下的印記',
       '古道石階被歲月磨得光滑，每級都在訴說過往旅人的故事',
       '途經的村落廢墟與舊建築，是了解本地歷史的活教材',
+      '石砌古道蜿蜒山中，百年前村民就是踏著這些石級往來墟市，歷史在腳下延續',
+      '廢棄的學校與祠堂靜立在林間，斑駁的牆面上爬滿藤蔓，無聲地訴說著昔日繁華',
+      '碉堡與戰壕隱沒在草叢中，戰時的硝煙早已散盡，只留下混凝土遺構供人追憶',
+      '客家村落的白牆灰瓦在竹林後若隱若現，推開半掩的木門，時光彷彿倒流百年',
     ],
   };
-
   const H = bh(trail.id, 2);
 
   const lines = sceneries

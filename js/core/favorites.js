@@ -38,7 +38,3 @@ export function toggleFavorite(type, id) {
   }
 }
 
-/** 檢查某類型是否有任何收藏 */
-export function hasFavorites(type) {
-  return getFavorites(type).length > 0;
-}

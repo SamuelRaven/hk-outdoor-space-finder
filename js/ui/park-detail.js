@@ -5,9 +5,12 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=4';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
+import { calcDistance, getUserPosition } from '../core/geo.js?v=4';
+import { formatDistance } from '../core/format.js?v=4';
 
 let parks = [];
 let handlers = {};
+let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-park-detail');
@@ -66,6 +69,17 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
+  // 尝试获取用户位置（用于显示距离）
+  getUserPosition().then(r => {
+    if (r.coords) {
+      userCoords = r.coords;
+      // 如果公园数据已加载，重新渲染以显示距离
+      if (parks.length > 0) {
+        render(parks.find(p => p.id === parkId));
+      }
+    }
+  });
+
   function render(park) {
     if (!park) {
       container.innerHTML = '<p class="detail-empty">找不到這個公園 😢</p>';
@@ -103,6 +117,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${park.region} · ${park.district}</span>
           <span class="detail-badge detail-badge--type">${park.parkType || ''}</span>
+          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">📍 ${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
         </div>
       </div>
 
@@ -155,10 +170,15 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=2').then(r => r.json()).then(data => {
-      parks = data;
-      render(parks.find(p => p.id === parkId));
-    });
+    fetch('js/data/parks.json?v=4')
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => {
+        parks = data;
+        render(parks.find(p => p.id === parkId));
+      })
+      .catch(() => {
+        container.innerHTML = '<p class="detail-empty">載入失敗，請檢查網絡後重新整理頁面 😢</p>';
+      });
   } else {
     render(parks.find(p => p.id === parkId));
   }

@@ -34,10 +34,6 @@ function init() {
 
     favParks.forEach(park => {
       let desc = park.description || '';
-      if (park.activityDescriptions) {
-        const first = Object.values(park.activityDescriptions)[0];
-        if (first) desc = first;
-      }
 
       const card = document.createElement('div');
       card.className = 'park-card';
@@ -63,7 +59,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=2')
+    fetch('js/data/parks.json?v=4')
       .then(r => r.json())
       .then(data => {
         parks = data;
