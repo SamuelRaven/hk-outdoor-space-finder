@@ -307,7 +307,9 @@ function renderCards(trailList, container) {
     card.addEventListener('click', () => {
       sessionStorage.setItem('detailReferrer', '#/hiking-results');
       sessionStorage.setItem('hikingScrollY', window.scrollY);
-      navigate(`#/trail/${trail.id}`);
+      let url = `#/trail/${trail.id}`;
+      if (userCoords) url += `?lat=${userCoords.lat}&lng=${userCoords.lng}`;
+      navigate(url);
     });
 
     container.appendChild(card);

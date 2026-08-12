@@ -2,7 +2,7 @@
    Trail Detail Page
    ======================================== */
 
-import { navigate, register, getHashParam } from '../core/router.js?v=4';
+import { navigate, register, getHashParam, getHashQuery } from '../core/router.js?v=4';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
 import { formatDistance, formatDuration } from '../core/format.js?v=4';
@@ -69,10 +69,15 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 从推荐页传来的距离排序位置（仅用户主动排序时才有）
+  // 坐标：优先从 URL 读取（分享链接自带），fallback 到 sessionStorage
   if (!userCoords) {
-    const stored = sessionStorage.getItem('userCoords');
-    if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+    const q = getHashQuery();
+    if (q.lat && q.lng) {
+      userCoords = { lat: parseFloat(q.lat), lng: parseFloat(q.lng) };
+    } else {
+      const stored = sessionStorage.getItem('userCoords');
+      if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+    }
   }
 
   function render(trail) {

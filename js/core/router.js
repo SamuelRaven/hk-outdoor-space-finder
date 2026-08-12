@@ -46,8 +46,17 @@ function handleRouteChange() {
 
 export function getHashParam() {
   const hash = window.location.hash;
-  const parts = hash.split('/');
+  const clean = hash.indexOf('?') >= 0 ? hash.slice(0, hash.indexOf('?')) : hash;
+  const parts = clean.split('/');
   return parts.length > 2 ? parts.slice(2).join('/') : null;
+}
+
+export function getHashQuery() {
+  const hash = window.location.hash;
+  const qIndex = hash.indexOf('?');
+  if (qIndex < 0) return {};
+  const params = new URLSearchParams(hash.slice(qIndex + 1));
+  return Object.fromEntries(params.entries());
 }
 
 function hashToPageId(hash) {
