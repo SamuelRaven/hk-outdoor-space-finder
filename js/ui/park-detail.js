@@ -5,7 +5,7 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=4';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
-import { calcDistance, getUserPosition } from '../core/geo.js?v=4';
+import { calcDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
 
 let parks = [];
@@ -69,16 +69,11 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 尝试获取用户位置（用于显示距离）
-  getUserPosition().then(r => {
-    if (r.coords) {
-      userCoords = r.coords;
-      // 如果公园数据已加载，重新渲染以显示距离
-      if (parks.length > 0) {
-        render(parks.find(p => p.id === parkId));
-      }
-    }
-  });
+  // 从推荐页传来的距离排序位置（仅用户主动排序时才有）
+  if (!userCoords) {
+    const stored = sessionStorage.getItem('userCoords');
+    if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+  }
 
   function render(park) {
     if (!park) {
@@ -117,7 +112,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${park.region} · ${park.district}</span>
           <span class="detail-badge detail-badge--type">${park.parkType || ''}</span>
-          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">📍 ${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
+          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}<span class="detail-badge--distance__bar"></span></span>` : ''}
         </div>
       </div>
 

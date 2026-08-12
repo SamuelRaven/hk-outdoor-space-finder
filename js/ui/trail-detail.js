@@ -6,7 +6,7 @@ import { navigate, register, getHashParam } from '../core/router.js?v=4';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
 import { formatDistance, formatDuration } from '../core/format.js?v=4';
-import { calcDistance, getUserPosition } from '../core/geo.js?v=4';
+import { calcDistance } from '../core/geo.js?v=4';
 
 let trails = [];
 let handlers = {};
@@ -69,15 +69,11 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 尝试获取用户位置（用于显示距离）
-  getUserPosition().then(r => {
-    if (r.coords) {
-      userCoords = r.coords;
-      if (trails.length > 0) {
-        render(trails.find(t => t.id === trailId));
-      }
-    }
-  });
+  // 从推荐页传来的距离排序位置（仅用户主动排序时才有）
+  if (!userCoords) {
+    const stored = sessionStorage.getItem('userCoords');
+    if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+  }
 
   function render(trail) {
     if (!trail) {
@@ -112,7 +108,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${trail.region} · ${trail.district}</span>
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
-          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">📍 ${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}</span>` : ''}
+          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}<span class="detail-badge--distance__bar"></span></span>` : ''}
         </div>
       </div>
 

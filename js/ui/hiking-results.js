@@ -30,9 +30,10 @@ function init() {
     isDistanceSort = false;
     distanceOrder = null;
     currentPage = 1;
-    // 尝试获取用户位置（用于显示距离，静默失败）
+    // 恢复之前的距离排序位置（如有）
     if (!userCoords) {
-      getUserPosition().then(r => { if (r.coords) userCoords = r.coords; });
+      const stored = sessionStorage.getItem('userCoords');
+      if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
     }
   }
   updateSortButton(sortBtn, isDistanceSort);
@@ -154,6 +155,7 @@ async function handleSortClick(sortBtn, listEl, countEl, pgnEl) {
     return;
   }
   userCoords = geoResult.coords;
+  sessionStorage.setItem('userCoords', JSON.stringify(userCoords));
 
   distanceOrder = sortByDistance(originalOrder, userCoords.lat, userCoords.lng);
   isDistanceSort = true;
@@ -279,7 +281,7 @@ function renderCards(trailList, container) {
     let distanceHtml = '';
     if (userCoords && trail.lat != null && trail.lng != null) {
       const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
-      distanceHtml = `<span class="trail-card__distance">${formatDistance(km)}</span>`;
+      distanceHtml = `<span class="trail-card__stat">📍 ${formatDistance(km)}</span>`;
     }
 
     const card = document.createElement('div');
@@ -294,12 +296,12 @@ function renderCards(trailList, container) {
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
           <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+          ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>
         ${tipsHtml}
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>
-      ${distanceHtml}
     `;
 
     card.addEventListener('click', () => {

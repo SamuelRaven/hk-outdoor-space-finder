@@ -30,9 +30,10 @@ function init() {
     isDistanceSort = false;
     distanceOrder = null;
     currentPage = 1;
-    // 尝试获取用户位置（用于显示距离，静默失败）
+    // 恢复之前的距离排序位置（如有）
     if (!userCoords) {
-      getUserPosition().then(r => { if (r.coords) userCoords = r.coords; });
+      const stored = sessionStorage.getItem('userCoords');
+      if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
     }
   }
   updateSortButton(sortBtn, isDistanceSort);
@@ -157,6 +158,7 @@ async function handleSortClick(sortBtn, listEl, countEl, pgnEl) {
     return;
   }
   userCoords = geoResult.coords;
+  sessionStorage.setItem('userCoords', JSON.stringify(userCoords));
 
   // 按距离排序
   distanceOrder = sortByDistance(originalOrder, userCoords.lat, userCoords.lng);
@@ -252,7 +254,7 @@ function renderCards(parkList, container, filters) {
     let distanceHtml = '';
     if (userCoords && park.lat != null && park.lng != null) {
       const km = calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng);
-      distanceHtml = `<span class="park-card__distance">${formatDistance(km)}</span>`;
+      distanceHtml = ` · 📍 ${formatDistance(km)}`;
     }
 
     const card = document.createElement('div');
@@ -263,11 +265,10 @@ function renderCards(parkList, container, filters) {
     card.innerHTML = `
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
-        <div class="park-card__hours">${park.openingHours}</div>
+        <div class="park-card__hours">${park.openingHours}${distanceHtml}</div>
         <div class="park-card__desc">${desc}</div>
       </div>
       <span class="park-card__region">${park.region}</span>
-      ${distanceHtml}
     `;
 
     card.addEventListener('click', () => {
