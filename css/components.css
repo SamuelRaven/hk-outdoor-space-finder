@@ -764,7 +764,7 @@
 .pgn-arrow:hover { opacity: 1; }
 .pgn-num:hover { background: var(--color-yellow); }
 .pgn-num:active { background: var(--color-black); color: var(--color-white); }
-.pgn-num--active { background: var(--color-black); color: var(--color-white); }
+.pgn-num--active { background: var(--color-yellow); color: var(--color-black); }
 .pgn-arrow[disabled] { opacity: 0.15; cursor: default; pointer-events: none; }
 .pgn-pages { display: flex; gap: 4px; }
 .pgn-ellipsis {
