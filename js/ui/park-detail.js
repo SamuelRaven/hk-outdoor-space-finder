@@ -2,7 +2,7 @@
    Park Detail Page
    ======================================== */
 
-import { navigate, register, getHashParam, getHashQuery, getHashCoords } from '../core/router.js?v=5';
+import { navigate, register, getHashParam, getHashQuery, getHashCoords, getSearchCoords } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
 import { calcDistance } from '../core/geo.js?v=4';
@@ -69,12 +69,10 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 坐标：优先从 URL 读取（@lat,lng 格式，WeChat 兼容），fallback 到 sessionStorage
+  // 坐标：search > hash @ > hash ? > sessionStorage（优先级从高到低）
   if (!userCoords) {
-    const hashCoords = getHashCoords();
-    if (hashCoords) {
-      userCoords = hashCoords;
-    } else {
+    userCoords = getSearchCoords() || getHashCoords();
+    if (!userCoords) {
       const q = getHashQuery();
       if (q.lat && q.lng) {
         userCoords = { lat: parseFloat(q.lat), lng: parseFloat(q.lng) };

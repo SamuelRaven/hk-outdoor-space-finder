@@ -66,9 +66,7 @@ function init() {
     const card = e.target.closest('[data-park-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/blindbox');
-    let url = `#/park/${card.dataset.parkId}`;
-    if (userCoords) url += `@${userCoords.lat},${userCoords.lng}`;
-    navigate(url);
+    navigate(`#/park/${card.dataset.parkId}`, userCoords || null);
   };
   resultEl.addEventListener('click', handlers.onCardClick);
 

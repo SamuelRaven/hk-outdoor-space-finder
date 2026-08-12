@@ -274,9 +274,7 @@ function renderCards(parkList, container, filters) {
     card.addEventListener('click', () => {
       sessionStorage.setItem('detailReferrer', '#/results');
       sessionStorage.setItem('resultsScrollY', window.scrollY);
-      let url = `#/park/${park.id}`;
-      if (userCoords) url += `@${userCoords.lat},${userCoords.lng}`;
-      navigate(url);
+      navigate(`#/park/${park.id}`, userCoords || null);
     });
 
     container.appendChild(card);

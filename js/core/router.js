@@ -9,8 +9,16 @@ export function register(pageId, initFn, destroyFn) {
   routes.set(pageId, { initFn, destroyFn });
 }
 
-export function navigate(hash) {
-  window.location.hash = hash;
+export function navigate(hash, coords) {
+  let fullHash = hash;
+  if (coords) {
+    fullHash += `@${coords.lat},${coords.lng}`;
+    const search = `?ll=${coords.lat},${coords.lng}`;
+    history.replaceState(null, '', window.location.pathname + search + fullHash);
+  } else if (window.location.search) {
+    history.replaceState(null, '', window.location.pathname + fullHash);
+  }
+  window.location.hash = fullHash;
 }
 
 function handleRouteChange() {
@@ -71,6 +79,19 @@ export function getHashCoords() {
   const atIdx = hash.indexOf('@');
   if (atIdx < 0) return null;
   const parts = hash.slice(atIdx + 1).split(',');
+  if (parts.length !== 2) return null;
+  const lat = parseFloat(parts[0]);
+  const lng = parseFloat(parts[1]);
+  if (isNaN(lat) || isNaN(lng)) return null;
+  return { lat, lng };
+}
+
+/** 从 search params 提取坐标（?ll=lat,lng，server 可见，分享最可靠） */
+export function getSearchCoords() {
+  const params = new URLSearchParams(window.location.search);
+  const ll = params.get('ll');
+  if (!ll) return null;
+  const parts = ll.split(',');
   if (parts.length !== 2) return null;
   const lat = parseFloat(parts[0]);
   const lng = parseFloat(parts[1]);
