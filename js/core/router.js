@@ -9,22 +9,8 @@ export function register(pageId, initFn, destroyFn) {
   routes.set(pageId, { initFn, destroyFn });
 }
 
-export function navigate(hash, coords) {
-  let fullHash = hash;
-  if (coords) {
-    fullHash += `@${coords.lat},${coords.lng}`;
-  }
-
-  // 1. 先改 hash → 触发 hashchange → 路由正常跳转
-  window.location.hash = fullHash;
-
-  // 2. 再静默补上/清理 ?ll= → history.replaceState 不触发任何事件，不影响导航
-  if (coords) {
-    const search = `?ll=${coords.lat},${coords.lng}`;
-    history.replaceState(null, '', window.location.pathname + search + window.location.hash);
-  } else if (window.location.search) {
-    history.replaceState(null, '', window.location.pathname + window.location.hash);
-  }
+export function navigate(hash) {
+  window.location.hash = hash;
 }
 
 function handleRouteChange() {

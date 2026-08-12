@@ -66,7 +66,7 @@ function init() {
     const card = e.target.closest('[data-trail-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/hiking-blindbox');
-    navigate(`#/trail/${card.dataset.trailId}`, userCoords || null);
+    navigate(`#/trail/${card.dataset.trailId}`);
   };
   resultEl.addEventListener('click', handlers.onCardClick);
 

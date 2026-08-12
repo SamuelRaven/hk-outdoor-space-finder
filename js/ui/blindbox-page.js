@@ -66,7 +66,7 @@ function init() {
     const card = e.target.closest('[data-park-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/blindbox');
-    navigate(`#/park/${card.dataset.parkId}`, userCoords || null);
+    navigate(`#/park/${card.dataset.parkId}`);
   };
   resultEl.addEventListener('click', handlers.onCardClick);
 
