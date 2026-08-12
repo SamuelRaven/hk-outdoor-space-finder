@@ -4,7 +4,7 @@
 const fs = require('fs');
 const zlib = require('zlib');
 
-const W = 600, H = 315;
+const W = 600, H = 600;
 const data = Buffer.alloc(W * H * 4); // RGBA
 
 function setPixel(x, y, r, g, b, a = 255) {
@@ -141,20 +141,23 @@ function drawLineAA(x1,y1,x2,y2,w,rr,gg,bb) {
   }
 }
 
-// === Draw shapes ===
+// === Draw shapes (square 600×600) ===
 
-// Blue square (right side)
-fillRectAA(340, 68, 500, 228, 26, 58, 143);
-strokeRectAA(340, 68, 500, 228, 3, 17, 17, 17);
+// Red circle (upper-left quadrant)
+drawCircleAA(180, 180, 95, 212, 61, 46);
+strokeCircleAA(180, 180, 95, 3, 17, 17, 17);
 
-// Red circle (left)
-drawCircleAA(180, 148, 72, 212, 61, 46);
-strokeCircleAA(180, 148, 72, 3, 17, 17, 17);
+// Blue square (lower-right quadrant)
+fillRectAA(340, 340, 490, 490, 26, 58, 143);
+strokeRectAA(340, 340, 490, 490, 3, 17, 17, 17);
 
-// Yellow triangle (top center)
-const tx1=260, ty1=55, tx2=370, ty2=210, tx3=150, ty3=210;
+// Yellow triangle (upper-right area)
+const tx1=420, ty1=100, tx2=530, ty2=300, tx3=310, ty3=300;
 fillTriangleAA(tx1, ty1, tx2, ty2, tx3, ty3, 242, 200, 32);
 strokeTriangleAA(tx1, ty1, tx2, ty2, tx3, ty3, 3, 17, 17, 17);
+
+// Black small square (lower-left accent)
+fillRectAA(100, 400, 180, 480, 17, 17, 17);
 
 // Bottom color bars
 fillRectAA(11, H-16, 160, H-12, 212, 61, 46);   // red
