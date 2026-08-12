@@ -210,56 +210,7 @@ function buildParkCrowd(park) {
 
 // ---- 公園特色 (優先使用真實數據，無則同義改寫池推導) ----
 function buildParkFeatures(park) {
-  if (park.features && park.features.trim()) return park.features;
-  const type = park.parkType || '';
-  const acts = park.activityTypes || [];
-  const hi = ph(park.id, 1, 4); // 0..3
-
-  // 每類特徵 3-4 種同義表達，全為真實推導
-  const featPool = {
-    '沿海步道': ['沿海步道', '海濱長廊步道', '維港/海岸步道'],
-    '開闊海景': ['開闊海景', '無敵海景視野', '一望無際的海面', '海天一色景觀'],
-    '海風清涼': ['海風清涼', '海風拂面', '涼爽海風'],
-    '大片草地': ['大片草地', '寬敞草坪', '開闊草地空間'],
-    '自然生態': ['自然生態', '生態多樣', '豐富動植物'],
-    '遠離繁囂': ['遠離繁囂', '遠離市區喧鬧', '郊野寧靜'],
-    '園林造景': ['園林造景', '中式/西式園林', '精心設計的園景'],
-    '主題花卉': ['主題花卉', '季節花卉', '多樣植物品種'],
-    '亭台樓閣': ['亭台樓閣', '涼亭與水景', '亭台水榭'],
-    '市區綠洲': ['市區綠洲', '鬧市中的公園', '城市綠肺'],
-    '設施完善': ['設施完善', '配套齊全', '設施多樣'],
-    '交通方便': ['交通方便', '地點便利', '市區核心位置'],
-    '鬧市綠蔭': ['鬧市綠蔭', '街角小花園', '社區綠色角落'],
-    '社區花園': ['社區花園', '鄰里公園', '街坊休憩空間'],
-    '小而精美': ['小而精美', '小巧別緻', '麻雀雖小五臟俱全'],
-    '散步路線': ['散步路線', '悠閒步道', '平坦好行', '適合慢步'],
-    '兒童設施': ['兒童設施', '親子遊樂場', '兒童遊樂空間'],
-    '運動場地': ['運動場地', '健身設施', '運動空間'],
-    '寵物友善': ['寵物友善', '可帶毛孩', '寵物友好空間'],
-    '寧靜角落': ['寧靜角落', '安靜舒適', '清靜角落', '放空好去處'],
-  };
-
-  const features = [];
-  const pick = (key) => {
-    const arr = featPool[key];
-    return arr ? arr[hi % arr.length] : key;
-  };
-
-  // 空間特徵
-  if (type === '海濱長廊') features.push(pick('沿海步道'), pick('開闊海景'), pick('海風清涼'));
-  else if (type === '郊野綠地') features.push(pick('大片草地'), pick('自然生態'), pick('遠離繁囂'));
-  else if (type === '主題園林') features.push(pick('園林造景'), pick('主題花卉'), pick('亭台樓閣'));
-  else if (type === '市區公園') features.push(pick('市區綠洲'), pick('設施完善'), pick('交通方便'));
-  else if (type === '休憩花園') features.push(pick('鬧市綠蔭'), pick('社區花園'), pick('小而精美'));
-
-  // 活動特徵（最多取 2 個，用不同 seed 避免重複）
-  if (acts.includes('散步看景')) features.push(pick('散步路線'));
-  if (acts.includes('親子放電')) features.push(pick('兒童設施'));
-  if (acts.includes('運動出汗')) features.push(pick('運動場地'));
-  if (acts.includes('寵物出行')) features.push(pick('寵物友善'));
-  if (acts.includes('安靜發呆')) features.push(pick('寧靜角落'));
-
-  return features.slice(0, 5).join(' · ');
+  return park.features || '';
 }
 
 // ---- 出行貼士 (同義改寫 + seed 分流 → 保真 + 不重複) ----

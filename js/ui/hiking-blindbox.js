@@ -4,7 +4,8 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js';
-import { formatDuration } from '../core/format.js';
+import { formatDistance, formatDuration } from '../core/format.js';
+import { calcDistance } from '../core/geo.js?v=4';
 
 const STORAGE_KEY = 'diceTiredUntil_hike';
 const COUNT_KEY = 'diceRollCount_hike';
@@ -14,6 +15,7 @@ const MAX_ROLLS = 10;
 let trails = [];
 let handlers = {};
 let cachedTrail = null;  // 从详情页返回时恢复
+let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-hiking-blindbox');
@@ -21,6 +23,12 @@ function init() {
   const resultEl = document.getElementById('hiking-bb-result');
   const retryBtn = document.getElementById('hiking-bb-retry');
   const diceEl = document.getElementById('hiking-dice-cube');
+
+  // ---- 读取用户坐标（如有） ----
+  if (!userCoords) {
+    const stored = sessionStorage.getItem('userCoords');
+    if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+  }
 
   // ---- 检查冷却期 ----
   const tiredUntil = localStorage.getItem(STORAGE_KEY);
@@ -58,7 +66,9 @@ function init() {
     const card = e.target.closest('[data-trail-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/hiking-blindbox');
-    navigate(`#/trail/${card.dataset.trailId}`);
+    let url = `#/trail/${card.dataset.trailId}`;
+    if (userCoords) url += `?lat=${userCoords.lat}&lng=${userCoords.lng}`;
+    navigate(url);
   };
   resultEl.addEventListener('click', handlers.onCardClick);
 
@@ -150,6 +160,12 @@ function showResult(trail, container, retryBtn) {
     tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
   }
 
+  let distanceHtml = '';
+  if (userCoords && trail.lat != null && trail.lng != null) {
+    const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
+    distanceHtml = `<span class="trail-card__stat">📍 ${formatDistance(km)}</span>`;
+  }
+
   const diceNote = buildDiceNote(trail);
   const diceNoteHtml = diceNote
     ? `<div class="trail-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
@@ -163,6 +179,7 @@ function showResult(trail, container, retryBtn) {
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
           <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+          ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>
         ${tipsHtml}

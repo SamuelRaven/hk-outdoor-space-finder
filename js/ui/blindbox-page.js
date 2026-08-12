@@ -4,6 +4,8 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js';
+import { calcDistance } from '../core/geo.js?v=4';
+import { formatDistance } from '../core/format.js?v=4';
 
 const STORAGE_KEY = 'diceTiredUntil_park';
 const COUNT_KEY = 'diceRollCount_park';
@@ -13,6 +15,7 @@ const MAX_ROLLS = 10;
 let parks = [];
 let handlers = {};
 let cachedPark = null;   // 从详情页返回时恢复
+let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-blindbox');
@@ -20,6 +23,12 @@ function init() {
   const resultEl = document.getElementById('bb-result');
   const retryBtn = document.getElementById('bb-retry');
   const diceEl = document.getElementById('dice-cube');
+
+  // ---- 读取用户坐标（如有） ----
+  if (!userCoords) {
+    const stored = sessionStorage.getItem('userCoords');
+    if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
+  }
 
   // ---- 检查冷却期 ----
   const tiredUntil = localStorage.getItem(STORAGE_KEY);
@@ -57,7 +66,9 @@ function init() {
     const card = e.target.closest('[data-park-id]');
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/blindbox');
-    navigate(`#/park/${card.dataset.parkId}`);
+    let url = `#/park/${card.dataset.parkId}`;
+    if (userCoords) url += `?lat=${userCoords.lat}&lng=${userCoords.lng}`;
+    navigate(url);
   };
   resultEl.addEventListener('click', handlers.onCardClick);
 
@@ -182,6 +193,12 @@ function showResult(park, container, retryBtn) {
 
   let desc = park.description || '';
 
+  let distanceHtml = '';
+  if (userCoords && park.lat != null && park.lng != null) {
+    const km = calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng);
+    distanceHtml = `  📍 ${formatDistance(km)}`;
+  }
+
   const diceNote = buildDiceNote(park);
   const diceNoteHtml = diceNote
     ? `<div class="park-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
@@ -191,7 +208,7 @@ function showResult(park, container, retryBtn) {
     <div class="park-card" data-region="${park.region}" data-park-id="${park.id}" style="cursor:pointer;">
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
-        <div class="park-card__hours">${park.openingHours}</div>
+        <div class="park-card__hours">${park.openingHours}${distanceHtml}</div>
         <div class="park-card__desc">${desc}</div>
         ${diceNoteHtml}
       </div>
