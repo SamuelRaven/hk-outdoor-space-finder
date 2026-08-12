@@ -141,29 +141,23 @@ function drawLineAA(x1,y1,x2,y2,w,rr,gg,bb) {
   }
 }
 
-// === Draw shapes (square 600×600) ===
+// === Draw shapes (square 600×600, vibe-hub Bauhaus composition) ===
 
-// Red circle (upper-left quadrant)
-drawCircleAA(180, 180, 95, 212, 61, 46);
-strokeCircleAA(180, 180, 95, 3, 17, 17, 17);
+// Red circle — left side, lower-mid. Center ~(170, 360), radius ~110
+drawCircleAA(170, 360, 110, 212, 61, 46);
+strokeCircleAA(170, 360, 110, 3, 17, 17, 17);
 
-// Blue square (lower-right quadrant)
-fillRectAA(340, 340, 490, 490, 26, 58, 143);
-strokeRectAA(340, 340, 490, 490, 3, 17, 17, 17);
+// Black horizontal bar below the red circle
+fillRectAA(70, 480, 530, 498, 17, 17, 17);
 
-// Yellow triangle (upper-right area)
-const tx1=420, ty1=100, tx2=530, ty2=300, tx3=310, ty3=300;
+// Blue square — upper-right of the red circle
+fillRectAA(350, 100, 500, 250, 26, 58, 143);
+strokeRectAA(350, 100, 500, 250, 3, 17, 17, 17);
+
+// Yellow triangle — lower-right corner
+const tx1=420, ty1=510, tx2=540, ty2=340, tx3=320, ty3=510;
 fillTriangleAA(tx1, ty1, tx2, ty2, tx3, ty3, 242, 200, 32);
 strokeTriangleAA(tx1, ty1, tx2, ty2, tx3, ty3, 3, 17, 17, 17);
-
-// Black small square (lower-left accent)
-fillRectAA(100, 400, 180, 480, 17, 17, 17);
-
-// Bottom color bars
-fillRectAA(11, H-16, 160, H-12, 212, 61, 46);   // red
-fillRectAA(161, H-16, 310, H-12, 26, 58, 143);   // blue
-fillRectAA(311, H-16, 460, H-12, 242, 200, 32);  // yellow
-fillRectAA(461, H-16, W-12, H-12, 17, 17, 17);   // black
 
 // === Write PNG ===
 function crc32(buf) {
