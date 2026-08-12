@@ -705,24 +705,13 @@
   background: var(--color-white);
 }
 
-/* 详情页距离徽章 — 包豪斯黑色底+底部三色条 */
+/* 详情页距离徽章 — 蓝色底，与地区徽章黄色错开 */
 .detail-badge--distance {
-  background: var(--color-black) !important;
+  background: var(--color-blue) !important;
   color: var(--color-white) !important;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
-  position: relative;
-  padding-bottom: 6px;
-}
-.detail-badge--distance__bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(to right,
-    var(--color-red) 33.3%,
-    var(--color-blue) 33.3%, var(--color-blue) 66.6%,
-    var(--color-yellow) 66.6%);
 }
 
 /* 空结果 */

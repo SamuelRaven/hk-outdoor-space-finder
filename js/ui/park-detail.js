@@ -112,7 +112,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${park.region} · ${park.district}</span>
           <span class="detail-badge detail-badge--type">${park.parkType || ''}</span>
-          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}<span class="detail-badge--distance__bar"></span></span>` : ''}
+          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
         </div>
       </div>
 

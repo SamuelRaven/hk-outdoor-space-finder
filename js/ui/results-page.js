@@ -254,7 +254,7 @@ function renderCards(parkList, container, filters) {
     let distanceHtml = '';
     if (userCoords && park.lat != null && park.lng != null) {
       const km = calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng);
-      distanceHtml = ` · 📍 ${formatDistance(km)}`;
+      distanceHtml = `  📍 ${formatDistance(km)}`;
     }
 
     const card = document.createElement('div');

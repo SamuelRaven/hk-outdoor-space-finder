@@ -108,7 +108,7 @@ function init() {
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${trail.region} · ${trail.district}</span>
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
-          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}<span class="detail-badge--distance__bar"></span></span>` : ''}
+          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}</span>` : ''}
         </div>
       </div>
 
