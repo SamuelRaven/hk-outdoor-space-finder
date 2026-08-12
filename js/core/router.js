@@ -46,7 +46,13 @@ function handleRouteChange() {
 
 export function getHashParam() {
   const hash = window.location.hash;
-  const clean = hash.indexOf('?') >= 0 ? hash.slice(0, hash.indexOf('?')) : hash;
+  // strip query (?) and coords (@) suffixes
+  let clean = hash;
+  const qIdx = hash.indexOf('?');
+  const atIdx = hash.indexOf('@');
+  if (qIdx >= 0 && atIdx >= 0) clean = hash.slice(0, Math.min(qIdx, atIdx));
+  else if (qIdx >= 0) clean = hash.slice(0, qIdx);
+  else if (atIdx >= 0) clean = hash.slice(0, atIdx);
   const parts = clean.split('/');
   return parts.length > 2 ? parts.slice(2).join('/') : null;
 }
@@ -57,6 +63,19 @@ export function getHashQuery() {
   if (qIndex < 0) return {};
   const params = new URLSearchParams(hash.slice(qIndex + 1));
   return Object.fromEntries(params.entries());
+}
+
+/** 从 hash 中提取坐标（@lat,lng 格式，WeChat 兼容） */
+export function getHashCoords() {
+  const hash = window.location.hash;
+  const atIdx = hash.indexOf('@');
+  if (atIdx < 0) return null;
+  const parts = hash.slice(atIdx + 1).split(',');
+  if (parts.length !== 2) return null;
+  const lat = parseFloat(parts[0]);
+  const lng = parseFloat(parts[1]);
+  if (isNaN(lat) || isNaN(lng)) return null;
+  return { lat, lng };
 }
 
 function hashToPageId(hash) {

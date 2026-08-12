@@ -67,7 +67,7 @@ function init() {
     if (!card) return;
     sessionStorage.setItem('detailReferrer', '#/blindbox');
     let url = `#/park/${card.dataset.parkId}`;
-    if (userCoords) url += `?lat=${userCoords.lat}&lng=${userCoords.lng}`;
+    if (userCoords) url += `@${userCoords.lat},${userCoords.lng}`;
     navigate(url);
   };
   resultEl.addEventListener('click', handlers.onCardClick);

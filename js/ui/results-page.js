@@ -275,7 +275,7 @@ function renderCards(parkList, container, filters) {
       sessionStorage.setItem('detailReferrer', '#/results');
       sessionStorage.setItem('resultsScrollY', window.scrollY);
       let url = `#/park/${park.id}`;
-      if (userCoords) url += `?lat=${userCoords.lat}&lng=${userCoords.lng}`;
+      if (userCoords) url += `@${userCoords.lat},${userCoords.lng}`;
       navigate(url);
     });
 
