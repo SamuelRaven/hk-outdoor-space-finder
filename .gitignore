@@ -2,7 +2,14 @@
 __pycache__/
 *.pyc
 _*.py
-_*.txt
+# Intro & requirements files (local only)
+介绍.txt
+介绍2.txt
+介绍3.txt
+介绍4.txt
+介绍5.txt
+介绍6.txt
+要求.txt
 
 # Temp files
 _check_*.txt
