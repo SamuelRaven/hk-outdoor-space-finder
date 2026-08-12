@@ -17,6 +17,7 @@ let districtsData = {};
 let parks = [];
 let state = {};
 let filterGrid, optionsContainer;
+let activePanel = null;
 
 // ---- 创建初始状态 ----
 function createInitialState() {
@@ -50,7 +51,13 @@ function init() {
   if (parks.length === 0) {
     fetch('js/data/parks.json?v=4')
       .then(r => r.json())
-      .then(data => { parks = data; })
+      .then(data => {
+        parks = data;
+        if (activePanel && optionsContainer.children.length > 0) {
+          handleFilterTap(activePanel);
+        }
+        updateFilterBtnStates();
+      })
       .catch(err => console.error('加载 parks.json 失败:', err));
   }
 
@@ -64,6 +71,12 @@ function init() {
     if (!state.region && !state.time && !state.parkType && !state.activity) {
       import('./toast.js').then(m => {
         m.showToast('請至少選擇一個篩選條件～');
+      });
+      return;
+    }
+    if (parks.length > 0 && matchParks(parks, state).length === 0) {
+      import('./toast.js').then(m => {
+        m.showToast('沒有符合條件的公園～<br>試試調整篩選條件吧');
       });
       return;
     }
@@ -86,8 +99,10 @@ function init() {
   // Reset! 按钮
   section.querySelector('[data-action="reset"]').addEventListener('click', () => {
     state = createInitialState();
+    activePanel = null;
     resetAllFilterBtns();
     optionsContainer.innerHTML = '';
+    updateFilterBtnStates();
   });
 
   // 筛选按钮点击
@@ -104,6 +119,7 @@ function destroy() {
 
 // ---- 筛选器分发 ----
 function handleFilterTap(filterName) {
+  activePanel = filterName;
   switch (filterName) {
     case 'region':   showRegionOptions(); break;
     case 'time':     showTimeOptions(); break;
@@ -135,6 +151,18 @@ function getIncompatibleOptions(groupKey) {
   return incompatible;
 }
 
+// ---- 更新顶部筛选按钮 disabled 状态 ----
+function updateFilterBtnStates() {
+  const dims = ['region', 'time', 'parkType', 'activity'];
+  const optionLists = { region: REGIONS, time: TIMES, parkType: PARK_TYPES, activity: ACTIVITIES };
+  if (parks.length === 0) return;
+  dims.forEach(k => {
+    const incompatible = getIncompatibleOptions(k);
+    const btn = filterGrid.querySelector(`[data-filter="${k}"]`);
+    if (btn) btn.disabled = (incompatible.size === optionLists[k].length);
+  });
+}
+
 // ---- 地区选项 ----
 function showRegionOptions() {
   optionsContainer.innerHTML = '';
@@ -162,7 +190,7 @@ function showRegionOptions() {
     optionsContainer.appendChild(chip);
   });
 
-  if (state.region && districtsData[state.region]) {
+  if (state.region && districtsData[state.region] && districtsData[state.region].length > 0) {
     const divider = document.createElement('div');
     divider.className = 'filter-options__divider';
     optionsContainer.appendChild(divider);
@@ -193,6 +221,7 @@ function showRegionOptions() {
       optionsContainer.appendChild(chip);
     });
   }
+  updateFilterBtnStates();
 }
 
 function updateDistrictDisplay() {
@@ -220,6 +249,7 @@ function showTimeOptions() {
     });
     optionsContainer.appendChild(chip);
   });
+  updateFilterBtnStates();
 }
 
 // ---- 公园类型选项 ----
@@ -240,6 +270,7 @@ function showParkTypeOptions() {
     });
     optionsContainer.appendChild(chip);
   });
+  updateFilterBtnStates();
 }
 
 // ---- 做点什么选项 ----
@@ -260,6 +291,7 @@ function showActivityOptions() {
     });
     optionsContainer.appendChild(chip);
   });
+  updateFilterBtnStates();
 }
 
 // ---- 更新筛选按钮文字 ----

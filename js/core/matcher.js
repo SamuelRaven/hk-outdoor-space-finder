@@ -1,13 +1,13 @@
 /* ========================================
    Matcher — 公园匹配纯 AND 过滤
-   所有筛选条件必须完全满足 → 取前10
+   所有筛选条件必须完全满足 → 返回全部匹配结果
    ======================================== */
 
 /**
  * 根据筛选条件匹配公园
  * @param {Array} parks - 公园数组
  * @param {Object} filters - 用户筛选条件 { region, district, time, parkType, activity }
- * @returns {Array} 前10个匹配公园（数据文件原始顺序）
+ * @returns {Array} 全部匹配结果（数据文件原始顺序），翻页在 UI 层控制
  */
 export function matchParks(parks, filters) {
   const results = [];

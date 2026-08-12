@@ -1,13 +1,13 @@
 /* ========================================
    Trail Matcher — 山径匹配纯 AND 过滤
-   所有筛选条件必须完全满足 → 取前10
+   所有筛选条件必须完全满足 → 返回全部匹配结果
    ======================================== */
 
 /**
  * 根据筛选条件匹配山径
  * @param {Array} trails - 山径数组
  * @param {Object} filters - 用户筛选条件 { region, district, difficulty, scenery, surface }
- * @returns {Array} 前10个匹配山径（数据文件原始顺序）
+ * @returns {Array} 全部匹配结果（数据文件原始顺序），翻页在 UI 层控制
  */
 export function matchTrails(trails, filters) {
   const results = [];
