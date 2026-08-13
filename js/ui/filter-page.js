@@ -12,6 +12,10 @@ const TIMES = ['清晨', '上午', '中午', '下午', '傍晚', '夜晚'];
 const PARK_TYPES = ['海濱長廊', '市區公園', '郊野綠地', '主題園林', '休憩花園'];
 const ACTIVITIES = ['散步看景', '親子放電', '運動出汗', '開爐野餐', '寵物出行', '安靜發呆'];
 
+// ---- 选中底色：时间固定映射，其余按序循环（蓝紫绿橙黄） ----
+const TIME_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
+const CYCLE_COLORS = ['blue', 'purple', 'green', 'orange', 'yellow'];
+
 // ---- 状态 ----
 let districtsData = {};
 let parks = [];
@@ -49,7 +53,7 @@ function init() {
 
   // 加载公园数据（用于交叉筛选兼容性检查）
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=5')
+    fetch('js/data/parks.json?v=6')
       .then(r => r.json())
       .then(data => {
         parks = data;
@@ -168,10 +172,10 @@ function showRegionOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('region');
 
-  REGIONS.forEach(region => {
+  REGIONS.forEach((region, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (region === state.region) chip.classList.add('chip--selected');
+    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(region)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = region;
     chip.addEventListener('click', () => {
@@ -195,7 +199,7 @@ function showRegionOptions() {
     divider.className = 'filter-options__divider';
     optionsContainer.appendChild(divider);
 
-    districtsData[state.region].forEach(district => {
+    districtsData[state.region].forEach((district, i) => {
       // 地区兼容性：当前已选其他筛选 + 此地区
       let districtIncompatible = false;
       if (parks.length > 0) {
@@ -209,7 +213,7 @@ function showRegionOptions() {
 
       const chip = document.createElement('button');
       chip.className = 'chip';
-      if (district === state.district) chip.classList.add('chip--selected');
+      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
       if (districtIncompatible && district !== state.district) { chip.disabled = true; chip.classList.add('chip--disabled'); }
       chip.textContent = district;
       chip.addEventListener('click', () => {
@@ -238,7 +242,7 @@ function showTimeOptions() {
   TIMES.forEach(time => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (time === state.time) chip.classList.add('chip--selected');
+    if (time === state.time) chip.classList.add('chip--selected', 'chip--c-' + TIME_COLORS[time]);
     if (incompatible.has(time)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = time;
     chip.addEventListener('click', () => {
@@ -256,10 +260,10 @@ function showTimeOptions() {
 function showParkTypeOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('parkType');
-  PARK_TYPES.forEach(pt => {
+  PARK_TYPES.forEach((pt, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (pt === state.parkType) chip.classList.add('chip--selected');
+    if (pt === state.parkType) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(pt)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = pt;
     chip.addEventListener('click', () => {
@@ -277,10 +281,10 @@ function showParkTypeOptions() {
 function showActivityOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('activity');
-  ACTIVITIES.forEach(act => {
+  ACTIVITIES.forEach((act, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (act === state.activity) chip.classList.add('chip--selected');
+    if (act === state.activity) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(act)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = act;
     chip.addEventListener('click', () => {

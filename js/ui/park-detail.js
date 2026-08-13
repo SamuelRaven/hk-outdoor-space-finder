@@ -90,8 +90,9 @@ function init() {
     }
 
     const TAG_COLORS = ['blue', 'yellow', 'green', 'orange', 'purple'];
+    const TIME_TAG_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
     const bestTimeTags = (park.bestTime || [])
-      .map((t, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${t}</span>`).join('');
+      .map(t => `<span class="detail-tag detail-tag--${TIME_TAG_COLORS[t] || 'yellow'}">${t}</span>`).join('');
 
     const activities = park.activityTypes || [];
     const activityTags = activities
@@ -174,7 +175,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=5')
+    fetch('js/data/parks.json?v=6')
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(data => {
         parks = data;
@@ -346,17 +347,27 @@ function buildParkTips(park) {
     parts.push(p[ph(park.id, 9, p.length)]);
   }
 
-  // 活動 → 針對性貼士（開爐野餐 + 寵物出行）
+  // 活動 → 針對性貼士（開爐野餐：燒烤 vs 草坪野餐 分流 + 寵物出行）
   const acts = park.activityTypes || [];
   if (acts.includes('開爐野餐')) {
-    const p = [
-      '燒烤爐假日人多，建議提早到場或避開正午高峰',
-      '記得自備炭、燒烤叉同食材，公園只提供爐具',
-      '燒烤後將炭火完全熄滅、清理乾淨才離開',
-      '野餐記得帶野餐墊同垃圾袋，走時帶走所有垃圾',
-      '開爐前留意風向，海邊風大要小心炭火安全',
-      '食完唔好即刻做劇烈運動，慢慢行下幫助消化',
-    ];
+    const hasBBQ = /燒烤/.test(park.features || '');
+    const p = hasBBQ
+      ? [
+          '燒烤爐假日人多，建議提早到場或避開正午高峰',
+          '記得自備炭、燒烤叉同食材，公園只提供爐具',
+          '燒烤後將炭火完全熄滅、清理乾淨才離開',
+          '開爐前留意風向，海邊風大要小心炭火安全',
+          '燒烤爐旁通常有野餐桌，早到先有靚位',
+          '食完唔好即刻做劇烈運動，慢慢行下幫助消化',
+        ]
+      : [
+          '假日大草坪人多，早到先霸到靚位',
+          '野餐記得帶野餐墊同垃圾袋，走時帶走所有垃圾',
+          '草坪風大，野餐墊記得用重物壓住四角',
+          '樹蔭位有限，記得帶遮陽帽或小帳篷',
+          '野餐後記得執返所有食物殘渣，避免招惹蚊蟲',
+          '食完慢慢喺園內散步，睇吓風景幫助消化',
+        ];
     parts.push(p[ph(park.id, 10, p.length)]);
   }
   if (acts.includes('寵物出行')) {

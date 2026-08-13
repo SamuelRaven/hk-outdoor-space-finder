@@ -12,6 +12,10 @@ const DIFFICULTIES = ['著波鞋就得', '著波鞋都頂得住', '著行山鞋�
 const SCENERIES = ['山海之間', '深山林蔭', '水庫平湖', '登頂大景', '瀑布溪澗', '歷史遺跡', '奇岩怪石'];
 const SURFACES = ['石屎路為主', '山徑為主', '樓梯為主', '混合'];
 
+// ---- 选中底色：难度固定映射，其余按序循环（蓝紫绿橙黄） ----
+const DIFFICULTY_COLORS = { '著波鞋就得': 'yellow', '著波鞋都頂得住': 'blue', '著行山鞋穩陣D': 'purple', '著行山鞋都腳軟': 'red', '著咩鞋都打嗮震': 'black' };
+const CYCLE_COLORS = ['blue', 'purple', 'green', 'orange', 'yellow'];
+
 // ---- 状态 ----
 let districtsData = {};
 let trails = [];
@@ -169,10 +173,10 @@ function showRegionOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('region');
 
-  REGIONS.forEach(region => {
+  REGIONS.forEach((region, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (region === state.region) chip.classList.add('chip--selected');
+    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(region)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = region;
     chip.addEventListener('click', () => {
@@ -196,7 +200,7 @@ function showRegionOptions() {
     divider.className = 'filter-options__divider';
     optionsContainer.appendChild(divider);
 
-    districtsData[state.region].forEach(district => {
+    districtsData[state.region].forEach((district, i) => {
       let districtIncompatible = false;
       if (trails.length > 0) {
         const otherKeys = ['difficulty', 'scenery', 'surface'];
@@ -209,7 +213,7 @@ function showRegionOptions() {
 
       const chip = document.createElement('button');
       chip.className = 'chip';
-      if (district === state.district) chip.classList.add('chip--selected');
+      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
       if (districtIncompatible && district !== state.district) { chip.disabled = true; chip.classList.add('chip--disabled'); }
       chip.textContent = district;
       chip.addEventListener('click', () => {
@@ -238,7 +242,7 @@ function showDifficultyOptions() {
   DIFFICULTIES.forEach(diff => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (diff === state.difficulty) chip.classList.add('chip--selected');
+    if (diff === state.difficulty) chip.classList.add('chip--selected', 'chip--c-' + DIFFICULTY_COLORS[diff]);
     if (incompatible.has(diff)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = diff;
     chip.addEventListener('click', () => {
@@ -256,10 +260,10 @@ function showDifficultyOptions() {
 function showSceneryOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('scenery');
-  SCENERIES.forEach(sc => {
+  SCENERIES.forEach((sc, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (sc === state.scenery) chip.classList.add('chip--selected');
+    if (sc === state.scenery) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(sc)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sc;
     chip.addEventListener('click', () => {
@@ -277,10 +281,10 @@ function showSceneryOptions() {
 function showSurfaceOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('surface');
-  SURFACES.forEach(sf => {
+  SURFACES.forEach((sf, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (sf === state.surface) chip.classList.add('chip--selected');
+    if (sf === state.surface) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
     if (incompatible.has(sf)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sf;
     chip.addEventListener('click', () => {
