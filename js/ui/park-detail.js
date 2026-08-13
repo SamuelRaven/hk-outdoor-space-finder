@@ -151,7 +151,7 @@ function init() {
         <div class="detail-tags">${activityTags}</div>
       </div>` : ''}
 
-      <div class="detail-block ${bc()}">
+      <div class="detail-block">
         <div class="detail-label"><span class="emoji">📝</span> 做咩好</div>
         <div class="detail-descs">${descBlocks}</div>
       </div>
