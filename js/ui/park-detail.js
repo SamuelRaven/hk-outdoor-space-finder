@@ -89,21 +89,28 @@ function init() {
       return;
     }
 
-    const TAG_COLORS = ['blue', 'yellow', 'green', 'orange', 'purple'];
+    const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
+    const ACTIVITY_COLORS = { '散步看景': 'blue', '親子放電': 'teal', '運動出汗': 'orange', '開爐野餐': 'yellow', '寵物出行': 'green', '安靜發呆': 'purple' };
     const TIME_TAG_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
     const bestTimeTags = (park.bestTime || [])
       .map(t => `<span class="detail-tag detail-tag--${TIME_TAG_COLORS[t] || 'yellow'}">${t}</span>`).join('');
 
     const activities = park.activityTypes || [];
     const activityTags = activities
-      .map((a, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${a}</span>`).join('');
+      .map(a => `<span class="detail-tag detail-tag--${ACTIVITY_COLORS[a] || 'yellow'}">${a}</span>`).join('');
 
-    const BAUHAUS_COLORS = ['red', 'blue', 'yellow', 'black', 'purple', 'green', 'orange'];
+    const typeColor = PARK_TYPE_COLORS[park.parkType];
+    const typeBadge = `<span class="detail-badge detail-badge--type${typeColor ? ' detail-badge--type-' + typeColor : ''}">${park.parkType || ''}</span>`;
+
+    const DESC_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
+    const BLOCK_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
+    let bi = 0;
+    const bc = () => 'detail-block--' + BLOCK_COLORS[bi++ % 7];
 
     const descBlocks = park.activityDescriptions
       ? Object.entries(park.activityDescriptions)
           .map(([act, desc], i) => `
-            <div class="detail-desc-card detail-desc-card--${BAUHAUS_COLORS[i % 7]}">
+            <div class="detail-desc-card detail-desc-card--${DESC_COLORS[i % 7]}">
               <div class="detail-desc-card__act">${act}</div>
               <div class="detail-desc-card__text">${desc}</div>
             </div>`)
@@ -121,45 +128,45 @@ function init() {
         <div class="detail-hero__name">${park.nameZh}</div>
         <div class="detail-hero__meta">
           <span class="detail-badge detail-badge--region">${park.region} · ${park.district}</span>
-          <span class="detail-badge detail-badge--type">${park.parkType || ''}</span>
+          ${typeBadge}
           ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
         </div>
       </div>
 
       <div class="detail-row">
-        <div class="detail-block detail-block--half detail-block--time">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">🕐 開放時間</div>
           <div class="detail-value detail-value--big">${park.openingHours || '-'}</div>
         </div>
         ${bestTimeTags ? `
-        <div class="detail-block detail-block--half detail-block--besttime">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">☀️ 最佳時段</div>
           <div class="detail-tags">${bestTimeTags}</div>
         </div>` : ''}
       </div>
 
       ${activities.length ? `
-      <div class="detail-block detail-block--activities">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">🏷 適合活動</div>
         <div class="detail-tags">${activityTags}</div>
       </div>` : ''}
 
-      <div class="detail-block">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">📝 做咩好</div>
         <div class="detail-descs">${descBlocks}</div>
       </div>
 
       <div class="detail-row">
-        <div class="detail-block detail-block--half detail-block--extra-a">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">👥 適合人群</div>
           <div class="detail-value">${buildParkCrowd(park)}</div>
         </div>
-        <div class="detail-block detail-block--half detail-block--extra-b">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">🏞 公園特色</div>
           <div class="detail-value">${buildParkFeatures(park)}</div>
         </div>
       </div>
-      <div class="detail-block detail-block--extra-c">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">💡 出行貼士</div>
         <div class="detail-descs"><div class="detail-desc-item">${buildParkTips(park)}</div></div>
       </div>

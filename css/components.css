@@ -447,8 +447,7 @@
 .filter-options__divider {
   width: 100%;
   height: 1px;
-  background: var(--color-black);
-  opacity: 0.2;
+  background: var(--color-gray);
   margin: 2px 0;
 }
 
@@ -485,6 +484,7 @@
 .chip--c-orange { background: var(--color-orange); color: var(--color-white); }
 .chip--c-yellow { background: var(--color-yellow); }
 .chip--c-red    { background: var(--color-red);    color: var(--color-white); }
+.chip--c-teal   { background: var(--color-teal);   color: var(--color-white); }
 .chip--c-black  { background: var(--color-black);  color: var(--color-white); }
 
 .chip:disabled,
@@ -646,7 +646,7 @@
 /* 公园卡片 — 包豪斯风格 */
 .park-card {
   display: flex;
-  background: rgba(255,255,255, 0.92);
+  background: rgba(250,243,227, 0.92);
   backdrop-filter: blur(2px);
   border: var(--border-standard);
   position: relative;
@@ -662,7 +662,7 @@
 }
 
 .park-card[data-region="港島"]::before { background: var(--color-blue); }
-.park-card[data-region="九龍"]::before { background: var(--color-purple); }
+.park-card[data-region="九龍"]::before { background: var(--color-red); }
 .park-card[data-region="新界"]::before { background: var(--color-yellow); }
 
 .park-card__body {
@@ -682,8 +682,7 @@
 .park-card__hours {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--color-black);
-  opacity: 0.6;
+  color: var(--color-gray);
   margin-bottom: 6px;
 }
 
@@ -714,9 +713,9 @@
   background: var(--color-white);
 }
 
-/* 详情页距离徽章 — 蓝色底，与地区徽章黄色错开 */
+/* 详情页距离徽章 — 深中性灰底，与地区徽章黄色错开 */
 .detail-badge--distance {
-  background: var(--color-blue) !important;
+  background: var(--color-gray-dark) !important;
   color: var(--color-white) !important;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -923,10 +922,10 @@
 
 .dice-tired-page__text {
   font-family: var(--font-body);
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.7;
-  padding: var(--space-7) var(--space-5);
+  line-height: 1.5;
+  padding: var(--space-4) var(--space-3);
   background: var(--color-white);
   border: var(--border-standard);
   border-left: 8px solid var(--color-black);
@@ -1017,7 +1016,7 @@
 /* ---- 山径卡片（Trail Card） ---- */
 .trail-card {
   display: flex;
-  background: rgba(255,255,255, 0.92);
+  background: rgba(250,243,227, 0.92);
   backdrop-filter: blur(2px);
   border: var(--border-standard);
   position: relative;
@@ -1056,8 +1055,7 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
-  color: var(--color-black);
-  opacity: 0.5;
+  color: var(--color-gray);
   margin-bottom: 6px;
 }
 
@@ -1071,8 +1069,7 @@
 .trail-card__stat {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--color-black);
-  opacity: 0.7;
+  color: var(--color-gray);
   display: flex;
   align-items: center;
   gap: 3px;
@@ -1656,6 +1653,27 @@
   width: 14px; height: 14px;
   bottom: 20%; left: 50px;
 }
+.dice-tired-page .bauhaus-bg__dot--red:nth-child(8) {
+  width: 8px; height: 8px;
+  top: 30%; right: 24px;
+}
+.dice-tired-page .bauhaus-bg__triangle:nth-child(9) {
+  top: 66%; left: -32px;
+  transform: rotate(-18deg);
+}
+.dice-tired-page .bauhaus-bg__square--blue-fill:nth-child(10) {
+  width: 26px; height: 26px;
+  bottom: 12%; left: 44px;
+  transform: rotate(20deg);
+}
+.dice-tired-page .bauhaus-bg__half-circle:nth-child(11) {
+  width: 36px; height: 36px;
+  top: 7%; left: 32px;
+}
+.dice-tired-page .bauhaus-bg__diamond:nth-child(12) {
+  width: 16px; height: 16px;
+  top: 36%; right: 74px;
+}
 
 /* 结果页顶部统合提示条 — 替代每张卡片重复的注意事项 */
 .results-notice {
@@ -1705,7 +1723,7 @@
    ======================================== */
 
 .park-card, .trail-card { cursor: pointer; }
-.park-card:active, .trail-card:active { background: rgba(255,255,255,0.75); }
+.park-card:active, .trail-card:active { background: rgba(250,243,227,0.75); }
 
 /* ========================================
    詳情頁
@@ -1796,6 +1814,11 @@
 }
 .detail-badge--region { background: var(--color-yellow); }
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
+.detail-badge--type-blue   { background: var(--color-blue);   color: var(--color-white); }
+.detail-badge--type-purple { background: var(--color-purple); color: var(--color-white); }
+.detail-badge--type-green  { background: var(--color-green);  color: var(--color-white); }
+.detail-badge--type-teal   { background: var(--color-teal);   color: var(--color-white); }
+.detail-badge--type-orange { background: var(--color-orange); color: var(--color-white); }
 .detail-badge--easy        { background: var(--color-yellow); }
 .detail-badge--easy-medium { background: var(--color-blue); color: var(--color-white); }
 .detail-badge--medium      { background: var(--color-purple); color: var(--color-white); }
@@ -1805,18 +1828,22 @@
   display: flex; gap: var(--space-2); margin-bottom: var(--space-2);
 }
 .detail-block {
-  background: var(--color-white); border: var(--border-standard);
+  background: var(--color-cream); border: var(--border-standard);
   padding: var(--space-2); margin-bottom: var(--space-2);
 }
 .detail-block--half { flex: 1; margin-bottom: 0; }
-.detail-block--tips { border-left: 4px solid var(--color-yellow); }
-.detail-block--extra-a { border-left: 4px solid var(--color-green); }
-.detail-block--extra-b { border-left: 4px solid var(--color-purple); }
-.detail-block--extra-c { border-left: 4px solid var(--color-orange); }
+/* 区块左边框 — 七色轮流（红蓝黄紫绿橙青绿；青绿与绿不相邻） */
+.detail-block--red    { border-left: 4px solid var(--color-red); }
+.detail-block--blue   { border-left: 4px solid var(--color-blue); }
+.detail-block--yellow { border-left: 4px solid var(--color-yellow); }
+.detail-block--purple { border-left: 4px solid var(--color-purple); }
+.detail-block--green  { border-left: 4px solid var(--color-green); }
+.detail-block--orange { border-left: 4px solid var(--color-orange); }
+.detail-block--teal   { border-left: 4px solid var(--color-teal); }
 .detail-label {
   font-family: var(--font-mono); font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.05em;
-  opacity: 0.4; margin-bottom: 6px;
+  color: var(--color-gray); margin-bottom: 6px;
 }
 .detail-value {
   font-family: var(--font-body); font-size: 14px; line-height: 1.5;
@@ -1835,6 +1862,7 @@
 .detail-tag--green  { background: var(--color-green);  color: var(--color-white); }
 .detail-tag--orange { background: var(--color-orange); color: var(--color-white); }
 .detail-tag--purple { background: var(--color-purple); color: var(--color-white); }
+.detail-tag--teal   { background: var(--color-teal);   color: var(--color-white); }
 .detail-tag--black  { background: var(--color-black);  color: var(--color-white); }
 .detail-descs { display: flex; flex-direction: column; gap: var(--space-1); }
 .detail-desc-item {
@@ -1843,7 +1871,7 @@
 }
 /* 活动介绍卡片 */
 .detail-desc-card {
-  background: var(--color-white);
+  background: var(--color-cream);
   border: var(--border-standard);
   padding: var(--space-2);
 }
@@ -1866,6 +1894,7 @@
 .detail-desc-card--purple { border-left: 5px solid var(--color-purple); }
 .detail-desc-card--green  { border-left: 5px solid var(--color-green); }
 .detail-desc-card--orange { border-left: 5px solid var(--color-orange); }
+.detail-desc-card--teal   { border-left: 5px solid var(--color-teal); }
 
 /* 包豪斯色条 */
 .detail-color-bar {
@@ -1876,17 +1905,6 @@
 .detail-color-bar__seg--blue   { background: var(--color-blue); }
 .detail-color-bar__seg--yellow { background: var(--color-yellow); }
 
-/* 时间区块 — 黄左边框 */
-.detail-block--time { border-left: 4px solid var(--color-yellow); }
-
-/* 最佳时段区块 — 蓝左边框 */
-.detail-block--besttime { border-left: 4px solid var(--color-blue); }
-
-/* 活动区块 — 红左边框 */
-.detail-block--activities { border-left: 4px solid var(--color-red); }
-
-/* 基本资料大框 — 全长/需时/海拔 三列合一 */
-.detail-block--stats { border-left: 4px solid var(--color-red); }
 .detail-stats {
   display: flex;
   gap: var(--space-1);
@@ -1904,16 +1922,11 @@
   line-height: 1.2;
   white-space: nowrap;
 }
-.detail-block--scenery  { border-left: 4px solid var(--color-green); }
-.detail-block--surface  { border-left: 4px solid var(--color-black); }
-.detail-block--desc     { border-left: 4px solid var(--color-red); }
-
 /* AI 輔助標註 */
 .detail-ai-note {
   text-align: center;
   font-size: 0.7rem;
-  color: var(--color-black);
-  opacity: 0.25;
+  color: var(--color-gray);
   padding: 0;
   margin: var(--space-3) 0 0;
   font-family: var(--font-body);

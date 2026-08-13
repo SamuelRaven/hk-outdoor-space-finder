@@ -11,9 +11,13 @@
   --color-purple: #6B32A8;   /* 难度中档、进阶提示 */
   --color-green:  #43A047;   /* 详情边框、图标底色 */
   --color-orange: #FB8C00;   /* 详情边框、图标底色 */
+  --color-teal:   #00897B;   /* 青绿 — 主题园林/瀑布溪涧/亲子放电 */
   --color-black:  #000000;   /* 文本、边框、结构线 */
-  --color-white:  #FFFFFF;   /* 卡片底色 */
+  --color-white:  #FFFFFF;   /* 纯白 — 彩色底上的文字 / 小元素底 */
   --color-bg:     #F2F2F2;   /* 页面背景（纸色） */
+  --color-cream:  #FAF3E3;   /* 象牙白 — 卡片面 / 详情区块（复古印刷感） */
+  --color-gray:   #8A7F72;   /* 暖灰 — 次级文字 / 分隔 */
+  --color-gray-dark: #616161; /* 深中性灰 — 徽章底 / 数值标签 */
 
   /* ---- 字体 ---- */
   --font-display: 'Josefin Sans', 'Futura', sans-serif;

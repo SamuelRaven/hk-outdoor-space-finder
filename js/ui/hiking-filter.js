@@ -12,8 +12,11 @@ const DIFFICULTIES = ['著波鞋就得', '著波鞋都頂得住', '著行山鞋�
 const SCENERIES = ['山海之間', '深山林蔭', '水庫平湖', '登頂大景', '瀑布溪澗', '歷史遺跡', '奇岩怪石'];
 const SURFACES = ['石屎路為主', '山徑為主', '樓梯為主', '混合'];
 
-// ---- 选中底色：难度固定映射，其余按序循环（蓝紫绿橙黄） ----
+// ---- 选中底色：难度/地区/氛围固定映射，小区按序循环（紫橙绿红黄蓝青绿），路况按序循环（蓝紫绿橙黄） ----
 const DIFFICULTY_COLORS = { '著波鞋就得': 'yellow', '著波鞋都頂得住': 'blue', '著行山鞋穩陣D': 'purple', '著行山鞋都腳軟': 'red', '著咩鞋都打嗮震': 'black' };
+const REGION_COLORS = { '港島': 'blue', '九龍': 'red', '新界': 'yellow' };
+const SCENERY_COLORS = { '山海之間': 'blue', '深山林蔭': 'green', '水庫平湖': 'orange', '登頂大景': 'yellow', '瀑布溪澗': 'teal', '歷史遺跡': 'purple', '奇岩怪石': 'black' };
+const DISTRICT_COLORS = ['purple', 'orange', 'green', 'red', 'yellow', 'blue', 'teal'];
 const CYCLE_COLORS = ['blue', 'purple', 'green', 'orange', 'yellow'];
 
 // ---- 状态 ----
@@ -176,7 +179,7 @@ function showRegionOptions() {
   REGIONS.forEach((region, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + REGION_COLORS[region]);
     if (incompatible.has(region)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = region;
     chip.addEventListener('click', () => {
@@ -213,7 +216,7 @@ function showRegionOptions() {
 
       const chip = document.createElement('button');
       chip.className = 'chip';
-      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + DISTRICT_COLORS[i % DISTRICT_COLORS.length]);
       if (districtIncompatible && district !== state.district) { chip.disabled = true; chip.classList.add('chip--disabled'); }
       chip.textContent = district;
       chip.addEventListener('click', () => {
@@ -263,7 +266,7 @@ function showSceneryOptions() {
   SCENERIES.forEach((sc, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (sc === state.scenery) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+    if (sc === state.scenery) chip.classList.add('chip--selected', 'chip--c-' + SCENERY_COLORS[sc]);
     if (incompatible.has(sc)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sc;
     chip.addEventListener('click', () => {

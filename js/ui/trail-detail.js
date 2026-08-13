@@ -93,10 +93,14 @@ function init() {
       ? `${trail.trailName}${trail.section ? ' — ' + trail.section : ''}`
       : (trail.section || '');
 
-    const TAG_COLORS = ['blue', 'yellow', 'green', 'orange', 'purple'];
+    const SCENERY_COLORS = { '山海之間': 'blue', '深山林蔭': 'green', '水庫平湖': 'orange', '登頂大景': 'yellow', '瀑布溪澗': 'teal', '歷史遺跡': 'purple', '奇岩怪石': 'black' };
     const sceneryTags = (trail.scenery || [])
-      .map((s, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${s}</span>`)
+      .map(s => `<span class="detail-tag detail-tag--${SCENERY_COLORS[s] || 'yellow'}">${s}</span>`)
       .join('');
+
+    const BLOCK_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
+    let bi = 0;
+    const bc = () => 'detail-block--' + BLOCK_COLORS[bi++ % 7];
 
     const diffClass = {
       '著波鞋就得': 'detail-badge--easy',
@@ -123,7 +127,7 @@ function init() {
         </div>
       </div>
 
-      <div class="detail-block detail-block--stats">
+      <div class="detail-block ${bc()}">
         <div class="detail-stats">
           <div class="detail-stat">
             <div class="detail-label">🥾 全長</div>
@@ -141,17 +145,17 @@ function init() {
       </div>
 
       ${sceneryTags ? `
-      <div class="detail-block detail-block--scenery">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">🏞 風景</div>
         <div class="detail-tags">${sceneryTags}</div>
       </div>` : ''}
 
-      <div class="detail-block detail-block--surface">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">🛤 路況</div>
         <div class="detail-value">${trail.surface}</div>
       </div>
 
-      <div class="detail-block detail-block--desc">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">📝 簡介</div>
         <div class="detail-descs">
           <div class="detail-desc-item">${trail.description || '暫無簡介'}</div>
@@ -159,22 +163,22 @@ function init() {
       </div>
 
       ${trail.tips ? `
-      <div class="detail-block detail-block--tips">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">💡 實用貼士</div>
         <div class="detail-desc-item">${trail.tips}</div>
       </div>` : ''}
 
       <div class="detail-row">
-        <div class="detail-block detail-block--half detail-block--extra-a">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">👥 適合人群</div>
           <div class="detail-value">${buildCrowd(trail)}</div>
         </div>
-        <div class="detail-block detail-block--half detail-block--extra-b">
+        <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label">🎒 裝備建議</div>
           <div class="detail-value">${buildGear(trail)}</div>
         </div>
       </div>
-      <div class="detail-block detail-block--extra-c">
+      <div class="detail-block ${bc()}">
         <div class="detail-label">👀 沿途看點</div>
         <div class="detail-descs"><div class="detail-desc-item">${buildHighlights(trail)}</div></div>
       </div>

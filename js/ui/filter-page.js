@@ -12,9 +12,12 @@ const TIMES = ['清晨', '上午', '中午', '下午', '傍晚', '夜晚'];
 const PARK_TYPES = ['海濱長廊', '市區公園', '郊野綠地', '主題園林', '休憩花園'];
 const ACTIVITIES = ['散步看景', '親子放電', '運動出汗', '開爐野餐', '寵物出行', '安靜發呆'];
 
-// ---- 选中底色：时间固定映射，其余按序循环（蓝紫绿橙黄） ----
+// ---- 选中底色：时间/地区/类型/活动固定映射，小区按序循环（紫橙绿红黄蓝青绿，青绿与绿不相邻） ----
 const TIME_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
-const CYCLE_COLORS = ['blue', 'purple', 'green', 'orange', 'yellow'];
+const REGION_COLORS = { '港島': 'blue', '九龍': 'red', '新界': 'yellow' };
+const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
+const ACTIVITY_COLORS = { '散步看景': 'blue', '親子放電': 'teal', '運動出汗': 'orange', '開爐野餐': 'yellow', '寵物出行': 'green', '安靜發呆': 'purple' };
+const DISTRICT_COLORS = ['purple', 'orange', 'green', 'red', 'yellow', 'blue', 'teal'];
 
 // ---- 状态 ----
 let districtsData = {};
@@ -172,10 +175,10 @@ function showRegionOptions() {
   optionsContainer.innerHTML = '';
   const incompatible = getIncompatibleOptions('region');
 
-  REGIONS.forEach((region, i) => {
+  REGIONS.forEach(region => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+    if (region === state.region) chip.classList.add('chip--selected', 'chip--c-' + REGION_COLORS[region]);
     if (incompatible.has(region)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = region;
     chip.addEventListener('click', () => {
@@ -213,7 +216,7 @@ function showRegionOptions() {
 
       const chip = document.createElement('button');
       chip.className = 'chip';
-      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+      if (district === state.district) chip.classList.add('chip--selected', 'chip--c-' + DISTRICT_COLORS[i % DISTRICT_COLORS.length]);
       if (districtIncompatible && district !== state.district) { chip.disabled = true; chip.classList.add('chip--disabled'); }
       chip.textContent = district;
       chip.addEventListener('click', () => {
@@ -263,7 +266,7 @@ function showParkTypeOptions() {
   PARK_TYPES.forEach((pt, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (pt === state.parkType) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+    if (pt === state.parkType) chip.classList.add('chip--selected', 'chip--c-' + PARK_TYPE_COLORS[pt]);
     if (incompatible.has(pt)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = pt;
     chip.addEventListener('click', () => {
@@ -284,7 +287,7 @@ function showActivityOptions() {
   ACTIVITIES.forEach((act, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (act === state.activity) chip.classList.add('chip--selected', 'chip--c-' + CYCLE_COLORS[i % CYCLE_COLORS.length]);
+    if (act === state.activity) chip.classList.add('chip--selected', 'chip--c-' + ACTIVITY_COLORS[act]);
     if (incompatible.has(act)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = act;
     chip.addEventListener('click', () => {
