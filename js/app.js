@@ -16,6 +16,6 @@ import './ui/hiking-filter.js?v=4';
 import './ui/hiking-results.js?v=9';
 import './ui/hiking-blindbox.js?v=9';
 import './ui/park-detail.js?v=10';
-import './ui/trail-detail.js?v=8';
+import './ui/trail-detail.js?v=9';
 import './ui/fav-parks.js?v=6';
 import './ui/fav-trails.js?v=5';
