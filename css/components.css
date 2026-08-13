@@ -1822,7 +1822,9 @@
   padding: 3px 8px; border: 1px solid var(--color-black);
   background: var(--color-white);
 }
-.detail-badge--region { background: var(--color-yellow); }
+.detail-badge--region-blue   { background: var(--color-blue);   color: var(--color-white); }
+.detail-badge--region-red    { background: var(--color-red);    color: var(--color-white); }
+.detail-badge--region-yellow { background: var(--color-yellow); }
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
 .detail-badge--type-blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-badge--type-purple { background: var(--color-purple); color: var(--color-white); }

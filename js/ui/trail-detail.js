@@ -102,6 +102,8 @@ function init() {
     let bi = 0;
     const bc = () => 'detail-block--' + BLOCK_COLORS[bi++ % 7];
 
+    const REGION_COLORS = { '港島': 'blue', '九龍': 'red', '新界': 'yellow' };
+
     const diffClass = {
       '著波鞋就得': 'detail-badge--easy',
       '著波鞋都頂得住': 'detail-badge--easy-medium',
@@ -109,6 +111,9 @@ function init() {
       '著行山鞋都腳軟': 'detail-badge--hard',
       '著咩鞋都打嗮震': 'detail-badge--extreme',
     }[trail.difficulty] || '';
+
+    const regionColor = REGION_COLORS[trail.region];
+    const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${trail.region} · ${trail.district}</span>`;
 
     container.innerHTML = `
       <div class="detail-color-bar">
@@ -121,7 +126,7 @@ function init() {
         <div class="detail-hero__name">${trail.nameZh}</div>
         <div class="detail-hero__section">${sectionText}</div>
         <div class="detail-hero__meta">
-          <span class="detail-badge detail-badge--region">${trail.region} · ${trail.district}</span>
+          ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
           ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}</span>` : ''}
         </div>

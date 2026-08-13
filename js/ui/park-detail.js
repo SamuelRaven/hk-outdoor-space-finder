@@ -92,6 +92,7 @@ function init() {
     const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
     const ACTIVITY_COLORS = { '散步看景': 'blue', '親子放電': 'teal', '運動出汗': 'orange', '開爐野餐': 'yellow', '寵物出行': 'green', '安靜發呆': 'purple' };
     const TIME_TAG_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
+    const REGION_COLORS = { '港島': 'blue', '九龍': 'red', '新界': 'yellow' };
     const bestTimeTags = (park.bestTime || [])
       .map(t => `<span class="detail-tag detail-tag--${TIME_TAG_COLORS[t] || 'yellow'}">${t}</span>`).join('');
 
@@ -101,6 +102,9 @@ function init() {
 
     const typeColor = PARK_TYPE_COLORS[park.parkType];
     const typeBadge = `<span class="detail-badge detail-badge--type${typeColor ? ' detail-badge--type-' + typeColor : ''}">${park.parkType || ''}</span>`;
+
+    const regionColor = REGION_COLORS[park.region];
+    const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${park.region} · ${park.district}</span>`;
 
     const DESC_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
     const BLOCK_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
@@ -127,7 +131,7 @@ function init() {
       <div class="detail-hero">
         <div class="detail-hero__name">${park.nameZh}</div>
         <div class="detail-hero__meta">
-          <span class="detail-badge detail-badge--region">${park.region} · ${park.district}</span>
+          ${regionBadge}
           ${typeBadge}
           ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
         </div>
