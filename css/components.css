@@ -1019,8 +1019,10 @@
 }
 
 .trail-card[data-difficulty="著波鞋就得"]::before { background: var(--color-yellow); }
-.trail-card[data-difficulty="著行山鞋穩陣D"]::before { background: var(--color-blue); }
-.trail-card[data-difficulty="著咩鞋都腳軟"]::before { background: var(--color-red); }
+.trail-card[data-difficulty="著波鞋都頂得住"]::before { background: var(--color-blue); }
+.trail-card[data-difficulty="著行山鞋穩陣D"]::before { background: var(--color-purple); }
+.trail-card[data-difficulty="著行山鞋都腳軟"]::before { background: var(--color-red); }
+.trail-card[data-difficulty="著咩鞋都打嗮震"]::before { background: var(--color-black); }
 
 .trail-card__body {
   flex: 1;
@@ -1047,6 +1049,7 @@
 
 .trail-card__meta {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin-bottom: 6px;
 }
@@ -1088,13 +1091,23 @@
   color: var(--color-black);
 }
 
-.trail-card[data-difficulty="著行山鞋穩陣D"] .trail-card__difficulty {
+.trail-card[data-difficulty="著波鞋都頂得住"] .trail-card__difficulty {
   background: var(--color-blue);
   color: var(--color-white);
 }
 
-.trail-card[data-difficulty="著咩鞋都腳軟"] .trail-card__difficulty {
+.trail-card[data-difficulty="著行山鞋穩陣D"] .trail-card__difficulty {
+  background: var(--color-purple);
+  color: var(--color-white);
+}
+
+.trail-card[data-difficulty="著行山鞋都腳軟"] .trail-card__difficulty {
   background: var(--color-red);
+  color: var(--color-white);
+}
+
+.trail-card[data-difficulty="著咩鞋都打嗮震"] .trail-card__difficulty {
+  background: var(--color-black);
   color: var(--color-white);
 }
 
@@ -1686,9 +1699,11 @@
 }
 .detail-badge--region { background: var(--color-yellow); }
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
-.detail-badge--easy   { background: var(--color-yellow); }
-.detail-badge--medium { background: var(--color-blue); color: var(--color-white); }
-.detail-badge--hard   { background: var(--color-red); color: var(--color-white); }
+.detail-badge--easy        { background: var(--color-yellow); }
+.detail-badge--easy-medium { background: var(--color-blue); color: var(--color-white); }
+.detail-badge--medium      { background: var(--color-purple); color: var(--color-white); }
+.detail-badge--hard        { background: var(--color-red); color: var(--color-white); }
+.detail-badge--extreme     { background: var(--color-black); color: var(--color-white); }
 .detail-row {
   display: flex; gap: var(--space-2); margin-bottom: var(--space-2);
 }
@@ -1772,6 +1787,25 @@
 /* 山径详情 — 长度（红）、需时（蓝）、风景（黄）、路况（黑）、简介（红） */
 .detail-block--length  { border-left: 4px solid var(--color-red); }
 .detail-block--duration { border-left: 4px solid var(--color-blue); }
+
+/* 基本资料大框 — 全长/需时/海拔 三列合一 */
+.detail-block--stats { border-left: 4px solid var(--color-red); }
+.detail-stats {
+  display: flex;
+  gap: var(--space-2);
+}
+.detail-stat {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.detail-stat__value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
 .detail-block--scenery  { border-left: 4px solid var(--color-yellow); }
 .detail-block--surface  { border-left: 4px solid var(--color-black); }
 .detail-block--desc     { border-left: 4px solid var(--color-red); }

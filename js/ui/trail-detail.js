@@ -99,8 +99,10 @@ function init() {
 
     const diffClass = {
       '著波鞋就得': 'detail-badge--easy',
+      '著波鞋都頂得住': 'detail-badge--easy-medium',
       '著行山鞋穩陣D': 'detail-badge--medium',
-      '著咩鞋都腳軟': 'detail-badge--hard',
+      '著行山鞋都腳軟': 'detail-badge--hard',
+      '著咩鞋都打嗮震': 'detail-badge--extreme',
     }[trail.difficulty] || '';
 
     container.innerHTML = `
@@ -120,14 +122,20 @@ function init() {
         </div>
       </div>
 
-      <div class="detail-row">
-        <div class="detail-block detail-block--half detail-block--length">
-          <div class="detail-label">🥾 全長</div>
-          <div class="detail-value detail-value--big">${trail.lengthKm} 公里</div>
-        </div>
-        <div class="detail-block detail-block--half detail-block--duration">
-          <div class="detail-label">🕐 需時</div>
-          <div class="detail-value detail-value--big">${formatDuration(trail.durationHrs)}</div>
+      <div class="detail-block detail-block--stats">
+        <div class="detail-stats">
+          <div class="detail-stat">
+            <div class="detail-label">🥾 全長</div>
+            <div class="detail-stat__value">${trail.lengthKm} 公里</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-label">🕐 需時</div>
+            <div class="detail-stat__value">${formatDuration(trail.durationHrs)}</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-label">⛰️ 海拔</div>
+            <div class="detail-stat__value">${trail.highestPointM != null ? trail.highestPointM + ' 米' : '—'}</div>
+          </div>
         </div>
       </div>
 
@@ -181,7 +189,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=4').then(r => r.json()).then(data => {
+    fetch('js/data/trails.json?v=5').then(r => r.json()).then(data => {
       trails = data;
       render(trails.find(t => t.id === trailId));
     });
@@ -243,6 +251,32 @@ function buildCrowd(trail) {
         '初學者想突破自己的好選擇——技術門檻低，只需準備好腳力與心情。',
       ],
     },
+    '著波鞋都頂得住': {
+      short: [
+        '短程有少少上落，穿波鞋都應付到。',
+        '路段有幾段小坡，但波鞋都頂得住，適合想輕輕挑戰一下的朋友。',
+        '有少少爬升但距離短，日常著波鞋就能完成。',
+        '路線帶點坡度，仍屬輕鬆範圍，著波鞋慢慢行無問題。',
+        '比散步級稍多一點爬升，是從輕鬆到有運動量的過渡選擇。',
+        '短小但有坡度，適合想試下腳力又不想帶太多裝備的新手。',
+      ],
+      mid: [
+        '中等長度加上少許爬升，著波鞋都頂得住，帶支水就出發。',
+        '路程適中，坡度平緩，波鞋足以應付，適合週末出遊。',
+        '有幾段上落但不算辛苦，日常運動鞋都夠用。',
+        '距離中長，好在坡度不大，著波鞋慢慢走也能走完。',
+        '需要少許體能，但路況友善，波鞋就足夠應付。',
+        '比輕鬆線稍長一點，有幾個緩坡，整體仍在波鞋範圍內。',
+      ],
+      long: [
+        '路程長但坡度平緩，考驗耐力多於技術，著波鞋都頂得住。',
+        '長距離但路況平坦，波鞋加充足補給就能應付。',
+        '路長坡緩，是訓練耐力的好路線，無需專業裝備。',
+        '距離不短但少有陡坡，著波鞋慢慢行也能完成全程。',
+        '適合想挑戰長距離、但不想爬坡的入門山友。',
+        '長線入門之選，坡度友善，只需備足水和一點耐力。',
+      ],
+    },
     '著行山鞋穩陣D': {
       short: [
         '適合有基本行山經驗的朋友，中等體能可應付。',
@@ -269,7 +303,7 @@ function buildCrowd(trail) {
         '給行慣中短途、想挑戰更長距離的山友。',
       ],
     },
-    '著咩鞋都腳軟': {
+    '著行山鞋都腳軟': {
       short: [
         '短程但技術要求高，適合經驗豐富的山友。',
         '距離雖短但路段陡峭，適合有攀爬經驗的山友。',
@@ -295,6 +329,32 @@ function buildCrowd(trail) {
         '給追求終極滿足感的你——完成這條路線，你已經站在香港行山者的前列。',
       ],
     },
+    '著咩鞋都打嗮震': {
+      short: [
+        '極高難度的短程衝刺，路段陡峭暴露，僅適合資深且無畏高的山友。',
+        '距離雖短但極陡，部分路段需手腳並用，務必量力而為。',
+        '濃縮的極限路線，短距離內爬升巨大，是頂級山友的試煉場。',
+        '短小但絕非易事，碎石陡坡與暴露山脊並存，僅推薦經驗豐富者。',
+        '給追求極限的山友——短途卻步步驚心，天雨或大風切勿前往。',
+        '短程高強度，體能與心理質素缺一不可，切勿單獨出發。',
+      ],
+      mid: [
+        '極高難度路線，陡峭爬升加上技術路段，僅適合體能充沛的資深山友。',
+        '全程考驗體能與意志，暴露路段多，畏高者切勿嘗試。',
+        '香港最艱苦的路線之一，需有豐富行山經驗及充足裝備。',
+        '坡度極陡且部分路段需攀爬，非一般行山者可駕馭。',
+        '每一步都在挑戰極限，務必結伴同行並預先研究路線。',
+        '給準備好突破極限的你——這條路線會讓你全身肌肉都在抗議。',
+      ],
+      long: [
+        '極高難度長途，連續陡坡與長距離暴露，僅推薦頂級資深山友。',
+        '體能、技術與意志的三重極限考驗，完成者寥寥。',
+        '香港數一數二的艱苦路線，長途加上極陡爬升，切勿輕視。',
+        '整段路對體能和意志都是終極試煉，需謹慎評估自身能力。',
+        '給行山老手的終極挑戰——長距離、高強度、大爬升一次過滿足。',
+        '非專業級別請勿嘗試，這條路線考驗的是你能否堅持到底。',
+      ],
+    },
   };
   const arr = pool[d] && pool[d][range];
   return arr ? arr[hi] : '請按自身體能判斷是否適合前往。';
@@ -309,14 +369,15 @@ function buildGear(trail) {
 
   parts.push(km > 10 ? '水 2L+' : km > 5 ? '水 1.5L' : '水 1L');
 
-  if (d === '著咩鞋都腳軟') parts.push('高幫防滑行山鞋');
+  if (d === '著咩鞋都打嗮震' || d === '著行山鞋都腳軟') parts.push('高幫防滑行山鞋');
   else if (d === '著行山鞋穩陣D') parts.push('防滑行山鞋');
+  else if (d === '著波鞋都頂得住') parts.push('防滑運動鞋');
   else parts.push('輕便波鞋');
 
-  if (s.includes('山徑') || d === '著咩鞋都腳軟') parts.push('行山杖');
+  if (s.includes('山徑') || d === '著咩鞋都打嗮震' || d === '著行山鞋都腳軟') parts.push('行山杖');
   if (s.includes('樓梯')) parts.push('護膝');
-  if (d === '著咩鞋都腳軟') parts.push('頭燈及急救包');
-  if (km > 8 || d === '著咩鞋都腳軟') parts.push('高熱量補給食物');
+  if (d === '著咩鞋都打嗮震' || d === '著行山鞋都腳軟') parts.push('頭燈及急救包');
+  if (km > 8 || d === '著咩鞋都打嗮震' || d === '著行山鞋都腳軟') parts.push('高熱量補給食物');
 
   parts.push('防曬及防蚊用品');
   return parts.join('、');
@@ -399,6 +460,18 @@ function buildHighlights(trail) {
       '廢棄的學校與祠堂靜立在林間，斑駁的牆面上爬滿藤蔓，無聲地訴說著昔日繁華',
       '碉堡與戰壕隱沒在草叢中，戰時的硝煙早已散盡，只留下混凝土遺構供人追憶',
       '客家村落的白牆灰瓦在竹林後若隱若現，推開半掩的木門，時光彷彿倒流百年',
+    ],
+    '奇岩怪石': [
+      '沿途可見奇特岩層與海蝕地貌，是地質愛好者的天堂',
+      '岩柱節理與海蝕洞交錯，彷彿走進天然的地質博物館',
+      '沉睡億萬年的岩層裸露眼前，紋理清晰如翻開的地球史書',
+      '奇岩怪石隨處可見，每一塊都在訴說地殼變動的故事',
+      '海岸岩壁被海浪雕琢成千奇百怪的形狀，鬼斧神工',
+      '沿途的岩石形態各異，是了解香港地質歷史的活教材',
+      '六角形岩柱排列整齊，宛如大自然的石頭管風琴',
+      '風化與海蝕共同塑造的奇觀，一步一景令人驚嘆',
+      '沉積岩的層層紋理清晰可辨，記錄著遠古海洋的痕跡',
+      '岩石色彩斑斕、形狀奇特，打卡影相之餘更能認識地質奧秘',
     ],
   };
   const H = bh(trail.id, 2);

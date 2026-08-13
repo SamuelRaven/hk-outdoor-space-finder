@@ -79,7 +79,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=4')
+    fetch('js/data/parks.json?v=5')
       .then(r => r.json())
       .then(data => {
         parks = data;

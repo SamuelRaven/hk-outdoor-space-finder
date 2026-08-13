@@ -173,7 +173,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=4')
+    fetch('js/data/parks.json?v=5')
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(data => {
         parks = data;
@@ -206,6 +206,7 @@ function buildParkCrowd(park) {
   if (acts.includes('親子放電')) groups.push('親子家庭');
   if (acts.includes('寵物出行')) groups.push('養寵物人士');
   if (acts.includes('運動出汗')) groups.push('運動愛好者');
+  if (acts.includes('開爐野餐')) groups.push('親友聚會');
   if (acts.includes('散步看景')) groups.push('情侶及長者');
   if (acts.includes('安靜發呆')) groups.push('需要獨處充電的人');
   return groups.length > 0 ? groups.join('、') : '各類人士';
@@ -255,6 +256,14 @@ function buildParkTips(park) {
       '清晨人少涼爽，晨運好時機', '清晨光線柔和、人流稀少', '早鳥福利，清晨安靜愜意',
       '清晨空氣清新，公園人最少，晨運後嘆個早餐', '日出前後光線最美，帶杯咖啡來享受寧靜時刻',
       '晨光初現，雀鳥最活躍的時段，觀鳥愛好者不要錯過',
+    ],
+    '上午': [
+      '上午陽光和煦不刺眼，行公園最寫意',
+      '朝早人流偏少，返工前來行一轉正好',
+      '上午光線充足，影相最靚，記得帶相機',
+      '早上十點前太陽較柔和，晨運散步都舒服',
+      '上午公園最寧靜，適合安靜發呆或睇書',
+      '朝早草地清爽，野餐墊一鋪就可以開餐',
     ],
     '中午': [
       '中午陽光猛烈，注意防曬補水', '正午太陽直射，找遮蔭處休息', '午間陽光強烈，做好防曬措施',
@@ -334,6 +343,31 @@ function buildParkTips(park) {
       '海濱長廊是睇日落熱點，黃昏前來氣氛最好',
     ];
     parts.push(p[ph(park.id, 9, p.length)]);
+  }
+
+  // 活動 → 針對性貼士（開爐野餐 + 寵物出行）
+  const acts = park.activityTypes || [];
+  if (acts.includes('開爐野餐')) {
+    const p = [
+      '燒烤爐假日人多，建議提早到場或避開正午高峰',
+      '記得自備炭、燒烤叉同食材，公園只提供爐具',
+      '燒烤後將炭火完全熄滅、清理乾淨才離開',
+      '野餐記得帶野餐墊同垃圾袋，走時帶走所有垃圾',
+      '開爐前留意風向，海邊風大要小心炭火安全',
+      '食完唔好即刻做劇烈運動，慢慢行下幫助消化',
+    ];
+    parts.push(p[ph(park.id, 10, p.length)]);
+  }
+  if (acts.includes('寵物出行')) {
+    const p = [
+      '帶毛孩入園全程牽繩，妥善管束以免滋擾他人',
+      '帶備狗糞袋，寵物排泄物要即時清理',
+      '部分公園設狗廁所同洗手設施，可先查清位置',
+      '避開假日人流高峰，平日或清晨遛狗更舒服',
+      '記得幫毛孩帶水，公園未必有寵物飲水設施',
+      '和其他使用者保持禮貌距離，讓毛孩玩得開心又唔失禮',
+    ];
+    parts.push(p[ph(park.id, 11, p.length)]);
   }
 
   if (parts.length === 0) parts.push('放鬆心情，享受公園的綠意與寧靜');

@@ -43,6 +43,10 @@ function init() {
         tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
       }
 
+      const highestHtml = trail.highestPointM != null
+        ? `<span class="trail-card__stat">⛰️ ${trail.highestPointM} 米</span>`
+        : '';
+
       const card = document.createElement('div');
       card.className = 'trail-card';
       card.dataset.difficulty = trail.difficulty;
@@ -55,6 +59,7 @@ function init() {
           <div class="trail-card__meta">
             <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
             <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+            ${highestHtml}
           </div>
           <div class="trail-card__desc">${trail.description}</div>
           ${tipsHtml}
@@ -72,7 +77,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=4')
+    fetch('js/data/trails.json?v=5')
       .then(r => r.json())
       .then(data => {
         trails = data;

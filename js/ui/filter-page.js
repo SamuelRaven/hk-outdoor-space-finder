@@ -10,7 +10,7 @@ import { matchParks } from '../core/matcher.js?v=4';
 const REGIONS = ['港島', '九龍', '新界'];
 const TIMES = ['清晨', '上午', '中午', '下午', '傍晚', '夜晚'];
 const PARK_TYPES = ['海濱長廊', '市區公園', '郊野綠地', '主題園林', '休憩花園'];
-const ACTIVITIES = ['散步看景', '親子放電', '運動出汗', '寵物出行', '安靜發呆'];
+const ACTIVITIES = ['散步看景', '親子放電', '運動出汗', '開爐野餐', '寵物出行', '安靜發呆'];
 
 // ---- 状态 ----
 let districtsData = {};
@@ -49,7 +49,7 @@ function init() {
 
   // 加载公园数据（用于交叉筛选兼容性检查）
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=4')
+    fetch('js/data/parks.json?v=5')
       .then(r => r.json())
       .then(data => {
         parks = data;

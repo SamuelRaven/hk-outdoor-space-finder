@@ -14,6 +14,7 @@ _*.py
 # Temp files
 _check_*.txt
 _debug*.txt
+_tmp/
 
 # System
 .DS_Store

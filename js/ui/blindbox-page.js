@@ -117,7 +117,7 @@ function init() {
 
   // ---- 首次加载 & 开投 ----
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=4')
+    fetch('js/data/parks.json?v=5')
       .then(r => r.json())
       .then(data => {
         parks = data;

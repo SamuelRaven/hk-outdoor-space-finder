@@ -117,7 +117,7 @@ function init() {
 
   // ---- 首次加载 & 开投 ----
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=4')
+    fetch('js/data/trails.json?v=5')
       .then(r => r.json())
       .then(data => {
         trails = data;
@@ -164,6 +164,10 @@ function showResult(trail, container, retryBtn) {
     distanceHtml = `<span class="trail-card__stat">📍 ${formatDistance(km)}</span>`;
   }
 
+  const highestHtml = trail.highestPointM != null
+    ? `<span class="trail-card__stat">⛰️ ${trail.highestPointM} 米</span>`
+    : '';
+
   const diceNote = buildDiceNote(trail);
   const diceNoteHtml = diceNote
     ? `<div class="trail-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
@@ -177,6 +181,7 @@ function showResult(trail, container, retryBtn) {
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
           <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+          ${highestHtml}
           ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>
@@ -192,7 +197,9 @@ function showResult(trail, container, retryBtn) {
 }
 
 function buildDiceNote(trail) {
-  if (trail.difficulty === '著咩鞋都腳軟') {
+  if (trail.difficulty === '著咩鞋都打嗮震') {
+    return '極高難度路線！僅建議資深山友挑戰，務必結伴同行';
+  } else if (trail.difficulty === '著行山鞋都腳軟') {
     return '高難度路線！務必結伴同行及做好充足準備';
   } else if (trail.difficulty === '著行山鞋穩陣D') {
     return '中等難度路線，出發前記得查看天氣預報～';

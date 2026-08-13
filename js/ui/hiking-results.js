@@ -80,7 +80,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=4')
+    fetch('js/data/trails.json?v=5')
       .then(r => r.json())
       .then(data => {
         trails = data;
@@ -249,7 +249,9 @@ function showNotice(filters) {
 
 function buildFilterNotice(filters) {
   const parts = [];
-  if (filters.difficulty === '著咩鞋都腳軟') {
+  if (filters.difficulty === '著咩鞋都打嗮震') {
+    parts.push('⚠️ 你選擇了極高難度路線，僅建議經驗豐富且體能充沛的山友前往，務必結伴同行');
+  } else if (filters.difficulty === '著行山鞋都腳軟') {
     parts.push('⚠️ 你選擇了高難度路線，請確認體能充足、結伴同行並告知親友行程');
   } else if (filters.difficulty === '著行山鞋穩陣D') {
     parts.push('你選擇了中等難度，建議出發前查看天氣預報及路線最新狀況');
@@ -261,6 +263,8 @@ function buildFilterNotice(filters) {
   }
   if (filters.scenery === '瀑布溪澗') {
     parts.push('溯溪路段濕滑，注意石面青苔，雨季切勿下水');
+  } else if (filters.scenery === '奇岩怪石') {
+    parts.push('地質景觀路線，請勿攀爬或敲擊岩石，注意石面濕滑');
   }
   return parts.length > 0 ? '📋 根據你的選擇：' + parts.join('；') : '';
 }
@@ -284,6 +288,10 @@ function renderCards(trailList, container) {
       distanceHtml = `<span class="trail-card__stat">📍 ${formatDistance(km)}</span>`;
     }
 
+    const highestHtml = trail.highestPointM != null
+      ? `<span class="trail-card__stat">⛰️ ${trail.highestPointM} 米</span>`
+      : '';
+
     const card = document.createElement('div');
     card.className = 'trail-card';
     card.dataset.difficulty = trail.difficulty;
@@ -296,6 +304,7 @@ function renderCards(trailList, container) {
         <div class="trail-card__meta">
           <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
           <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+          ${highestHtml}
           ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>

@@ -8,8 +8,8 @@ import { matchTrails } from '../core/trail-matcher.js?v=4';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];
-const DIFFICULTIES = ['著波鞋就得', '著行山鞋穩陣D', '著咩鞋都腳軟'];
-const SCENERIES = ['山海之間', '深山林蔭', '水庫平湖', '登頂大景', '瀑布溪澗', '歷史遺跡'];
+const DIFFICULTIES = ['著波鞋就得', '著波鞋都頂得住', '著行山鞋穩陣D', '著行山鞋都腳軟', '著咩鞋都打嗮震'];
+const SCENERIES = ['山海之間', '深山林蔭', '水庫平湖', '登頂大景', '瀑布溪澗', '歷史遺跡', '奇岩怪石'];
 const SURFACES = ['石屎路為主', '山徑為主', '樓梯為主', '混合'];
 
 // ---- 状态 ----
@@ -51,7 +51,7 @@ function init() {
 
   // 加载山径数据（用于交叉筛选兼容性检查）
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=4')
+    fetch('js/data/trails.json?v=5')
       .then(r => r.json())
       .then(data => {
         trails = data;
