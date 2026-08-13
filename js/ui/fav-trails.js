@@ -40,11 +40,11 @@ function init() {
 
       let tipsHtml = '';
       if (trail.tips) {
-        tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
+        tipsHtml += `<div class="trail-card__tips"><span class="emoji">💡</span> ${trail.tips}</div>`;
       }
 
       const highestHtml = trail.highestPointM != null
-        ? `<span class="trail-card__stat">⛰️ ${trail.highestPointM} 米</span>`
+        ? `<span class="trail-card__stat"><span class="emoji">⛰️</span> ${trail.highestPointM} 米</span>`
         : '';
 
       const card = document.createElement('div');
@@ -57,8 +57,8 @@ function init() {
           <div class="trail-card__name">${trail.nameZh}</div>
           <div class="trail-card__section">${sectionText}</div>
           <div class="trail-card__meta">
-            <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
-            <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+            <span class="trail-card__stat"><span class="emoji">🕐</span> ${formatDuration(trail.durationHrs)}</span>
+            <span class="trail-card__stat"><span class="emoji">🥾</span> ${trail.lengthKm} 公里</span>
             ${highestHtml}
           </div>
           <div class="trail-card__desc">${trail.description}</div>

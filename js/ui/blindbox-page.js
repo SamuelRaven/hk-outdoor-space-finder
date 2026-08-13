@@ -194,12 +194,12 @@ function showResult(park, container, retryBtn) {
   let distanceHtml = '';
   if (userCoords && park.lat != null && park.lng != null) {
     const km = calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng);
-    distanceHtml = `  📍 ${formatDistance(km)}`;
+    distanceHtml = `  <span class="emoji">📍</span> ${formatDistance(km)}`;
   }
 
   const diceNote = buildDiceNote(park);
   const diceNoteHtml = diceNote
-    ? `<div class="park-card__dynamic-note">🎲 根據命運骰子的結果：${diceNote}</div>`
+    ? `<div class="park-card__dynamic-note"><span class="emoji">🎲</span> 根據命運骰子的結果：${diceNote}</div>`
     : '';
 
   container.innerHTML = `

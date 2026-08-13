@@ -279,17 +279,17 @@ function renderCards(trailList, container) {
 
     let tipsHtml = '';
     if (trail.tips) {
-      tipsHtml += `<div class="trail-card__tips">💡 ${trail.tips}</div>`;
+      tipsHtml += `<div class="trail-card__tips"><span class="emoji">💡</span> ${trail.tips}</div>`;
     }
 
     let distanceHtml = '';
     if (userCoords && trail.lat != null && trail.lng != null) {
       const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
-      distanceHtml = `<span class="trail-card__stat">📍 ${formatDistance(km)}</span>`;
+      distanceHtml = `<span class="trail-card__stat"><span class="emoji">📍</span> ${formatDistance(km)}</span>`;
     }
 
     const highestHtml = trail.highestPointM != null
-      ? `<span class="trail-card__stat">⛰️ ${trail.highestPointM} 米</span>`
+      ? `<span class="trail-card__stat"><span class="emoji">⛰️</span> ${trail.highestPointM} 米</span>`
       : '';
 
     const card = document.createElement('div');
@@ -302,8 +302,8 @@ function renderCards(trailList, container) {
         <div class="trail-card__name">${trail.nameZh}</div>
         <div class="trail-card__section">${sectionText}</div>
         <div class="trail-card__meta">
-          <span class="trail-card__stat">🕐 ${formatDuration(trail.durationHrs)}</span>
-          <span class="trail-card__stat">🥾 ${trail.lengthKm} 公里</span>
+          <span class="trail-card__stat"><span class="emoji">🕐</span> ${formatDuration(trail.durationHrs)}</span>
+          <span class="trail-card__stat"><span class="emoji">🥾</span> ${trail.lengthKm} 公里</span>
           ${highestHtml}
           ${distanceHtml}
         </div>

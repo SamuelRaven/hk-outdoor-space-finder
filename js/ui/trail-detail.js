@@ -130,15 +130,15 @@ function init() {
       <div class="detail-block ${bc()}">
         <div class="detail-stats">
           <div class="detail-stat">
-            <div class="detail-label">🥾 全長</div>
+            <div class="detail-label"><span class="emoji">🥾</span> 全長</div>
             <div class="detail-stat__value">${trail.lengthKm} 公里</div>
           </div>
           <div class="detail-stat">
-            <div class="detail-label">🕐 需時</div>
+            <div class="detail-label"><span class="emoji">🕐</span> 需時</div>
             <div class="detail-stat__value">${formatDuration(trail.durationHrs)}</div>
           </div>
           <div class="detail-stat">
-            <div class="detail-label">⛰️ 海拔</div>
+            <div class="detail-label"><span class="emoji">⛰️</span> 海拔</div>
             <div class="detail-stat__value">${trail.highestPointM != null ? trail.highestPointM + ' 米' : '—'}</div>
           </div>
         </div>
@@ -146,17 +146,17 @@ function init() {
 
       ${sceneryTags ? `
       <div class="detail-block ${bc()}">
-        <div class="detail-label">🏞 風景</div>
+        <div class="detail-label"><span class="emoji">🏞</span> 風景</div>
         <div class="detail-tags">${sceneryTags}</div>
       </div>` : ''}
 
       <div class="detail-block ${bc()}">
-        <div class="detail-label">🛤 路況</div>
+        <div class="detail-label"><span class="emoji">🛤</span> 路況</div>
         <div class="detail-value">${trail.surface}</div>
       </div>
 
       <div class="detail-block ${bc()}">
-        <div class="detail-label">📝 簡介</div>
+        <div class="detail-label"><span class="emoji">📝</span> 簡介</div>
         <div class="detail-descs">
           <div class="detail-desc-item">${trail.description || '暫無簡介'}</div>
         </div>
@@ -164,22 +164,22 @@ function init() {
 
       ${trail.tips ? `
       <div class="detail-block ${bc()}">
-        <div class="detail-label">💡 實用貼士</div>
+        <div class="detail-label"><span class="emoji">💡</span> 實用貼士</div>
         <div class="detail-desc-item">${trail.tips}</div>
       </div>` : ''}
 
       <div class="detail-row">
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">👥 適合人群</div>
+          <div class="detail-label"><span class="emoji">👥</span> 適合人群</div>
           <div class="detail-value">${buildCrowd(trail)}</div>
         </div>
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">🎒 裝備建議</div>
+          <div class="detail-label"><span class="emoji">🎒</span> 裝備建議</div>
           <div class="detail-value">${buildGear(trail)}</div>
         </div>
       </div>
       <div class="detail-block ${bc()}">
-        <div class="detail-label">👀 沿途看點</div>
+        <div class="detail-label"><span class="emoji">👀</span> 沿途看點</div>
         <div class="detail-descs"><div class="detail-desc-item">${buildHighlights(trail)}</div></div>
       </div>
 

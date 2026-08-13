@@ -135,39 +135,39 @@ function init() {
 
       <div class="detail-row">
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">🕐 開放時間</div>
+          <div class="detail-label"><span class="emoji">🕐</span> 開放時間</div>
           <div class="detail-value detail-value--big">${park.openingHours || '-'}</div>
         </div>
         ${bestTimeTags ? `
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">☀️ 最佳時段</div>
+          <div class="detail-label"><span class="emoji">☀️</span> 最佳時段</div>
           <div class="detail-tags">${bestTimeTags}</div>
         </div>` : ''}
       </div>
 
       ${activities.length ? `
       <div class="detail-block ${bc()}">
-        <div class="detail-label">🏷 適合活動</div>
+        <div class="detail-label"><span class="emoji">🏷</span> 適合活動</div>
         <div class="detail-tags">${activityTags}</div>
       </div>` : ''}
 
       <div class="detail-block ${bc()}">
-        <div class="detail-label">📝 做咩好</div>
+        <div class="detail-label"><span class="emoji">📝</span> 做咩好</div>
         <div class="detail-descs">${descBlocks}</div>
       </div>
 
       <div class="detail-row">
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">👥 適合人群</div>
+          <div class="detail-label"><span class="emoji">👥</span> 適合人群</div>
           <div class="detail-value">${buildParkCrowd(park)}</div>
         </div>
         <div class="detail-block detail-block--half ${bc()}">
-          <div class="detail-label">🏞 公園特色</div>
+          <div class="detail-label"><span class="emoji">🏞</span> 公園特色</div>
           <div class="detail-value">${buildParkFeatures(park)}</div>
         </div>
       </div>
       <div class="detail-block ${bc()}">
-        <div class="detail-label">💡 出行貼士</div>
+        <div class="detail-label"><span class="emoji">💡</span> 出行貼士</div>
         <div class="detail-descs"><div class="detail-desc-item">${buildParkTips(park)}</div></div>
       </div>
 

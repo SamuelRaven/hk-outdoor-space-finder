@@ -689,6 +689,9 @@
 .park-card__hours::before {
   content: '🕐 ';
   font-family: sans-serif;
+  display: inline-block;
+  filter: blur(0.5px);
+  opacity: 0.75;
 }
 
 .park-card__desc {
@@ -720,6 +723,13 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
+}
+
+/* 表情符号 — 轻微模糊柔化，贴合复古印刷感 */
+.emoji {
+  display: inline-block;
+  filter: blur(0.5px);
+  opacity: 0.75;
 }
 
 /* 空结果 */
@@ -1828,7 +1838,7 @@
   display: flex; gap: var(--space-2); margin-bottom: var(--space-2);
 }
 .detail-block {
-  background: var(--color-cream); border: var(--border-standard);
+  background: var(--color-white); border: var(--border-standard);
   padding: var(--space-2); margin-bottom: var(--space-2);
 }
 .detail-block--half { flex: 1; margin-bottom: 0; }
@@ -1871,7 +1881,7 @@
 }
 /* 活动介绍卡片 */
 .detail-desc-card {
-  background: var(--color-cream);
+  background: var(--color-white);
   border: var(--border-standard);
   padding: var(--space-2);
 }
