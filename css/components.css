@@ -646,7 +646,7 @@
 /* 公园卡片 — 包豪斯风格 */
 .park-card {
   display: flex;
-  background: rgba(250,243,227, 0.92);
+  background: rgba(255,255,255, 0.92);
   backdrop-filter: blur(2px);
   border: var(--border-standard);
   position: relative;
@@ -1016,7 +1016,7 @@
 /* ---- 山径卡片（Trail Card） ---- */
 .trail-card {
   display: flex;
-  background: rgba(250,243,227, 0.92);
+  background: rgba(255,255,255, 0.92);
   backdrop-filter: blur(2px);
   border: var(--border-standard);
   position: relative;
@@ -1723,7 +1723,7 @@
    ======================================== */
 
 .park-card, .trail-card { cursor: pointer; }
-.park-card:active, .trail-card:active { background: rgba(250,243,227,0.75); }
+.park-card:active, .trail-card:active { background: rgba(255,255,255,0.75); }
 
 /* ========================================
    詳情頁
