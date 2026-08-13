@@ -1885,10 +1885,6 @@
 /* 活动区块 — 红左边框 */
 .detail-block--activities { border-left: 4px solid var(--color-red); }
 
-/* 山径详情 — 长度（红）、需时（蓝）、风景（黄）、路况（黑）、简介（红） */
-.detail-block--length  { border-left: 4px solid var(--color-red); }
-.detail-block--duration { border-left: 4px solid var(--color-blue); }
-
 /* 基本资料大框 — 全长/需时/海拔 三列合一 */
 .detail-block--stats { border-left: 4px solid var(--color-red); }
 .detail-stats {
