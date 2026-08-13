@@ -93,8 +93,9 @@ function init() {
       ? `${trail.trailName}${trail.section ? ' — ' + trail.section : ''}`
       : (trail.section || '');
 
+    const TAG_COLORS = ['blue', 'yellow', 'green', 'orange', 'purple'];
     const sceneryTags = (trail.scenery || [])
-      .map(s => `<span class="detail-tag detail-tag--scenery">${s}</span>`)
+      .map((s, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${s}</span>`)
       .join('');
 
     const diffClass = {

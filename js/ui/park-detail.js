@@ -89,19 +89,20 @@ function init() {
       return;
     }
 
+    const TAG_COLORS = ['blue', 'yellow', 'green', 'orange', 'purple'];
     const bestTimeTags = (park.bestTime || [])
-      .map(t => `<span class="detail-tag detail-tag--time">${t}</span>`).join('');
+      .map((t, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${t}</span>`).join('');
 
     const activities = park.activityTypes || [];
     const activityTags = activities
-      .map(a => `<span class="detail-tag detail-tag--activity">${a}</span>`).join('');
+      .map((a, i) => `<span class="detail-tag detail-tag--${TAG_COLORS[i % TAG_COLORS.length]}">${a}</span>`).join('');
 
-    const BAUHAUS_COLORS = ['red', 'blue', 'yellow', 'black'];
+    const BAUHAUS_COLORS = ['red', 'blue', 'yellow', 'black', 'purple', 'green', 'orange'];
 
     const descBlocks = park.activityDescriptions
       ? Object.entries(park.activityDescriptions)
           .map(([act, desc], i) => `
-            <div class="detail-desc-card detail-desc-card--${BAUHAUS_COLORS[i % 4]}">
+            <div class="detail-desc-card detail-desc-card--${BAUHAUS_COLORS[i % 7]}">
               <div class="detail-desc-card__act">${act}</div>
               <div class="detail-desc-card__text">${desc}</div>
             </div>`)
