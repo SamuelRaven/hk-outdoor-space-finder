@@ -58,7 +58,7 @@ function init() {
 
   // 加载山径数据（用于交叉筛选兼容性检查）
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=5')
+    fetch('js/data/trails.json?v=6')
       .then(r => r.json())
       .then(data => {
         trails = data;

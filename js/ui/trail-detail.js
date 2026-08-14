@@ -185,7 +185,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=5').then(r => r.json()).then(data => {
+    fetch('js/data/trails.json?v=6').then(r => r.json()).then(data => {
       trails = data;
       render(trails.find(t => t.id === trailId));
     });
