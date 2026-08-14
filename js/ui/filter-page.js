@@ -77,13 +77,13 @@ function init() {
   section.querySelector('[data-action="go"]').addEventListener('click', () => {
     if (!state.region && !state.time && !state.parkType && !state.activity) {
       import('./toast.js').then(m => {
-        m.showToast('請至少選擇一個篩選條件～');
+        m.showToast('請至少選擇一個篩選條件');
       });
       return;
     }
     if (parks.length > 0 && matchParks(parks, state).length === 0) {
       import('./toast.js').then(m => {
-        m.showToast('沒有符合條件的公園～<br>試試調整篩選條件吧');
+        m.showToast('沒有符合條件的公園<br>試試調整篩選條件吧');
       });
       return;
     }

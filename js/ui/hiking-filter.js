@@ -79,13 +79,13 @@ function init() {
   section.querySelector('[data-action="go"]').addEventListener('click', () => {
     if (!state.region && !state.difficulty && !state.scenery && !state.surface) {
       import('./toast.js').then(m => {
-        m.showToast('請至少選擇一個篩選條件～');
+        m.showToast('請至少選擇一個篩選條件');
       });
       return;
     }
     if (trails.length > 0 && matchTrails(trails, state).length === 0) {
       import('./toast.js').then(m => {
-        m.showToast('沒有符合條件的山徑～<br>試試調整篩選條件吧');
+        m.showToast('沒有符合條件的山徑<br>試試調整篩選條件吧');
       });
       return;
     }
