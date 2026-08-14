@@ -84,6 +84,10 @@ function init() {
     const regionColor = REGION_COLORS[park.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${park.region} · ${park.district}</span>`;
 
+    const mapBadge = (park.lat != null && park.lng != null)
+      ? `<a class="detail-badge" href="https://www.google.com/maps/search/?api=1&query=${park.lat},${park.lng}" target="_blank" rel="noopener">在地圖開啟</a>`
+      : '';
+
     const DESC_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
     const BLOCK_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
     let bi = 0;
@@ -113,6 +117,7 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           ${typeBadge}
+          ${mapBadge}
         </div>
       </div>
 

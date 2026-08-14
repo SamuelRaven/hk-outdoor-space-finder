@@ -102,6 +102,10 @@ function init() {
     const regionColor = REGION_COLORS[trail.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${trail.region} · ${trail.district}</span>`;
 
+    const mapBadge = (trail.lat != null && trail.lng != null)
+      ? `<a class="detail-badge" href="https://www.google.com/maps/search/?api=1&query=${trail.lat},${trail.lng}" target="_blank" rel="noopener">在地圖開啟</a>`
+      : '';
+
     container.innerHTML = `
       <div class="detail-color-bar">
         <span class="detail-color-bar__seg detail-color-bar__seg--red"></span>
@@ -115,6 +119,7 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
+          ${mapBadge}
         </div>
       </div>
 
