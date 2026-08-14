@@ -4,7 +4,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchParks } from '../core/matcher.js?v=4';
+import { matchParks } from '../core/matcher.js?v=5';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];
@@ -33,7 +33,7 @@ function createInitialState() {
     district: null,
     time: null,
     parkType: null,
-    activity: null,
+    activity: [],
   };
 }
 
@@ -56,7 +56,7 @@ function init() {
 
   // 加载公园数据（用于交叉筛选兼容性检查）
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=6')
+    fetch('js/data/parks.json?v=7')
       .then(r => r.json())
       .then(data => {
         parks = data;
@@ -75,7 +75,7 @@ function init() {
 
   // GO! 按钮
   section.querySelector('[data-action="go"]').addEventListener('click', () => {
-    if (!state.region && !state.time && !state.parkType && !state.activity) {
+    if (!state.region && !state.time && !state.parkType && !state.activity.length) {
       import('./toast.js').then(m => {
         m.showToast('請至少選擇一個篩選條件');
       });
@@ -146,12 +146,14 @@ function getIncompatibleOptions(groupKey) {
 
   // 检查其他筛选组是否有已选项
   const otherKeys = Object.keys(optionLists).filter(k => k !== groupKey);
-  const hasOtherSelections = otherKeys.some(k => state[k]);
+  const hasOtherSelections = otherKeys.some(k => Array.isArray(state[k]) ? state[k].length > 0 : !!state[k]);
   if (!hasOtherSelections) return incompatible;
 
+  const currentVal = state[groupKey];
+  const isMulti = Array.isArray(currentVal);
   for (const option of options) {
-    if (option === state[groupKey]) continue;
-    const testState = { ...state, [groupKey]: option };
+    if (isMulti ? currentVal.includes(option) : currentVal === option) continue;
+    const testState = { ...state, [groupKey]: isMulti ? [...currentVal, option] : option };
     if (groupKey === 'region') testState.district = null;
     if (matchParks(parks, testState).length === 0) incompatible.add(option);
   }
@@ -207,7 +209,7 @@ function showRegionOptions() {
       let districtIncompatible = false;
       if (parks.length > 0) {
         const otherKeys = ['time', 'parkType', 'activity'];
-        const hasOther = otherKeys.some(k => state[k]);
+        const hasOther = otherKeys.some(k => Array.isArray(state[k]) ? state[k].length > 0 : !!state[k]);
         if (hasOther) {
           const testState = { ...state, district: district };
           if (matchParks(parks, testState).length === 0) districtIncompatible = true;
@@ -287,13 +289,17 @@ function showActivityOptions() {
   ACTIVITIES.forEach((act, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (act === state.activity) chip.classList.add('chip--selected', 'chip--c-' + ACTIVITY_COLORS[act]);
+    if (state.activity.includes(act)) chip.classList.add('chip--selected', 'chip--c-' + ACTIVITY_COLORS[act]);
     if (incompatible.has(act)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = act;
     chip.addEventListener('click', () => {
       if (chip.disabled) return;
-      state.activity = (act === state.activity) ? null : act;
-      updateFilterBtn('activity', state.activity || '選擇');
+      if (state.activity.includes(act)) {
+        state.activity = state.activity.filter(a => a !== act);
+      } else {
+        state.activity = [...state.activity, act];
+      }
+      updateFilterBtn('activity', state.activity.length ? `${state.activity.length} 項` : '選擇');
       showActivityOptions();
     });
     optionsContainer.appendChild(chip);

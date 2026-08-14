@@ -11,12 +11,13 @@
  */
 export function matchTrails(trails, filters) {
   const results = [];
+  const sceneries = Array.isArray(filters.scenery) ? filters.scenery : (filters.scenery ? [filters.scenery] : []);
 
   for (const trail of trails) {
     if (filters.region && trail.region !== filters.region) continue;
     if (filters.district && trail.district !== filters.district) continue;
     if (filters.difficulty && trail.difficulty !== filters.difficulty) continue;
-    if (filters.scenery && (!trail.scenery || !trail.scenery.includes(filters.scenery))) continue;
+    if (sceneries.length && (!trail.scenery || !sceneries.some(s => trail.scenery.includes(s)))) continue;
     if (filters.surface && trail.surface !== filters.surface) continue;
 
     results.push(trail);

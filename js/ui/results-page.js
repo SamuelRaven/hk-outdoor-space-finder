@@ -3,7 +3,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchParks } from '../core/matcher.js?v=4';
+import { matchParks } from '../core/matcher.js?v=5';
 import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
 
@@ -79,7 +79,7 @@ function init() {
   }
 
   if (parks.length === 0) {
-    fetch('js/data/parks.json?v=6')
+    fetch('js/data/parks.json?v=7')
       .then(r => r.json())
       .then(data => {
         parks = data;

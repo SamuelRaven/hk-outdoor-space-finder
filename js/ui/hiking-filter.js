@@ -4,7 +4,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchTrails } from '../core/trail-matcher.js?v=4';
+import { matchTrails } from '../core/trail-matcher.js?v=5';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];
@@ -32,7 +32,7 @@ function createInitialState() {
     region: null,
     district: null,
     difficulty: null,
-    scenery: null,
+    scenery: [],
     surface: null,
   };
 }
@@ -77,7 +77,7 @@ function init() {
 
   // GO! 按钮
   section.querySelector('[data-action="go"]').addEventListener('click', () => {
-    if (!state.region && !state.difficulty && !state.scenery && !state.surface) {
+    if (!state.region && !state.difficulty && !state.scenery.length && !state.surface) {
       import('./toast.js').then(m => {
         m.showToast('請至少選擇一個篩選條件');
       });
@@ -147,12 +147,14 @@ function getIncompatibleOptions(groupKey) {
   if (!options) return incompatible;
 
   const otherKeys = Object.keys(optionLists).filter(k => k !== groupKey);
-  const hasOtherSelections = otherKeys.some(k => state[k]);
+  const hasOtherSelections = otherKeys.some(k => Array.isArray(state[k]) ? state[k].length > 0 : !!state[k]);
   if (!hasOtherSelections) return incompatible;
 
+  const currentVal = state[groupKey];
+  const isMulti = Array.isArray(currentVal);
   for (const option of options) {
-    if (option === state[groupKey]) continue;
-    const testState = { ...state, [groupKey]: option };
+    if (isMulti ? currentVal.includes(option) : currentVal === option) continue;
+    const testState = { ...state, [groupKey]: isMulti ? [...currentVal, option] : option };
     if (groupKey === 'region') testState.district = null;
     if (matchTrails(trails, testState).length === 0) incompatible.add(option);
   }
@@ -207,7 +209,7 @@ function showRegionOptions() {
       let districtIncompatible = false;
       if (trails.length > 0) {
         const otherKeys = ['difficulty', 'scenery', 'surface'];
-        const hasOther = otherKeys.some(k => state[k]);
+        const hasOther = otherKeys.some(k => Array.isArray(state[k]) ? state[k].length > 0 : !!state[k]);
         if (hasOther) {
           const testState = { ...state, district: district };
           if (matchTrails(trails, testState).length === 0) districtIncompatible = true;
@@ -266,13 +268,17 @@ function showSceneryOptions() {
   SCENERIES.forEach((sc, i) => {
     const chip = document.createElement('button');
     chip.className = 'chip';
-    if (sc === state.scenery) chip.classList.add('chip--selected', 'chip--c-' + SCENERY_COLORS[sc]);
+    if (state.scenery.includes(sc)) chip.classList.add('chip--selected', 'chip--c-' + SCENERY_COLORS[sc]);
     if (incompatible.has(sc)) { chip.disabled = true; chip.classList.add('chip--disabled'); }
     chip.textContent = sc;
     chip.addEventListener('click', () => {
       if (chip.disabled) return;
-      state.scenery = (sc === state.scenery) ? null : sc;
-      updateFilterBtn('scenery', state.scenery || '選擇');
+      if (state.scenery.includes(sc)) {
+        state.scenery = state.scenery.filter(s => s !== sc);
+      } else {
+        state.scenery = [...state.scenery, sc];
+      }
+      updateFilterBtn('scenery', state.scenery.length ? `${state.scenery.length} 項` : '選擇');
       showSceneryOptions();
     });
     optionsContainer.appendChild(chip);

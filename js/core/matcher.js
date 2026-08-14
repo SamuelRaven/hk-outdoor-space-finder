@@ -11,13 +11,14 @@
  */
 export function matchParks(parks, filters) {
   const results = [];
+  const activities = Array.isArray(filters.activity) ? filters.activity : (filters.activity ? [filters.activity] : []);
 
   for (const park of parks) {
     if (filters.region && park.region !== filters.region) continue;
     if (filters.district && park.district !== filters.district) continue;
     if (filters.parkType && park.parkType !== filters.parkType) continue;
     if (filters.time && (!park.bestTime || !park.bestTime.includes(filters.time))) continue;
-    if (filters.activity && (!park.activityTypes || !park.activityTypes.includes(filters.activity))) continue;
+    if (activities.length && (!park.activityTypes || !activities.some(a => park.activityTypes.includes(a)))) continue;
 
     results.push(park);
   }

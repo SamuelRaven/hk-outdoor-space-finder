@@ -3,7 +3,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchTrails } from '../core/trail-matcher.js?v=4';
+import { matchTrails } from '../core/trail-matcher.js?v=5';
 import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 import { formatDistance, formatDuration } from '../core/format.js?v=4';
 
@@ -261,9 +261,11 @@ function buildFilterNotice(filters) {
   } else if (filters.surface === '樓梯為主') {
     parts.push('沿途大量石級，建議佩戴護膝及使用行山杖');
   }
-  if (filters.scenery === '瀑布溪澗') {
+  const sceneries = Array.isArray(filters.scenery) ? filters.scenery : (filters.scenery ? [filters.scenery] : []);
+  if (sceneries.includes('瀑布溪澗')) {
     parts.push('溯溪路段濕滑，注意石面青苔，雨季切勿下水');
-  } else if (filters.scenery === '奇岩怪石') {
+  }
+  if (sceneries.includes('奇岩怪石')) {
     parts.push('地質景觀路線，請勿攀爬或敲擊岩石，注意石面濕滑');
   }
   return parts.length > 0 ? '📋 根據你的選擇：' + parts.join('；') : '';
