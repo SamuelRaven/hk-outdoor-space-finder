@@ -2,15 +2,12 @@
    Park Detail Page
    ======================================== */
 
-import { navigate, register, getHashParam, getHashQuery, getHashCoords, getSearchCoords } from '../core/router.js?v=6';
+import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
-import { calcDistance } from '../core/geo.js?v=4';
-import { formatDistance } from '../core/format.js?v=4';
 
 let parks = [];
 let handlers = {};
-let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-park-detail');
@@ -69,20 +66,6 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 坐标：search > hash @ > hash ? > sessionStorage（优先级从高到低）
-  if (!userCoords) {
-    userCoords = getSearchCoords() || getHashCoords();
-    if (!userCoords) {
-      const q = getHashQuery();
-      if (q.lat && q.lng) {
-        userCoords = { lat: parseFloat(q.lat), lng: parseFloat(q.lng) };
-      } else {
-        const stored = sessionStorage.getItem('userCoords');
-        if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
-      }
-    }
-  }
-
   function render(park) {
     if (!park) {
       container.innerHTML = '<p class="detail-empty">找不到這個公園 😢</p>';
@@ -133,7 +116,6 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           ${typeBadge}
-          ${userCoords && park.lat != null && park.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, park.lat, park.lng))}</span>` : ''}
         </div>
       </div>
 

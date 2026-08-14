@@ -2,15 +2,13 @@
    Trail Detail Page
    ======================================== */
 
-import { navigate, register, getHashParam, getHashQuery, getHashCoords, getSearchCoords } from '../core/router.js?v=6';
+import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
-import { formatDistance, formatDuration } from '../core/format.js?v=4';
-import { calcDistance } from '../core/geo.js?v=4';
+import { formatDuration } from '../core/format.js?v=4';
 
 let trails = [];
 let handlers = {};
-let userCoords = null;
 
 function init() {
   const section = document.getElementById('page-trail-detail');
@@ -69,20 +67,6 @@ function init() {
   };
   section.querySelector('[data-action="back"]').addEventListener('click', handlers.onBack);
 
-  // 坐标：search > hash @ > hash ? > sessionStorage（优先级从高到低）
-  if (!userCoords) {
-    userCoords = getSearchCoords() || getHashCoords();
-    if (!userCoords) {
-      const q = getHashQuery();
-      if (q.lat && q.lng) {
-        userCoords = { lat: parseFloat(q.lat), lng: parseFloat(q.lng) };
-      } else {
-        const stored = sessionStorage.getItem('userCoords');
-        if (stored) { try { userCoords = JSON.parse(stored); } catch {} }
-      }
-    }
-  }
-
   function render(trail) {
     if (!trail) {
       container.innerHTML = '<p class="detail-empty">找不到這條山徑 😢</p>';
@@ -128,7 +112,6 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
-          ${userCoords && trail.lat != null && trail.lng != null ? `<span class="detail-badge detail-badge--distance">${formatDistance(calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng))}</span>` : ''}
         </div>
       </div>
 

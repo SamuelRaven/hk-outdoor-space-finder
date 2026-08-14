@@ -153,11 +153,6 @@ function showResult(trail, container, retryBtn) {
     ? `${trail.trailName} — ${trail.section}`
     : trail.section;
 
-  let tipsHtml = '';
-  if (trail.tips) {
-    tipsHtml += `<div class="trail-card__tips"><span class="emoji">💡</span> ${trail.tips}</div>`;
-  }
-
   let distanceHtml = '';
   if (userCoords && trail.lat != null && trail.lng != null) {
     const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
@@ -185,7 +180,6 @@ function showResult(trail, container, retryBtn) {
           ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>
-        ${tipsHtml}
         ${diceNoteHtml}
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>

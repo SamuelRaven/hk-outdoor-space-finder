@@ -38,11 +38,6 @@ function init() {
         ? `${trail.trailName} — ${trail.section}`
         : trail.section;
 
-      let tipsHtml = '';
-      if (trail.tips) {
-        tipsHtml += `<div class="trail-card__tips"><span class="emoji">💡</span> ${trail.tips}</div>`;
-      }
-
       const highestHtml = trail.highestPointM != null
         ? `<span class="trail-card__stat"><span class="emoji">⛰️</span> ${trail.highestPointM} 米</span>`
         : '';
@@ -62,7 +57,6 @@ function init() {
             ${highestHtml}
           </div>
           <div class="trail-card__desc">${trail.description}</div>
-          ${tipsHtml}
         </div>
         <span class="trail-card__difficulty">${trail.difficulty}</span>
       `;

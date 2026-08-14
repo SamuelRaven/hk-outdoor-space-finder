@@ -277,11 +277,6 @@ function renderCards(trailList, container) {
       ? `${trail.trailName}${trail.section ? ' — ' + trail.section : ''}`
       : (trail.section || '');
 
-    let tipsHtml = '';
-    if (trail.tips) {
-      tipsHtml += `<div class="trail-card__tips"><span class="emoji">💡</span> ${trail.tips}</div>`;
-    }
-
     let distanceHtml = '';
     if (userCoords && trail.lat != null && trail.lng != null) {
       const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
@@ -308,7 +303,6 @@ function renderCards(trailList, container) {
           ${distanceHtml}
         </div>
         <div class="trail-card__desc">${trail.description}</div>
-        ${tipsHtml}
       </div>
       <span class="trail-card__difficulty">${trail.difficulty}</span>
     `;

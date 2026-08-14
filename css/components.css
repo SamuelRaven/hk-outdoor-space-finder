@@ -690,8 +690,6 @@
   content: '🕐 ';
   font-family: sans-serif;
   display: inline-block;
-  filter: blur(0.5px);
-  opacity: 0.75;
 }
 
 .park-card__desc {
@@ -716,20 +714,9 @@
   background: var(--color-white);
 }
 
-/* 详情页距离徽章 — 深中性灰底，与地区徽章黄色错开 */
-.detail-badge--distance {
-  background: var(--color-gray-dark) !important;
-  color: var(--color-white) !important;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* 表情符号 — 轻微模糊柔化，贴合复古印刷感 */
+/* 表情符号 */
 .emoji {
   display: inline-block;
-  filter: blur(0.5px);
-  opacity: 0.75;
 }
 
 /* 空结果 */
@@ -1130,19 +1117,6 @@
 .trail-card[data-difficulty="著咩鞋都打嗮震"] .trail-card__difficulty {
   background: var(--color-black);
   color: var(--color-white);
-}
-
-/* 山径实用提示 */
-.trail-card__tips {
-  font-family: var(--font-body);
-  font-size: 12px;
-  line-height: 1.6;
-  text-align: justify;
-  color: var(--color-black);
-  opacity: 0.75;
-  margin-top: var(--space-1);
-  padding-top: var(--space-1);
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
