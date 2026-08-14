@@ -96,6 +96,9 @@ function init() {
       '著咩鞋都打嗮震': 'detail-badge--extreme',
     }[trail.difficulty] || '';
 
+    const duration = formatDuration(trail.durationHrs);
+    const durationClass = (duration.includes('小時') && duration.includes('分鐘')) ? ' detail-stat--minute' : '';
+
     const regionColor = REGION_COLORS[trail.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${trail.region} · ${trail.district}</span>`;
 
@@ -121,9 +124,9 @@ function init() {
             <div class="detail-label"><span class="emoji">🥾</span> 全長</div>
             <div class="detail-stat__value">${trail.lengthKm} 公里</div>
           </div>
-          <div class="detail-stat">
+          <div class="detail-stat${durationClass}">
             <div class="detail-label"><span class="emoji">🕐</span> 需時</div>
-            <div class="detail-stat__value">${formatDuration(trail.durationHrs)}</div>
+            <div class="detail-stat__value">${duration}</div>
           </div>
           <div class="detail-stat">
             <div class="detail-label"><span class="emoji">⛰️</span> 海拔</div>

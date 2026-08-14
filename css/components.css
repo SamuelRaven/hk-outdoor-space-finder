@@ -1912,6 +1912,9 @@
   line-height: 1.2;
   white-space: nowrap;
 }
+.detail-stat--minute {
+  margin-right: var(--space-2);
+}
 /* AI 輔助標註 */
 .detail-ai-note {
   text-align: center;
