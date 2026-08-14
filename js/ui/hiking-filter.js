@@ -154,7 +154,7 @@ function getIncompatibleOptions(groupKey) {
   const isMulti = Array.isArray(currentVal);
   for (const option of options) {
     if (isMulti ? currentVal.includes(option) : currentVal === option) continue;
-    const testState = { ...state, [groupKey]: isMulti ? [...currentVal, option] : option };
+    const testState = { ...state, [groupKey]: isMulti ? [option] : option };
     if (groupKey === 'region') testState.district = null;
     if (matchTrails(trails, testState).length === 0) incompatible.add(option);
   }
