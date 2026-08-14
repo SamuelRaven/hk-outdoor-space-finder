@@ -42,6 +42,18 @@ function init() {
     actions.appendChild(shareBtn);
   }
 
+  let mapBtn = actions.querySelector('.map-btn');
+  if (!mapBtn) {
+    mapBtn = document.createElement('a');
+    mapBtn.className = 'map-btn';
+    mapBtn.setAttribute('aria-label', '在地圖開啟');
+    mapBtn.setAttribute('target', '_blank');
+    mapBtn.setAttribute('rel', 'noopener');
+    mapBtn.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+    actions.appendChild(mapBtn);
+  }
+  mapBtn.style.display = 'none';
+
   handlers.onFav = async () => {
     const nowFav = toggleFavorite('trail', trailId);
     updateStar(favBtn, nowFav);
@@ -102,9 +114,12 @@ function init() {
     const regionColor = REGION_COLORS[trail.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${trail.region} · ${trail.district}</span>`;
 
-    const mapBadge = (trail.lat != null && trail.lng != null)
-      ? `<a class="detail-badge" href="https://www.google.com/maps/search/?api=1&query=${trail.lat},${trail.lng}" target="_blank" rel="noopener">在地圖開啟</a>`
-      : '';
+    if (trail.lat != null && trail.lng != null) {
+      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${trail.lat},${trail.lng}`;
+      mapBtn.style.display = '';
+    } else {
+      mapBtn.style.display = 'none';
+    }
 
     container.innerHTML = `
       <div class="detail-color-bar">
@@ -119,7 +134,6 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
-          ${mapBadge}
         </div>
       </div>
 

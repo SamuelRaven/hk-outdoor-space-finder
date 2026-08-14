@@ -41,6 +41,18 @@ function init() {
     actions.appendChild(shareBtn);
   }
 
+  let mapBtn = actions.querySelector('.map-btn');
+  if (!mapBtn) {
+    mapBtn = document.createElement('a');
+    mapBtn.className = 'map-btn';
+    mapBtn.setAttribute('aria-label', '在地圖開啟');
+    mapBtn.setAttribute('target', '_blank');
+    mapBtn.setAttribute('rel', 'noopener');
+    mapBtn.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+    actions.appendChild(mapBtn);
+  }
+  mapBtn.style.display = 'none';
+
   handlers.onFav = async () => {
     const nowFav = toggleFavorite('park', parkId);
     updateStar(favBtn, nowFav);
@@ -84,9 +96,12 @@ function init() {
     const regionColor = REGION_COLORS[park.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${park.region} · ${park.district}</span>`;
 
-    const mapBadge = (park.lat != null && park.lng != null)
-      ? `<a class="detail-badge" href="https://www.google.com/maps/search/?api=1&query=${park.lat},${park.lng}" target="_blank" rel="noopener">在地圖開啟</a>`
-      : '';
+    if (park.lat != null && park.lng != null) {
+      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${park.lat},${park.lng}`;
+      mapBtn.style.display = '';
+    } else {
+      mapBtn.style.display = 'none';
+    }
 
     const DESC_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
     const BLOCK_COLORS = ['red', 'blue', 'yellow', 'purple', 'green', 'orange', 'teal'];
@@ -117,7 +132,6 @@ function init() {
         <div class="detail-hero__meta">
           ${regionBadge}
           ${typeBadge}
-          ${mapBadge}
         </div>
       </div>
 
