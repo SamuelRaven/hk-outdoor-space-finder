@@ -480,8 +480,8 @@
 /* 选中底色 — 五色循环（蓝紫绿橙黄）+ 固定映射补充（红/黑） */
 .chip--c-blue   { background: var(--color-blue);   color: var(--color-white); }
 .chip--c-purple { background: var(--color-purple); color: var(--color-white); }
-.chip--c-green  { background: var(--color-green);  color: var(--color-white); }
-.chip--c-orange { background: var(--color-orange); color: var(--color-white); }
+.chip--c-green  { background: var(--color-green); }
+.chip--c-orange { background: var(--color-orange); }
 .chip--c-yellow { background: var(--color-yellow); }
 .chip--c-red    { background: var(--color-red);    color: var(--color-white); }
 .chip--c-teal   { background: var(--color-teal);   color: var(--color-white); }
@@ -1802,9 +1802,9 @@
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
 .detail-badge--type-blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-badge--type-purple { background: var(--color-purple); color: var(--color-white); }
-.detail-badge--type-green  { background: var(--color-green);  color: var(--color-white); }
+.detail-badge--type-green  { background: var(--color-green); }
 .detail-badge--type-teal   { background: var(--color-teal);   color: var(--color-white); }
-.detail-badge--type-orange { background: var(--color-orange); color: var(--color-white); }
+.detail-badge--type-orange { background: var(--color-orange); }
 .detail-badge--easy        { background: var(--color-yellow); }
 .detail-badge--easy-medium { background: var(--color-blue); color: var(--color-white); }
 .detail-badge--medium      { background: var(--color-purple); color: var(--color-white); }
@@ -1849,8 +1849,8 @@
 }
 .detail-tag--blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-tag--yellow { background: var(--color-yellow); }
-.detail-tag--green  { background: var(--color-green);  color: var(--color-white); }
-.detail-tag--orange { background: var(--color-orange); color: var(--color-white); }
+.detail-tag--green  { background: var(--color-green); }
+.detail-tag--orange { background: var(--color-orange); }
 .detail-tag--purple { background: var(--color-purple); color: var(--color-white); }
 .detail-tag--teal   { background: var(--color-teal);   color: var(--color-white); }
 .detail-tag--black  { background: var(--color-black);  color: var(--color-white); }
