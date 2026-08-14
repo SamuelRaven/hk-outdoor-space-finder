@@ -1837,6 +1837,10 @@
 .detail-value--big {
   font-family: var(--font-display); font-size: 22px; font-weight: 700;
 }
+.detail-value--note {
+  font-family: var(--font-body); font-size: 12px; line-height: 1.4;
+  color: var(--color-gray); margin-top: 2px;
+}
 .detail-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .detail-tag {
   font-family: var(--font-body); font-size: 12px; font-weight: 600;

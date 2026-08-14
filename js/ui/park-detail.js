@@ -104,6 +104,8 @@ function init() {
           .join('')
       : `<div class="detail-desc-card"><div class="detail-desc-card__text">${park.description || '暫無簡介'}</div></div>`;
 
+    const hours = splitHours(park.openingHours);
+
     container.innerHTML = `
       <div class="detail-color-bar">
         <span class="detail-color-bar__seg detail-color-bar__seg--red"></span>
@@ -122,7 +124,8 @@ function init() {
       <div class="detail-row">
         <div class="detail-block detail-block--half ${bc()}">
           <div class="detail-label"><span class="emoji">🕐</span> 開放時間</div>
-          <div class="detail-value detail-value--big">${park.openingHours || '-'}</div>
+          <div class="detail-value detail-value--big">${hours.main}</div>
+          ${hours.note ? `<div class="detail-value detail-value--note">${hours.note}</div>` : ''}
         </div>
         ${bestTimeTags ? `
         <div class="detail-block detail-block--half ${bc()}">
@@ -192,6 +195,14 @@ function ph(id, seed, n) {
   let h = seed;
   for (let i = 0; i < id.length; i++) h = ((h << 5) - h + id.charCodeAt(i)) | 0;
   return Math.abs(h) % n;
+}
+
+// ---- 開放時間 (主時段 + 括號註釋拆兩行，如「24小時（回歸塔 07:00-19:00）」) ----
+function splitHours(hours) {
+  if (!hours) return { main: '-', note: '' };
+  const m = hours.match(/^([^（(]*)[（(]([^）)]*)[）)]/);
+  if (m) return { main: m[1].trim(), note: m[2].trim() };
+  return { main: hours, note: '' };
 }
 
 // ---- 適合人群 (從 activityTypes 推導，本身已有足夠變化) ----
