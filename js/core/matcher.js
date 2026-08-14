@@ -23,5 +23,14 @@ export function matchParks(parks, filters) {
     results.push(park);
   }
 
+  // 多选活动：按满足程度降序（命中所选活动越多越靠前），命中数相同时保持原始顺序
+  if (activities.length > 1) {
+    results.sort((a, b) => {
+      const ca = (a.activityTypes || []).filter(x => activities.includes(x)).length;
+      const cb = (b.activityTypes || []).filter(x => activities.includes(x)).length;
+      return cb - ca;
+    });
+  }
+
   return results;  // 返回全部匹配结果，翻页在 UI 层控制
 }

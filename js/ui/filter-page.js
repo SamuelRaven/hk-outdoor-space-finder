@@ -4,7 +4,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchParks } from '../core/matcher.js?v=5';
+import { matchParks } from '../core/matcher.js?v=6';
 
 // ---- 选项定义 ----
 const REGIONS = ['港島', '九龍', '新界'];

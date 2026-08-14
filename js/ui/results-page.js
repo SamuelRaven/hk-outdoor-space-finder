@@ -3,7 +3,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchParks } from '../core/matcher.js?v=5';
+import { matchParks } from '../core/matcher.js?v=6';
 import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
 

@@ -3,7 +3,7 @@
    ======================================== */
 
 import { navigate, register } from '../core/router.js?v=4';
-import { matchTrails } from '../core/trail-matcher.js?v=5';
+import { matchTrails } from '../core/trail-matcher.js?v=6';
 import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 import { formatDistance, formatDuration } from '../core/format.js?v=4';
 

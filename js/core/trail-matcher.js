@@ -23,5 +23,14 @@ export function matchTrails(trails, filters) {
     results.push(trail);
   }
 
+  // 多选氛围：按满足程度降序（命中所选氛围越多越靠前），命中数相同时保持原始顺序
+  if (sceneries.length > 1) {
+    results.sort((a, b) => {
+      const ca = (a.scenery || []).filter(x => sceneries.includes(x)).length;
+      const cb = (b.scenery || []).filter(x => sceneries.includes(x)).length;
+      return cb - ca;
+    });
+  }
+
   return results;  // 返回全部匹配结果，翻页在 UI 层控制
 }
