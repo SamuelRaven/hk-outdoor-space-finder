@@ -73,15 +73,10 @@ function init() {
     }
 
     const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
-    const ACTIVITY_COLORS = { '散步看景': 'blue', '親子放電': 'teal', '運動出汗': 'orange', '開爐野餐': 'yellow', '寵物出行': 'green', '安靜發呆': 'purple' };
     const TIME_TAG_COLORS = { '清晨': 'green', '上午': 'blue', '中午': 'orange', '下午': 'yellow', '傍晚': 'purple', '夜晚': 'black' };
     const REGION_COLORS = { '港島': 'blue', '九龍': 'red', '新界': 'yellow' };
     const bestTimeTags = (park.bestTime || [])
       .map(t => `<span class="detail-tag detail-tag--${TIME_TAG_COLORS[t] || 'yellow'}">${t}</span>`).join('');
-
-    const activities = park.activityTypes || [];
-    const activityTags = activities
-      .map(a => `<span class="detail-tag detail-tag--${ACTIVITY_COLORS[a] || 'yellow'}">${a}</span>`).join('');
 
     const typeColor = PARK_TYPE_COLORS[park.parkType];
     const typeBadge = `<span class="detail-badge detail-badge--type${typeColor ? ' detail-badge--type-' + typeColor : ''}">${park.parkType || ''}</span>`;
@@ -134,11 +129,12 @@ function init() {
         </div>` : ''}
       </div>
 
-      ${activities.length ? `
       <div class="detail-block ${bc()}">
-        <div class="detail-label"><span class="emoji">🏷</span> 適合活動</div>
-        <div class="detail-tags">${activityTags}</div>
-      </div>` : ''}
+        <div class="detail-label"><span class="emoji">📖</span> 簡介</div>
+        <div class="detail-descs">
+          <div class="detail-desc-item">${park.description || '暫無簡介'}</div>
+        </div>
+      </div>
 
       <div class="detail-block">
         <div class="detail-label"><span class="emoji">📝</span> 做咩好</div>
