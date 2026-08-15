@@ -700,7 +700,7 @@
   text-align: justify;
 }
 
-.park-card__region {
+.park-card__type {
   position: absolute;
   top: var(--space-1);
   right: var(--space-1);
@@ -708,11 +708,15 @@
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   padding: 2px 6px;
   border: 1px solid var(--color-black);
-  background: var(--color-white);
 }
+.park-card__type--blue   { background: var(--color-blue);   color: var(--color-white); }
+.park-card__type--purple { background: var(--color-purple); color: var(--color-white); }
+.park-card__type--green  { background: var(--color-green);  color: var(--color-black); }
+.park-card__type--teal   { background: var(--color-teal);   color: var(--color-white); }
+.park-card__type--orange { background: var(--color-orange); color: var(--color-black); }
 
 /* 表情符号 */
 .emoji {
@@ -863,6 +867,10 @@
   padding: 0 var(--space-2);
   animation: fadeInUp 0.5s ease-out;
 }
+
+/* 盲盒卡片文字居中，预留右上角角标空间，避免长名与标签重叠 */
+.blindbox-page .park-card__name  { padding-right: 64px; }
+.blindbox-page .trail-card__name { padding-right: 100px; }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }

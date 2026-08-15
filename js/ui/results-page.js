@@ -7,6 +7,8 @@ import { matchParks } from '../core/matcher.js?v=6';
 import { calcDistance, getUserPosition, sortByDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
 
+const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
+
 let parks = [];
 let cachedResults = null;    // 从详情页返回时恢复用
 let originalOrder = null;    // 默认排序（匹配器返回的原始顺序）
@@ -268,7 +270,7 @@ function renderCards(parkList, container, filters) {
         <div class="park-card__hours">${park.openingHours}${distanceHtml}</div>
         <div class="park-card__desc">${desc}</div>
       </div>
-      <span class="park-card__region">${park.region}</span>
+      <span class="park-card__type park-card__type--${PARK_TYPE_COLORS[park.parkType]}">${park.parkType}</span>
     `;
 
     card.addEventListener('click', () => {

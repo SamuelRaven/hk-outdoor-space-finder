@@ -7,6 +7,8 @@ import { getFavorites } from '../core/favorites.js';
 
 let parks = [];
 
+const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
+
 function init() {
   const section = document.getElementById('page-fav-parks');
   const listEl = document.getElementById('fav-parks-list');
@@ -46,7 +48,7 @@ function init() {
           <div class="park-card__hours">${park.openingHours}</div>
           <div class="park-card__desc">${desc}</div>
         </div>
-        <span class="park-card__region">${park.region}</span>
+        <span class="park-card__type park-card__type--${PARK_TYPE_COLORS[park.parkType]}">${park.parkType}</span>
       `;
 
       card.addEventListener('click', () => {

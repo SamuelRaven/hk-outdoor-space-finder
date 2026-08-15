@@ -12,6 +12,8 @@ const COUNT_KEY = 'diceRollCount_park';
 const COOLDOWN_MS = 10 * 60 * 60 * 1000;
 const MAX_ROLLS = 10;
 
+const PARK_TYPE_COLORS = { '海濱長廊': 'blue', '市區公園': 'purple', '郊野綠地': 'green', '主題園林': 'teal', '休憩花園': 'orange' };
+
 let parks = [];
 let handlers = {};
 let cachedPark = null;   // 从详情页返回时恢复
@@ -210,7 +212,7 @@ function showResult(park, container, retryBtn) {
         <div class="park-card__desc">${desc}</div>
         ${diceNoteHtml}
       </div>
-      <span class="park-card__region">${park.region}</span>
+      <span class="park-card__type park-card__type--${PARK_TYPE_COLORS[park.parkType]}">${park.parkType}</span>
     </div>
   `;
 
