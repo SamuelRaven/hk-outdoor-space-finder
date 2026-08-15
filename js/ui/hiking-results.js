@@ -292,6 +292,7 @@ function renderCards(trailList, container) {
     const card = document.createElement('div');
     card.className = 'trail-card';
     card.dataset.difficulty = trail.difficulty;
+    card.dataset.region = trail.region;
     card.style.cursor = 'pointer';
 
     card.innerHTML = `

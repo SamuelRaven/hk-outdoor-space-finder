@@ -1024,7 +1024,7 @@
   overflow: hidden;
 }
 
-/* 左侧色条 — 按难度着色 */
+/* 左侧色条 — 按大区着色（与公园卡片对齐） */
 .trail-card::before {
   content: '';
   width: 6px;
@@ -1032,11 +1032,9 @@
   align-self: stretch;
 }
 
-.trail-card[data-difficulty="著波鞋就得"]::before { background: var(--color-yellow); }
-.trail-card[data-difficulty="著波鞋都頂得住"]::before { background: var(--color-blue); }
-.trail-card[data-difficulty="著行山鞋穩陣D"]::before { background: var(--color-purple); }
-.trail-card[data-difficulty="著行山鞋都腳軟"]::before { background: var(--color-red); }
-.trail-card[data-difficulty="著咩鞋都打嗮震"]::before { background: var(--color-black); }
+.trail-card[data-region="港島"]::before { background: var(--color-blue); }
+.trail-card[data-region="九龍"]::before { background: var(--color-red); }
+.trail-card[data-region="新界"]::before { background: var(--color-yellow); }
 
 .trail-card__body {
   flex: 1;

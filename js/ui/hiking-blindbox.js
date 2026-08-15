@@ -170,7 +170,7 @@ function showResult(trail, container, retryBtn) {
     : '';
 
   container.innerHTML = `
-    <div class="trail-card" data-difficulty="${trail.difficulty}" data-trail-id="${trail.id}" style="cursor:pointer;">
+    <div class="trail-card" data-difficulty="${trail.difficulty}" data-region="${trail.region}" data-trail-id="${trail.id}" style="cursor:pointer;">
       <div class="trail-card__body">
         <div class="trail-card__name">${trail.nameZh}</div>
         <div class="trail-card__section">${sectionText}</div>
