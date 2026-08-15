@@ -5,7 +5,7 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
-import { renderWeather } from '../core/weather.js?v=1';
+import { renderWeather } from '../core/weather.js?v=2';
 
 let parks = [];
 let handlers = {};
@@ -137,12 +137,6 @@ function init() {
           ${regionBadge}
           ${typeBadge}
         </div>
-      </div>
-
-      <div class="detail-weather">
-        <span class="detail-weather__label">即時天氣</span>
-        <span class="detail-weather__temp"></span>
-        <span class="detail-weather__text"></span>
       </div>
 
       <div class="detail-row">

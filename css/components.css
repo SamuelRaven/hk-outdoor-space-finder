@@ -1831,26 +1831,6 @@
 .detail-hero__weather--inline { top: 12px; right: 12px; width: 56px; height: 56px; }
 .detail-hero__weather svg { width: 100%; height: 100%; display: block; }
 
-/* ---- 实时天气数据块（hero 下方） ---- */
-.detail-weather {
-  display: none; align-items: center; gap: 10px;
-  background: var(--color-white); border: var(--border-standard);
-  border-left: 4px solid var(--color-blue);
-  padding: 10px 14px; margin-bottom: var(--space-2);
-}
-.detail-weather--show { display: flex; }
-.detail-weather__label {
-  flex-shrink: 0;
-  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-gray);
-}
-.detail-weather__temp {
-  font-family: var(--font-display); font-size: 18px; font-weight: 700;
-}
-.detail-weather__text {
-  font-family: var(--font-body); font-size: 13px; font-weight: 600;
-}
-
 /* ---- 天气动效（weather- 前缀避免冲突） ---- */
 .weather-sun-rays { transform-box: fill-box; transform-origin: center; animation: weather-spin 28s linear infinite; }
 .weather-cloud-drift { transform-box: fill-box; transform-origin: center; animation: weather-billow 7s ease-in-out infinite; }

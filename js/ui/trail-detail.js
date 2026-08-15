@@ -6,7 +6,7 @@ import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
 import { formatDuration } from '../core/format.js?v=4';
-import { renderWeather } from '../core/weather.js?v=1';
+import { renderWeather } from '../core/weather.js?v=2';
 
 let trails = [];
 let handlers = {};
@@ -139,12 +139,6 @@ function init() {
           ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
         </div>
-      </div>
-
-      <div class="detail-weather">
-        <span class="detail-weather__label">即時天氣</span>
-        <span class="detail-weather__temp"></span>
-        <span class="detail-weather__text"></span>
       </div>
 
       <div class="detail-block ${bc()}">
