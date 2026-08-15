@@ -32,7 +32,7 @@ export async function fetchWeather(lat, lng) {
 }
 
 // 注入详情页天气角标（山径 + 公园共用同一 DOM 结构）
-// 晴 / 晴夜 → 角标溢出（装饰感）；其他天气 → 角标内嵌（清晰可辨）
+// 白天晴天 → 太阳溢出角标（只露约 1/3）；其余（月亮/云/雾/雨/雷暴）→ 角标内嵌完整展现
 export async function renderWeather(container, lat, lng) {
   const corner = container.querySelector('.detail-hero__weather');
   if (!corner) return;
@@ -40,8 +40,8 @@ export async function renderWeather(container, lat, lng) {
   const w = await fetchWeather(lat, lng);
   if (!w) return; // 失败 / 无数据 → 角标留空
 
-  const isClear = w.code === 0 || w.code === 1;
-  corner.classList.add(isClear ? 'detail-hero__weather--corner' : 'detail-hero__weather--inline');
+  const isSun = w.isDay && (w.code === 0 || w.code === 1);
+  corner.classList.add(isSun ? 'detail-hero__weather--corner' : 'detail-hero__weather--inline');
   corner.innerHTML = weatherIcon(w.code, w.isDay);
   corner.classList.add('detail-hero__weather--show');
 }
