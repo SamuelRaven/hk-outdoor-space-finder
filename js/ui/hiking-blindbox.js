@@ -103,7 +103,7 @@ function init() {
     stageEl.style.display = 'none';
     diceEl.classList.remove('dice-cube--rolling');
     resultEl.style.display = 'block';
-    retryBtn.style.display = 'flex';
+    retryBtn.style.display = 'block';
     showResult(cachedTrail, resultEl, retryBtn);
     return;
   }
@@ -188,7 +188,7 @@ function showResult(trail, container, retryBtn) {
   `;
 
   container.style.display = 'block';
-  retryBtn.style.display = 'flex';
+  retryBtn.style.display = 'block';
 
   fitHeading(container.querySelector('.trail-card__name'), {
     tagEl: container.querySelector('.trail-card__difficulty'),

@@ -105,7 +105,7 @@ function init() {
     stageEl.style.display = 'none';
     diceEl.classList.remove('dice-cube--rolling');
     resultEl.style.display = 'block';
-    retryBtn.style.display = 'flex';
+    retryBtn.style.display = 'block';
     showResult(cachedPark, resultEl, retryBtn);
     return;
   }
@@ -218,7 +218,7 @@ function showResult(park, container, retryBtn) {
   `;
 
   container.style.display = 'block';
-  retryBtn.style.display = 'flex';
+  retryBtn.style.display = 'block';
 
   fitHeading(container.querySelector('.park-card__name'), {
     tagEl: container.querySelector('.park-card__type'),

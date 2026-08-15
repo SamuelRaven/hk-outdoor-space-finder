@@ -820,7 +820,6 @@
 
 /* ---- 骰子 3D ---- */
 .dice-cube {
-  display: block;
   width: 80px;
   height: 80px;
   perspective: 300px;
@@ -874,28 +873,30 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* 盲盒结果卡下方 — 静止骰子重投按钮 */
-.bb-dice-retry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+.blindbox-page__retry {
+  max-width: 280px;
   margin: var(--space-4) auto;
-  padding: 0;
-  background: transparent;
-  border: none;
 }
 
-.dice-cube--static {
-  transform: rotateX(-18deg) rotateY(24deg);
+/* 公园/山径再投一次 — 紫底白字 + 黄色方块装饰 */
+#bb-retry {
+  background: var(--color-purple);
+  color: var(--color-white);
 }
-
-.bb-dice-retry__hint {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  color: var(--color-gray-light);
-  letter-spacing: 0.05em;
+#bb-retry::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-yellow);
+  border: var(--border-standard) !important;
+}
+/* 山径再投一次 — 紫底白字（保留 btn-secondary 黄色三角装饰） */
+#hiking-bb-retry {
+  background: var(--color-purple);
+  color: var(--color-white);
 }
 
 /* ---- 骰子累了页面 ---- */
