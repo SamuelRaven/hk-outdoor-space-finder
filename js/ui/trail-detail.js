@@ -6,6 +6,7 @@ import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
 import { formatDuration } from '../core/format.js?v=4';
+import { renderWeather } from '../core/weather.js?v=1';
 
 let trails = [];
 let handlers = {};
@@ -115,7 +116,8 @@ function init() {
     const regionColor = REGION_COLORS[trail.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${trail.region} · ${trail.district}</span>`;
 
-    if (trail.lat != null && trail.lng != null) {
+    const hasCoords = trail.lat != null && trail.lng != null;
+    if (hasCoords) {
       mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${trail.lat},${trail.lng}`;
       mapBtn.style.display = '';
     } else {
@@ -130,12 +132,19 @@ function init() {
       </div>
 
       <div class="detail-hero">
-        <div class="detail-hero__name">${trail.nameZh}</div>
+        <div class="detail-hero__weather"></div>
+        <div class="detail-hero__name${hasCoords ? ' detail-hero__name--reserve' : ''}">${trail.nameZh}</div>
         <div class="detail-hero__section">${sectionText}</div>
         <div class="detail-hero__meta">
           ${regionBadge}
           <span class="detail-badge ${diffClass}">${trail.difficulty}</span>
         </div>
+      </div>
+
+      <div class="detail-weather">
+        <span class="detail-weather__label">即時天氣</span>
+        <span class="detail-weather__temp"></span>
+        <span class="detail-weather__text"></span>
       </div>
 
       <div class="detail-block ${bc()}">
@@ -202,6 +211,8 @@ function init() {
         <span class="detail-footer-accent__dot"></span>
       </div>
     `;
+
+    if (hasCoords) renderWeather(container, trail.lat, trail.lng);
   }
 
   if (trails.length === 0) {

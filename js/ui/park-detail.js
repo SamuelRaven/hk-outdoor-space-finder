@@ -5,6 +5,7 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
+import { renderWeather } from '../core/weather.js?v=1';
 
 let parks = [];
 let handlers = {};
@@ -97,7 +98,8 @@ function init() {
     const regionColor = REGION_COLORS[park.region];
     const regionBadge = `<span class="detail-badge detail-badge--region${regionColor ? ' detail-badge--region-' + regionColor : ''}">${park.region} · ${park.district}</span>`;
 
-    if (park.lat != null && park.lng != null) {
+    const hasCoords = park.lat != null && park.lng != null;
+    if (hasCoords) {
       mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${park.lat},${park.lng}`;
       mapBtn.style.display = '';
     } else {
@@ -129,11 +131,18 @@ function init() {
       </div>
 
       <div class="detail-hero">
-        <div class="detail-hero__name">${park.nameZh}</div>
+        <div class="detail-hero__weather"></div>
+        <div class="detail-hero__name${hasCoords ? ' detail-hero__name--reserve' : ''}">${park.nameZh}</div>
         <div class="detail-hero__meta">
           ${regionBadge}
           ${typeBadge}
         </div>
+      </div>
+
+      <div class="detail-weather">
+        <span class="detail-weather__label">即時天氣</span>
+        <span class="detail-weather__temp"></span>
+        <span class="detail-weather__text"></span>
       </div>
 
       <div class="detail-row">
@@ -184,6 +193,8 @@ function init() {
         <span class="detail-footer-accent__dot"></span>
       </div>
     `;
+
+    if (hasCoords) renderWeather(container, park.lat, park.lng);
   }
 
   if (parks.length === 0) {
