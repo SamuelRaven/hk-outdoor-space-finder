@@ -100,7 +100,8 @@ function init() {
 
     const hasCoords = park.lat != null && park.lng != null;
     if (hasCoords) {
-      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${park.lat},${park.lng}`;
+      const query = `${park.nameZh} ${park.district}`;
+      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
       mapBtn.style.display = '';
     } else {
       mapBtn.style.display = 'none';

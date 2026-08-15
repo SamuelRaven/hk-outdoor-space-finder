@@ -118,7 +118,8 @@ function init() {
 
     const hasCoords = trail.lat != null && trail.lng != null;
     if (hasCoords) {
-      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${trail.lat},${trail.lng}`;
+      const query = `${trail.nameZh} ${trail.district}`;
+      mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
       mapBtn.style.display = '';
     } else {
       mapBtn.style.display = 'none';
