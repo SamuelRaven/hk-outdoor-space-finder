@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天氣布局預覽 — 三種方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1A1A1A;
+    --yellow: #F6B81F;
+    --blue: #354A67;
+    --red: #E04D58;
+    --orange: #F2941D;
+    --gray: #8A7F72;
+    --gray-dark: #616161;
+    --paper: #FAF3E3;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--paper); color: var(--black);
+    padding: 32px 16px 72px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Josefin Sans', system-ui, sans-serif;
+    font-size: 26px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .sub { font-size: 14px; color: var(--gray); margin-bottom: 30px; }
+
+  h2 {
+    font-family: 'Josefin Sans', system-ui, sans-serif;
+    font-size: 16px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; margin: 38px 0 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h2::before { content:''; width: 10px; height: 10px; background: var(--yellow); border: 2px solid var(--black); }
+  .h2-note { font-size: 12px; color: var(--gray); font-weight: 400; margin-bottom: 14px; line-height: 1.6; }
+  .h2-note b { color: var(--black); }
+
+  /* ---- 详情页 mock 框架（含背景漂浮装饰示意） ---- */
+  .page-mock {
+    position: relative;
+    background: var(--paper);
+    border: 2px solid var(--black);
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  /* 背景漂浮小装饰（在 hero 卡后面，示意不被遮挡） */
+  .page-mock .deco { position: absolute; z-index: 0; pointer-events: none; }
+  .page-mock .deco--circle { top: 6px; right: 8px; width: 44px; height: 44px; border-radius: 50%; background: var(--yellow); opacity: .35; }
+  .page-mock .deco--tri { top: 58px; right: 72px; width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-bottom: 26px solid var(--blue); opacity: .22; }
+  .page-mock .deco--dot { bottom: 18px; right: 20px; width: 12px; height: 12px; background: var(--red); opacity: .3; }
+
+  /* ---- hero 卡 ---- */
+  .hero {
+    position: relative; z-index: 1; overflow: hidden;
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-left: 8px solid var(--black);
+    padding: 18px;
+    min-height: 104px;
+  }
+  .hero-name { font-family: 'Josefin Sans', system-ui, sans-serif; font-size: 22px; font-weight: 700; line-height: 1.25; }
+  .hero-name.has-reserve { padding-right: 92px; }
+  .hero-section { font-size: 13px; opacity: .5; margin: 4px 0 10px; }
+  .hero-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border: 1.5px solid var(--black); background: var(--white); }
+  .badge--region { background: var(--blue); color: var(--white); }
+  .badge--easy { background: var(--yellow); }
+
+  /* ---- 方案 A：独立天气块 ---- */
+  .weather-block {
+    position: relative; z-index: 1;
+    background: var(--white); border: 2px solid var(--black);
+    margin-top: 10px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .weather-block .w-icon { flex-shrink: 0; }
+  .weather-block .w-icon svg { width: 64px; height: 64px; display: block; }
+  .weather-block .w-temp { font-family: 'Josefin Sans', system-ui, sans-serif; font-size: 26px; font-weight: 700; line-height: 1; }
+  .weather-block .w-sub { font-size: 12px; color: var(--gray-dark); margin-top: 5px; font-weight: 600; }
+  .weather-block .w-label { position: absolute; top: -9px; left: 12px; background: var(--paper); padding: 0 6px; font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* ---- 方案 B：hero 右上角芯片 ---- */
+  .weather-chip {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; align-items: center; gap: 6px;
+    background: var(--white); border: 1.5px solid var(--black); padding: 4px 9px;
+  }
+  .weather-chip svg { width: 26px; height: 26px; display: block; }
+  .weather-chip .t { font-family: 'Josefin Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; }
+  .weather-data { font-size: 12px; color: var(--gray-dark); font-weight: 600; margin-top: 10px; }
+
+  /* ---- 方案 C：hero 角标溢出太阳 ---- */
+  .sun-corner { position: absolute; top: -58px; right: -58px; width: 150px; height: 150px; }
+  .sun-corner svg { width: 100%; height: 100%; display: block; }
+
+  .variant-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .variant-label { font-size: 11px; color: var(--gray); font-weight: 700; margin: 0 0 6px; letter-spacing: .03em; }
+
+  /* ---- 动画 ---- */
+  .sun-rays { transform-box: fill-box; transform-origin: center; animation: spin 28s linear infinite; }
+  .cloud-drift { transform-box: fill-box; transform-origin: center; animation: billow 7s ease-in-out infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes billow { 0%,100% { transform: translateX(0) scale(1); } 50% { transform: translateX(9px) scale(1.08); } }
+
+  @media (max-width: 520px) {
+    .variant-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>天氣布局預覽</h1>
+  <div class="sub">三種「實時天氣」放置方案 · 以「晴」為例（圖標會隨天氣/晝夜變換）· 米色區為 hero 卡片、其後浮動色塊為背景漂浮裝飾示意</div>
+
+  <h2>方案 A — 獨立天氣塊</h2>
+  <div class="h2-note">hero 下方第一個<b>白底黑邊塊</b>，圖標 + 溫度 + 風 + 濕度集中一處。完全不碰右上角，天然不擋背景、無尺寸適配煩惱。</div>
+  <div class="page-mock">
+    <span class="deco deco--circle"></span><span class="deco deco--tri"></span><span class="deco deco--dot"></span>
+    <div class="hero">
+      <div class="hero-name">龍脊</div>
+      <div class="hero-section">港島徑第八段 · 石澳</div>
+      <div class="hero-meta"><span class="badge badge--region">港島 · 南區</span><span class="badge badge--easy">著波鞋都得</span></div>
+    </div>
+    <div class="weather-block">
+      <div class="w-icon" data-sun></div>
+      <div>
+        <div class="w-temp">28°C</div>
+        <div class="w-sub">東南風 3 級 · 濕度 80%</div>
+      </div>
+      <div class="w-label">即時天氣</div>
+    </div>
+  </div>
+
+  <h2>方案 B — hero 右上角內嵌芯片</h2>
+  <div class="h2-note">動畫圖標 + 溫度做成小芯片嵌在 hero 右上角（<b>不溢出</b>）；長名靠 <code>padding-right</code> 讓位、自動換行。風/濕度放下方小字。</div>
+  <div class="variant-row">
+    <div>
+      <div class="variant-label">短名 — 留白多</div>
+      <div class="page-mock">
+        <span class="deco deco--circle"></span>
+        <div class="hero">
+          <div class="hero-name">龍脊</div>
+          <div class="hero-section">港島徑第八段 · 石澳</div>
+          <div class="hero-meta"><span class="badge badge--region">港島 · 南區</span><span class="badge badge--easy">著波鞋都得</span></div>
+          <div class="weather-chip"><span data-sun></span><span class="t">28°</span></div>
+        </div>
+        <div class="weather-data">東南風 3 級 · 濕度 80%</div>
+      </div>
+    </div>
+    <div>
+      <div class="variant-label">長名 — 留白少</div>
+      <div class="page-mock">
+        <span class="deco deco--circle"></span>
+        <div class="hero">
+          <div class="hero-name has-reserve">大欖涌水塘 · 千島湖</div>
+          <div class="hero-section">大欖郊野公園</div>
+          <div class="hero-meta"><span class="badge badge--region">新界 · 屯門</span><span class="badge badge--easy">著波鞋都頂得住</span></div>
+          <div class="weather-chip"><span data-sun></span><span class="t">28°</span></div>
+        </div>
+        <div class="weather-data">東南風 3 級 · 濕度 80%</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>方案 C — hero 角標溢出太陽 + 數據塊</h2>
+  <div class="h2-note">動畫太陽<b>溢出</b> hero 右上角（只露約 1/3，最有裝飾感，但太陽被 hero 的 <code>overflow:hidden</code> 裁切、仍收在卡內不擋背景）；溫度/風/濕度放下方數據行。</div>
+  <div class="variant-row">
+    <div>
+      <div class="variant-label">短名 — 留白多</div>
+      <div class="page-mock">
+        <span class="deco deco--circle"></span><span class="deco deco--tri"></span>
+        <div class="hero">
+          <div class="hero-name">龍脊</div>
+          <div class="hero-section">港島徑第八段 · 石澳</div>
+          <div class="hero-meta"><span class="badge badge--region">港島 · 南區</span><span class="badge badge--easy">著波鞋都得</span></div>
+          <div class="sun-corner" data-sun></div>
+        </div>
+        <div class="weather-data">28°C · 東南風 3 級 · 濕度 80%</div>
+      </div>
+    </div>
+    <div>
+      <div class="variant-label">長名 — 留白少</div>
+      <div class="page-mock">
+        <span class="deco deco--circle"></span><span class="deco deco--tri"></span>
+        <div class="hero">
+          <div class="hero-name">大欖涌水塘 · 千島湖</div>
+          <div class="hero-section">大欖郊野公園</div>
+          <div class="hero-meta"><span class="badge badge--region">新界 · 屯門</span><span class="badge badge--easy">著波鞋都頂得住</span></div>
+          <div class="sun-corner" data-sun></div>
+        </div>
+        <div class="weather-data">28°C · 東南風 3 級 · 濕度 80%</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* 太阳：短射线（与太阳有间隙）+ 慢转动效 */
+  function sunRays() {
+    const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+    const inner = 56, outer = 72, cx = 100, cy = 100;
+    let lines = '';
+    for (const a of angles) {
+      const r = a * Math.PI / 180;
+      const x1 = cx + inner * Math.cos(r), y1 = cy - inner * Math.sin(r);
+      const x2 = cx + outer * Math.cos(r), y2 = cy - outer * Math.sin(r);
+      lines += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+    }
+    return lines;
+  }
+  function sunSVG() {
+    return `<svg viewBox="0 0 200 200">
+      <g class="sun-rays"><g stroke="#F6B81F" stroke-width="5" stroke-linecap="round">${sunRays()}</g></g>
+      <circle cx="100" cy="100" r="42" fill="#F6B81F" stroke="#1A1A1A" stroke-width="4"/>
+    </svg>`;
+  }
+  document.querySelectorAll('[data-sun]').forEach(el => { el.innerHTML = sunSVG(); });
+</script>
+</body>
+</html>
