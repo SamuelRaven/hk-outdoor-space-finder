@@ -201,9 +201,8 @@
   }
 
   // 太阳：短射线（与太阳有间隙）
-  function sunRays() {
+  function sunRays(cx, cy, inner, outer) {
     const angles = [0, 45, 90, 135, 180, 225, 270, 315];
-    const inner = 56, outer = 72, cx = 100, cy = 100;
     let lines = '';
     for (const a of angles) {
       const r = a * Math.PI / 180;
@@ -215,7 +214,7 @@
   }
   function sunSVG(cls) {
     return `<svg class="sun-svg ${cls}" viewBox="0 0 200 200">
-      <g class="sun-rays"><g stroke="#F6B81F" stroke-width="5" stroke-linecap="round">${sunRays()}</g></g>
+      <g class="sun-rays"><g stroke="#F6B81F" stroke-width="5" stroke-linecap="round">${sunRays(100, 100, 56, 72)}</g></g>
       <circle cx="100" cy="100" r="42" fill="#F6B81F" stroke="#1A1A1A" stroke-width="4"/>
     </svg>`;
   }
@@ -268,7 +267,7 @@
 
   const dayIcons = [
     ['晴 · 太陽', '黃圓 + 短射線', sunSVG('')],
-    ['多雲', '太陽 + 雲', `<svg viewBox="0 0 200 200"><circle cx="100" cy="76" r="40" fill="#F6B81F" stroke="#1A1A1A" stroke-width="4"/>${cloud('translate(0 16)')}</svg>`],
+    ['多雲', '太陽 + 射線 + 雲', `<svg viewBox="0 0 200 200"><g class="sun-rays"><g stroke="#F6B81F" stroke-width="5" stroke-linecap="round">${sunRays(100, 76, 54, 70)}</g></g><circle cx="100" cy="76" r="40" fill="#F6B81F" stroke="#1A1A1A" stroke-width="4"/>${cloud('translate(0 16)')}</svg>`],
     ['陰 · 雲', '雲湧動', `<svg viewBox="0 0 200 200">${cloud('translate(0 -6)')}</svg>`],
     ['霧 / 煙霞', '水平霧線', `<svg viewBox="0 0 200 200"><g stroke="#8A7F72" stroke-width="6" stroke-linecap="round"><line class="fog" x1="40" y1="80" x2="160" y2="80"/><line class="fog d2" x1="55" y1="108" x2="150" y2="108"/><line class="fog d3" x1="40" y1="136" x2="165" y2="136"/></g></svg>`],
     ['小雨', '2 滴 · 慢', rainIcon(2, 'slow', 5, 90, 30, 122, 144)],

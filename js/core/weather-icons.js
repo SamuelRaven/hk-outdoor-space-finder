@@ -20,9 +20,8 @@ function cloud(pos) {
 }
 
 // 太阳：短射线（与太阳有间隙）
-function sunRays() {
+function sunRays(cx, cy, inner, outer) {
   const angles = [0, 45, 90, 135, 180, 225, 270, 315];
-  const inner = 56, outer = 72, cx = 100, cy = 100;
   let lines = '';
   for (const a of angles) {
     const r = a * Math.PI / 180;
@@ -34,7 +33,7 @@ function sunRays() {
 }
 
 function sunSVG() {
-  return `<svg viewBox="0 0 200 200"><g class="weather-sun-rays"><g stroke="${YELLOW}" stroke-width="5" stroke-linecap="round">${sunRays()}</g></g><circle cx="100" cy="100" r="42" fill="${YELLOW}" stroke="${BLACK}" stroke-width="4"/></svg>`;
+  return `<svg viewBox="0 0 200 200"><g class="weather-sun-rays"><g stroke="${YELLOW}" stroke-width="5" stroke-linecap="round">${sunRays(100, 100, 56, 72)}</g></g><circle cx="100" cy="100" r="42" fill="${YELLOW}" stroke="${BLACK}" stroke-width="4"/></svg>`;
 }
 
 // 弯月（几何正确的月牙）
@@ -67,7 +66,7 @@ function overcastIcon() {
 }
 
 function partlyDayIcon() {
-  return `<svg viewBox="0 0 200 200"><circle cx="100" cy="76" r="40" fill="${YELLOW}" stroke="${BLACK}" stroke-width="4"/>${cloud('translate(0 16)')}</svg>`;
+  return `<svg viewBox="0 0 200 200"><g class="weather-sun-rays"><g stroke="${YELLOW}" stroke-width="5" stroke-linecap="round">${sunRays(100, 76, 54, 70)}</g></g><circle cx="100" cy="76" r="40" fill="${YELLOW}" stroke="${BLACK}" stroke-width="4"/>${cloud('translate(0 16)')}</svg>`;
 }
 
 function partlyNightIcon() {

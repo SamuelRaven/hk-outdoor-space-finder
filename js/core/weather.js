@@ -5,7 +5,7 @@
    失敗 / 無數據 → 兜底留空
    ======================================== */
 
-import { weatherIcon, windIcon, typhoonIcon } from './weather-icons.js?v=2';
+import { weatherIcon, windIcon, typhoonIcon } from './weather-icons.js?v=3';
 
 const CACHE_TTL = 30 * 60 * 1000;        // Open-Meteo 天氣緩存 30 分鐘
 const HKO_CACHE_TTL = 15 * 60 * 1000;    // HKO 風球信號緩存 15 分鐘（全港一致）
