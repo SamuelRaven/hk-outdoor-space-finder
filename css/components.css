@@ -1734,19 +1734,25 @@
 
 /* 收藏星星 */
 .fav-star {
+  display: inline-flex;
+  align-items: center;
   background: none;
   border: none;
-  font-size: 28px;
   cursor: pointer;
-  padding: 0 4px;
-  line-height: 1;
-  color: var(--color-black);
-  transition: color 0.15s;
+  padding: 0;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
 }
-.fav-star[data-active="true"] {
-  color: var(--color-yellow);
-  -webkit-text-stroke: 1px var(--color-black);
+.fav-star:active {
+  transform: scale(0.9);
+}
+.fav-star svg {
+  fill: none;
+  stroke: var(--color-black);
+  transition: fill 0.15s;
+}
+.fav-star[data-active="true"] svg {
+  fill: var(--color-yellow);
 }
 
 /* 分享按钮 */
@@ -1762,9 +1768,21 @@
   transition: transform 0.15s;
 }
 
+.share-btn svg,
+.map-btn svg {
+  transition: fill 0.15s;
+}
+
 .share-btn:active,
 .map-btn:active {
   transform: scale(0.9);
+}
+
+/* 桌面悬停彩蛋：图标空白处填入语义色（仅真鼠标设备，避免手机 sticky-hover） */
+@media (hover: hover) and (pointer: fine) {
+  .fav-star:hover svg  { fill: var(--color-yellow); }
+  .share-btn:hover svg { fill: var(--color-blue); }
+  .map-btn:hover svg   { fill: var(--color-red); }
 }
 .detail-page__title {
   font-family: var(--font-display); font-size: 20px; font-weight: 700;
