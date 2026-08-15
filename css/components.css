@@ -868,9 +868,9 @@
   animation: fadeInUp 0.5s ease-out;
 }
 
-/* 盲盒卡片文字居中，预留右上角角标空间，避免长名与标签重叠 */
-.blindbox-page .park-card__name  { padding-right: 64px; }
-.blindbox-page .trail-card__name { padding-right: 100px; }
+/* 盲盒卡片名称保持居中：左右对称预留角标空间，短名不受影响，长名自动换行而非压到右上角标签 */
+.blindbox-page .park-card__name  { padding: 0 64px; }
+.blindbox-page .trail-card__name { padding: 0 96px; }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
