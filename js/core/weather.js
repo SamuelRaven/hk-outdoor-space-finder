@@ -4,7 +4,7 @@
    失敗 / 無座標 → 返回 null（角標留空兜底）
    ======================================== */
 
-import { weatherIcon } from './weather-icons.js?v=1';
+import { weatherIcon } from './weather-icons.js?v=2';
 
 const CACHE_TTL = 30 * 60 * 1000;
 const cache = new Map();

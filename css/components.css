@@ -1851,6 +1851,9 @@
 @keyframes weather-flash { 0%, 55%, 100% { opacity: 0.15; } 60%, 68% { opacity: 1; } 72% { opacity: 0.3; } 78%, 82% { opacity: 1; } 86% { opacity: 0.2; } }
 @keyframes weather-fog-drift { 0%, 100% { transform: translateX(0); opacity: 0.7; } 50% { transform: translateX(14px); opacity: 1; } }
 @keyframes weather-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+.weather-wind { animation: weather-wind-flow 2.2s ease-in-out infinite; }
+.weather-typhoon { transform-box: fill-box; transform-origin: center; animation: weather-spin 7s linear infinite; }
+@keyframes weather-wind-flow { 0%, 100% { transform: translateX(0); opacity: 0.85; } 50% { transform: translateX(13px); opacity: 1; } }
 .detail-badge {
   font-family: var(--font-body); font-size: 11px; font-weight: 700;
   padding: 3px 8px; border: 1px solid var(--color-black);

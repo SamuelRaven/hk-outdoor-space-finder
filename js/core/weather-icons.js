@@ -9,6 +9,7 @@ const BLACK = '#000000';
 const YELLOW = '#F6B81F';   // --color-yellow
 const BLUE = '#354A67';     // --color-blue
 const GRAY = '#8A7F72';     // --color-gray
+const PURPLE = '#7847AC';   // --color-purple（颱風旋渦）
 
 const CLOUD = "M 52 128 C 42 128 42 112 52 108 C 46 96 56 86 66 90 C 64 74 78 66 88 74 C 90 60 110 60 116 72 C 124 64 138 70 138 82 C 150 78 158 90 152 100 C 160 108 156 124 144 128 C 138 136 120 136 114 130 C 104 138 86 138 80 130 C 70 136 56 134 52 128 Z";
 
@@ -108,4 +109,26 @@ export function weatherIcon(code, isDay) {
   }
   if (code === 95 || code === 96 || code === 99) return thunderIcon();
   return ''; // 未知 → 兜底留空
+}
+
+// 風（風力線條）— 非 WMO 碼，未來可依 wind_speed 閾值觸發
+export function windIcon() {
+  return `<svg viewBox="0 0 200 200"><g fill="none" stroke="${BLUE}" stroke-width="5" stroke-linecap="round"><path class="weather-wind" d="M38 78 Q 68 68 98 80 T 162 78"/><path class="weather-wind weather-d2" d="M50 103 Q 80 93 110 105 T 174 103"/><path class="weather-wind weather-d3" d="M62 128 Q 92 118 122 130 T 186 128"/></g></svg>`;
+}
+
+// 颱風（紫色旋渦）— 非 WMO 碼，未來可依 HKO 風球信號觸發
+function spiralPath() {
+  const cx = 100, cy = 100, turns = 2.6, maxR = 72, N = 150;
+  let d = '';
+  for (let i = 0; i <= N; i++) {
+    const t = i / N;
+    const r = maxR * t;
+    const ang = t * turns * 2 * Math.PI - Math.PI / 2;
+    const x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang);
+    d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+  }
+  return d;
+}
+export function typhoonIcon() {
+  return `<svg viewBox="0 0 200 200"><path class="weather-typhoon" d="${spiralPath()}" fill="none" stroke="${PURPLE}" stroke-width="7" stroke-linecap="round"/></svg>`;
 }
