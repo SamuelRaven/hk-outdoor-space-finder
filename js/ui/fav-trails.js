@@ -72,7 +72,7 @@ function init() {
   }
 
   if (trails.length === 0) {
-    fetch('js/data/trails.json?v=6')
+    fetch('js/data/trails.json?v=7')
       .then(r => r.json())
       .then(data => {
         trails = data;
