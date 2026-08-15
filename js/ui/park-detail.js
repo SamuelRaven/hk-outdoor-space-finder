@@ -5,7 +5,7 @@
 import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getParkShareText } from '../core/share.js?v=4';
-import { renderWeather } from '../core/weather.js?v=5';
+import { renderWeather } from '../core/weather.js?v=6';
 
 let parks = [];
 let handlers = {};
