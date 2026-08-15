@@ -6,7 +6,7 @@ import { navigate, register, getHashParam } from '../core/router.js?v=6';
 import { isFavorite, toggleFavorite } from '../core/favorites.js?v=4';
 import { shareItem, getTrailShareText } from '../core/share.js?v=4';
 import { formatDuration } from '../core/format.js?v=4';
-import { renderWeather } from '../core/weather.js?v=4';
+import { renderWeather } from '../core/weather.js?v=5';
 
 let trails = [];
 let handlers = {};
