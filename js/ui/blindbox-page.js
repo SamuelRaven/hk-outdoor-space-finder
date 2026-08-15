@@ -6,7 +6,7 @@
 import { navigate, register } from '../core/router.js';
 import { calcDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
-import { fitHeading } from '../core/fit-text.js?v=1';
+import { fitHeading } from '../core/fit-text.js?v=2';
 
 const STORAGE_KEY = 'diceTiredUntil_park';
 const COUNT_KEY = 'diceRollCount_park';
@@ -105,7 +105,7 @@ function init() {
     stageEl.style.display = 'none';
     diceEl.classList.remove('dice-cube--rolling');
     resultEl.style.display = 'block';
-    retryBtn.style.display = 'block';
+    retryBtn.style.display = 'flex';
     showResult(cachedPark, resultEl, retryBtn);
     return;
   }
@@ -218,7 +218,7 @@ function showResult(park, container, retryBtn) {
   `;
 
   container.style.display = 'block';
-  retryBtn.style.display = 'block';
+  retryBtn.style.display = 'flex';
 
   fitHeading(container.querySelector('.park-card__name'), {
     tagEl: container.querySelector('.park-card__type'),

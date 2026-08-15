@@ -17,6 +17,8 @@
 export function fitHeading(el, { max = 18, min = 14, tagEl = null, gap = 8 } = {}) {
   if (!el) return;
 
+  const fullWidth = el.clientWidth;
+
   // 名称需让开的宽度：从名称右边缘到角标左边缘，再加一点间距（左右对称预留以保持居中）
   let reserve = 0;
   if (tagEl) {
@@ -24,10 +26,11 @@ export function fitHeading(el, { max = 18, min = 14, tagEl = null, gap = 8 } = {
     const tagLeft = tagEl.getBoundingClientRect().left;
     reserve = elRight - tagLeft + gap;
   }
-  const available = el.clientWidth - reserve * 2;
+  const available = fullWidth - reserve * 2;
   if (available <= 0) return;
 
   el.style.whiteSpace = 'nowrap';
+  el.style.width = 'max-content';          // 关键：收缩到文字宽度，让 scrollWidth 等于真实文字宽
   let size = max;
   el.style.fontSize = size + 'px';
 
@@ -37,5 +40,6 @@ export function fitHeading(el, { max = 18, min = 14, tagEl = null, gap = 8 } = {
   }
 
   el.style.whiteSpace = '';
+  el.style.width = '';
   el.style.fontSize = size >= max ? '' : size + 'px';
 }

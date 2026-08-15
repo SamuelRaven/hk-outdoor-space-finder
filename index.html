@@ -27,10 +27,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/bauhaus-tokens.css?v=5">
+  <link rel="stylesheet" href="css/bauhaus-tokens.css?v=6">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css?v=1">
-  <link rel="stylesheet" href="css/components.css?v=48">
+  <link rel="stylesheet" href="css/components.css?v=49">
 </head>
 <body>
 
@@ -230,8 +230,16 @@
         <div class="blindbox-page__result" id="bb-result" style="display:none;">
         </div>
 
-        <button class="btn btn-secondary blindbox-page__retry" id="bb-retry" style="display:none;">
-          再投一次
+        <button class="bb-dice-retry" id="bb-retry" style="display:none;" aria-label="再投一次">
+          <span class="dice-cube dice-cube--static">
+            <span class="dice-face dice-face--front">■</span>
+            <span class="dice-face dice-face--back">▲</span>
+            <span class="dice-face dice-face--top">●</span>
+            <span class="dice-face dice-face--bottom">◆</span>
+            <span class="dice-face dice-face--left">◼</span>
+            <span class="dice-face dice-face--right">⬟</span>
+          </span>
+          <span class="bb-dice-retry__hint">点击骰子再投一次</span>
         </button>
       </div>
     </section>
@@ -417,8 +425,16 @@
         <div class="blindbox-page__result" id="hiking-bb-result" style="display:none;">
         </div>
 
-        <button class="btn btn-secondary blindbox-page__retry" id="hiking-bb-retry" style="display:none;">
-          再投一次
+        <button class="bb-dice-retry" id="hiking-bb-retry" style="display:none;" aria-label="再投一次">
+          <span class="dice-cube dice-cube--static">
+            <span class="dice-face dice-face--front">■</span>
+            <span class="dice-face dice-face--back">▲</span>
+            <span class="dice-face dice-face--top">●</span>
+            <span class="dice-face dice-face--bottom">◆</span>
+            <span class="dice-face dice-face--left">◼</span>
+            <span class="dice-face dice-face--right">⬟</span>
+          </span>
+          <span class="bb-dice-retry__hint">点击骰子再投一次</span>
         </button>
       </div>
     </section>
@@ -540,7 +556,7 @@
   </div>
 
   <!-- JS Entry -->
-  <script type="module" src="js/app.js?v=35"></script>
+  <script type="module" src="js/app.js?v=36"></script>
 
 </body>
 </html>
