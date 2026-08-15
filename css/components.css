@@ -480,9 +480,9 @@
 /* 选中底色 — 五色循环（蓝紫绿橙黄）+ 固定映射补充（红/黑） */
 .chip--c-blue   { background: var(--color-blue);   color: var(--color-white); }
 .chip--c-purple { background: var(--color-purple); color: var(--color-white); }
-.chip--c-green  { background: var(--color-green); }
-.chip--c-orange { background: var(--color-orange); }
-.chip--c-yellow { background: var(--color-yellow); }
+.chip--c-green  { background: var(--color-green);  color: var(--color-white); }
+.chip--c-orange { background: var(--color-orange); color: var(--color-white); }
+.chip--c-yellow { background: var(--color-yellow); color: var(--color-white); }
 .chip--c-red    { background: var(--color-red);    color: var(--color-white); }
 .chip--c-teal   { background: var(--color-teal);   color: var(--color-white); }
 .chip--c-black  { background: var(--color-black);  color: var(--color-white); }
@@ -714,9 +714,9 @@
 }
 .park-card__type--blue   { background: var(--color-blue);   color: var(--color-white); }
 .park-card__type--purple { background: var(--color-purple); color: var(--color-white); }
-.park-card__type--green  { background: var(--color-green);  color: var(--color-black); }
+.park-card__type--green  { background: var(--color-green);  color: var(--color-white); }
 .park-card__type--teal   { background: var(--color-teal);   color: var(--color-white); }
-.park-card__type--orange { background: var(--color-orange); color: var(--color-black); }
+.park-card__type--orange { background: var(--color-orange); color: var(--color-white); }
 
 /* 表情符号 */
 .emoji {
@@ -1858,14 +1858,14 @@
 }
 .detail-badge--region-blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-badge--region-red    { background: var(--color-red);    color: var(--color-white); }
-.detail-badge--region-yellow { background: var(--color-yellow); }
+.detail-badge--region-yellow { background: var(--color-yellow); color: var(--color-white); }
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
 .detail-badge--type-blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-badge--type-purple { background: var(--color-purple); color: var(--color-white); }
-.detail-badge--type-green  { background: var(--color-green);  color: var(--color-black); }
+.detail-badge--type-green  { background: var(--color-green);  color: var(--color-white); }
 .detail-badge--type-teal   { background: var(--color-teal);   color: var(--color-white); }
-.detail-badge--type-orange { background: var(--color-orange); color: var(--color-black); }
-.detail-badge--easy        { background: var(--color-yellow); }
+.detail-badge--type-orange { background: var(--color-orange); color: var(--color-white); }
+.detail-badge--easy        { background: var(--color-yellow); color: var(--color-white); }
 .detail-badge--easy-medium { background: var(--color-blue); color: var(--color-white); }
 .detail-badge--medium      { background: var(--color-purple); color: var(--color-white); }
 .detail-badge--hard        { background: var(--color-red); color: var(--color-white); }
@@ -1908,9 +1908,9 @@
   background: var(--color-white);
 }
 .detail-tag--blue   { background: var(--color-blue);   color: var(--color-white); }
-.detail-tag--yellow { background: var(--color-yellow); }
-.detail-tag--green  { background: var(--color-green); }
-.detail-tag--orange { background: var(--color-orange); }
+.detail-tag--yellow { background: var(--color-yellow); color: var(--color-white); }
+.detail-tag--green  { background: var(--color-green);  color: var(--color-white); }
+.detail-tag--orange { background: var(--color-orange); color: var(--color-white); }
 .detail-tag--purple { background: var(--color-purple); color: var(--color-white); }
 .detail-tag--teal   { background: var(--color-teal);   color: var(--color-white); }
 .detail-tag--black  { background: var(--color-black);  color: var(--color-white); }
