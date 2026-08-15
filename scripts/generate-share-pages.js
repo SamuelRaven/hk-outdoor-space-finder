@@ -53,6 +53,13 @@ function buildPage(og) {
 <meta property="og:url" content="${og.url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="香港戶外空間推薦">
+<meta property="og:image" content="${BASE_URL}/img/og-image.png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${og.title}">
+<meta name="twitter:description" content="${og.description}">
+<meta name="twitter:image" content="${BASE_URL}/img/og-image.png">
 <script>window.location.replace('${og.redirect}');</script>
 </head>
 <body>
