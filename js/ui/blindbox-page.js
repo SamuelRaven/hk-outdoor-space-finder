@@ -6,6 +6,7 @@
 import { navigate, register } from '../core/router.js';
 import { calcDistance } from '../core/geo.js?v=4';
 import { formatDistance } from '../core/format.js?v=4';
+import { fitHeading } from '../core/fit-text.js?v=1';
 
 const STORAGE_KEY = 'diceTiredUntil_park';
 const COUNT_KEY = 'diceRollCount_park';
@@ -218,6 +219,10 @@ function showResult(park, container, retryBtn) {
 
   container.style.display = 'block';
   retryBtn.style.display = 'block';
+
+  fitHeading(container.querySelector('.park-card__name'), {
+    tagEl: container.querySelector('.park-card__type'),
+  });
 }
 
 function destroy() {

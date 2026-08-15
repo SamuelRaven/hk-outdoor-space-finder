@@ -6,6 +6,7 @@
 import { navigate, register } from '../core/router.js';
 import { formatDistance, formatDuration } from '../core/format.js';
 import { calcDistance } from '../core/geo.js?v=4';
+import { fitHeading } from '../core/fit-text.js?v=1';
 
 const STORAGE_KEY = 'diceTiredUntil_hike';
 const COUNT_KEY = 'diceRollCount_hike';
@@ -188,6 +189,10 @@ function showResult(trail, container, retryBtn) {
 
   container.style.display = 'block';
   retryBtn.style.display = 'block';
+
+  fitHeading(container.querySelector('.trail-card__name'), {
+    tagEl: container.querySelector('.trail-card__difficulty'),
+  });
 }
 
 function buildDiceNote(trail) {
