@@ -1896,6 +1896,7 @@
 }
 .detail-value {
   font-family: var(--font-body); font-size: 14px; line-height: 1.5;
+  text-align: justify;
 }
 .detail-value--big {
   font-family: var(--font-display); font-size: 22px; font-weight: 700;
@@ -1921,6 +1922,7 @@
 .detail-desc-item {
   font-family: var(--font-body); font-size: 14px; line-height: 1.6;
   color: var(--color-black);
+  text-align: justify;
 }
 /* 活动介绍卡片 */
 .detail-desc-card {
@@ -1937,6 +1939,7 @@
   font-family: var(--font-body);
   font-size: 14px; line-height: 1.6;
   color: var(--color-black);
+  text-align: justify;
 }
 
 /* 活动卡片 — 包豪斯交替彩色左边框 */
