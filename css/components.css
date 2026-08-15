@@ -1862,9 +1862,9 @@
 .detail-badge--type   { background: var(--color-black); color: var(--color-white); }
 .detail-badge--type-blue   { background: var(--color-blue);   color: var(--color-white); }
 .detail-badge--type-purple { background: var(--color-purple); color: var(--color-white); }
-.detail-badge--type-green  { background: var(--color-green); }
+.detail-badge--type-green  { background: var(--color-green);  color: var(--color-black); }
 .detail-badge--type-teal   { background: var(--color-teal);   color: var(--color-white); }
-.detail-badge--type-orange { background: var(--color-orange); }
+.detail-badge--type-orange { background: var(--color-orange); color: var(--color-black); }
 .detail-badge--easy        { background: var(--color-yellow); }
 .detail-badge--easy-medium { background: var(--color-blue); color: var(--color-white); }
 .detail-badge--medium      { background: var(--color-purple); color: var(--color-white); }
