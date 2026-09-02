@@ -865,6 +865,12 @@
   animation: fadeInUp 0.5s ease-out;
 }
 
+/* 盲盒卡片次级文字（开放时间/山径全长等 flex 行）居中，与标题一致 */
+.blindbox-page .park-card__hours,
+.blindbox-page .trail-card__meta {
+  justify-content: center;
+}
+
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
