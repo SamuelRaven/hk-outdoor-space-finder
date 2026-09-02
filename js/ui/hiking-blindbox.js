@@ -157,11 +157,11 @@ function showResult(trail, container, retryBtn) {
   let distanceHtml = '';
   if (userCoords && trail.lat != null && trail.lng != null) {
     const km = calcDistance(userCoords.lat, userCoords.lng, trail.lat, trail.lng);
-    distanceHtml = `<span class="trail-card__stat"><span class="emoji">📍</span> ${formatDistance(km)}</span>`;
+    distanceHtml = `<span class="trail-card__stat"><span class="emoji">📍</span>${formatDistance(km)}</span>`;
   }
 
   const highestHtml = trail.highestPointM != null
-    ? `<span class="trail-card__stat"><span class="emoji">⛰️</span> ${trail.highestPointM} 米</span>`
+    ? `<span class="trail-card__stat"><span class="emoji">⛰️</span>${trail.highestPointM} 米</span>`
     : '';
 
   const diceNote = buildDiceNote(trail);
@@ -175,8 +175,8 @@ function showResult(trail, container, retryBtn) {
         <div class="trail-card__name">${trail.nameZh}</div>
         <div class="trail-card__section">${sectionText}</div>
         <div class="trail-card__meta">
-          <span class="trail-card__stat"><span class="emoji">🕐</span> ${formatDuration(trail.durationHrs)}</span>
-          <span class="trail-card__stat"><span class="emoji">🥾</span> ${trail.lengthKm} 公里</span>
+          <span class="trail-card__stat"><span class="emoji">🕐</span>${formatDuration(trail.durationHrs)}</span>
+          <span class="trail-card__stat"><span class="emoji">🥾</span>${trail.lengthKm} 公里</span>
           ${highestHtml}
           ${distanceHtml}
         </div>
