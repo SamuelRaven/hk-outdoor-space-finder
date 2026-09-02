@@ -209,7 +209,7 @@ function showResult(park, container, retryBtn) {
     <div class="park-card" data-region="${park.region}" data-park-id="${park.id}" style="cursor:pointer;">
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
-        <div class="park-card__hours">${park.openingHours}${distanceHtml}</div>
+        <div class="park-card__hours"><span class="emoji">🕐</span> ${park.openingHours}${distanceHtml}</div>
         <div class="park-card__desc">${desc}</div>
         ${diceNoteHtml}
       </div>

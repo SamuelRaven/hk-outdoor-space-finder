@@ -267,7 +267,7 @@ function renderCards(parkList, container, filters) {
     card.innerHTML = `
       <div class="park-card__body">
         <div class="park-card__name">${park.nameZh}</div>
-        <div class="park-card__hours">${park.openingHours}${distanceHtml}</div>
+        <div class="park-card__hours"><span class="emoji">🕐</span> ${park.openingHours}${distanceHtml}</div>
         <div class="park-card__desc">${desc}</div>
       </div>
       <span class="park-card__type park-card__type--${PARK_TYPE_COLORS[park.parkType]}">${park.parkType}</span>

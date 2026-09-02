@@ -686,13 +686,6 @@
   margin-bottom: 6px;
 }
 
-.park-card__hours::before {
-  content: '🕐';
-  font-family: sans-serif;
-  display: inline-block;
-  margin-right: 4px;
-}
-
 .park-card__desc {
   font-family: var(--font-body);
   font-size: 14px;
