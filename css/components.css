@@ -680,6 +680,9 @@
 }
 
 .park-card__hours {
+  display: flex;
+  align-items: center;
+  gap: 3px;
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--color-gray);
